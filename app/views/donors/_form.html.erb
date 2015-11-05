@@ -1,0 +1,20 @@
+<p id="existing_donor_message" style="display: none;">
+  <span class="highlight"></span>&nbsp;<%= link_to "click here", "#authenticate-overlay", class: "js-modal-overlay-open inline-block mr1 grey" -%>
+</p>
+
+<section id="other">
+  <%= render "donors/stripe_card_fields", form_builder: form_builder %>
+</section>
+
+<section id="form_footer" class="clear">
+  <div class="checkbox pt1 pb3 relative">
+    <%= form_builder.check_box :add_fee, {tabindex: 12}, "1", "0" %>
+    <%= form_builder.label(:add_fee, class: "clearfix") do %>
+      <%= "Give an extra $%0.2f per month to cover credit card fees." % stripe_fee_amount  %>
+      <a class="<%= form_builder.object.gift.present? ? 'tooltip-se' : 'tooltip' %> tooltop-offset tablet-hide" title="<div style='width: 300px'>Stripe charges a processing fee. Adding <%= "$%0.2f" % stripe_fee_amount %> per month to your donation allows a full $30 to go to nonprofits.</div>"><span class="ss-icon ss-help"></span></a>
+    <% end %>
+  </div>
+
+  <%= form_builder.submit "Donate!", class: "button-solid button-green button-big full-width", tabindex: 13 %>
+
+</section>

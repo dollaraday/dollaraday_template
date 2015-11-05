@@ -1,0 +1,41 @@
+<% preview_link = case params[:type]
+    when 'donor'
+      donor_generated_admin_newsletter_url(@newsletter, occurrence: params[:occurrence])
+    when 'subscriber'
+      subscriber_generated_admin_newsletter_url(@newsletter, occurrence: params[:occurrence])
+  end
+%>
+
+<article class="pt6 pb6 bg-grey-light">
+
+  <div class="container p2">
+
+  <h3 class="left"><%= params[:type].to_s.capitalize %> Newsletter Preview for '<%= @nonprofit.name %>'</h3>
+
+  <%= link_to "(view without frame)", preview_link, class: "right", style: "margin-left: 10px; font-size: 10px", target: "_blank" %>
+  <%= select_tag "type",
+        options_for_select(%w(donor subscriber), params[:type]),
+        onchange: "window.location = '#{preview_admin_newsletter_url}?type=' + this.value + '&occurrence=' + $('#occurrence').val() + '&ts=' + Math.random()", class: "right"
+  %>
+  <%= select_tag "occurrence",
+        options_for_select([ "first", "daily" ], params[:occurrence]),
+        onchange: "window.location = '#{preview_admin_newsletter_url}?type=' + $('#type').val() + '&occurrence=' + this.value + '&ts=' + Math.random()", class: "right"
+  %>
+
+  <div class="clear"></div>
+
+  <%= content_tag :iframe,
+        "",
+        border: 2, style: "margin: 40px 0px; border: solid 2px #000; height: 700px; width: 100%; background-color: white",
+        src: preview_link %>
+
+  <%= form_tag(send_preview_admin_newsletter_url(@newsletter), method: :post) do %>
+    <%= hidden_field_tag :type, params[:type] %>
+    <%= hidden_field_tag :occurrence, params[:occurrence] %>
+    <%= text_field_tag :emails, nil, placeholder: "Send a preview (separate email addresses by comma)", size: 40 %>
+    <%= submit_tag "Send", class: "button-solid button-green button-big" %>
+  <% end %>
+
+  </div>
+
+</article>

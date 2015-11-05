@@ -1,0 +1,131 @@
+<%
+  @page_title = "Give the gift of #{CONFIG[:name]}"
+  @donor.subscriber ||= Subscriber.new
+
+%>
+
+
+<%= render 'donors/authenticate_form' %>
+<% # It was easier to have the root element be @donor than @gift here, even tho it's not as intuitive. %>
+<%= form_for @donor, url: "/gift", html: {autocomplete: "on", class: "full-height"} do |d| %>
+
+  <article class="gift-scroll-container js-gift-scroll-container full-height">
+    <section id="step1" class="js-section hero py6 bg-grey-light mobile-table full-height" style="border: 10px solid #4fbb7e;">
+      <div class="mobile-table-cell">
+        <div class="container pl2 pr2">
+          <div class="row">
+            <div class="col-center margin-auto col-8">
+              <div class="mb4">
+                <%= render "modules/logo_link", theme: :dark %>
+              </div>
+              <div class="row">
+                <div class="col col-3 mobile-center pt1">
+                  <%= image_tag "gift.svg", width: "140", class: "fit mb2" %>
+                </div>
+                <div class="col col-9">
+                  <h2 class="">
+                    Giving <span class="js-text-prop">is better</span> with friends. Support amazing nonprofits
+                    <span class="gift-word-container clip relative inline-block mobile-block">
+                      for
+                      <div class="js-gift-list-container gift-list-container inline-block transition-all opacity-0 relative mobile-block">
+                        <ul class="absolute full-width transition-all js-gift-list">
+                          <li class="no-wrap no-margin js-gift-word"><span>someone you love.</span></li>
+                          <li class="no-wrap no-margin js-gift-word"><span>your secret crush.</span></li>
+                          <li class="no-wrap no-margin js-gift-word"><span>Grandpa.</span></li>
+                          <li class="no-wrap no-margin js-gift-word"><span>Aunt Judy.</span></li>
+                          <li class="no-wrap no-margin js-gift-word"><span>your co-worker.</span></li>
+                          <li class="no-wrap no-margin js-gift-word"><span>your best buddy.</span></li>
+                        </ul>
+                      </div>
+                    </span>
+                  </h2>
+                  <p class="mb4 grey">100% U.S. tax deductible. <%= link_to "Learn more", faq_path(anchor: "gifting"), class: "bold no-wrap grey" %>.</p>
+                </div>
+              </div>
+
+              <div class="js-empty-input empty-input transition-all relative">
+                <a class="button-solid button-green right mt1 ml1 js-next-step mobile-hide" href="#step2">Continue</a>
+                <div class="js-field-container clip">
+                  <div class="js-input-fields transition-all">
+                    <%= d.fields_for :subscriber, d.object.subscriber do |s| %>
+                      <%= s.text_field :name, class: "js-recipient-name relative full-width", autocomplete: "off", tabindex: 1, placeholder: "What is their name?" %>
+                      <%= s.text_field :email, class: "js-recipient-email hide full-width", autocomplete: "off", tabindex: 2, placeholder: "Awesome, and their email is...?" %>
+                    <% end -%>
+                  </div>
+                </div>
+              </div>
+
+              <div class="js-recipient-name-errors error small pt1">
+                <%= content_tag(:em, "Name #{d.object.subscriber.errors[:name].to_sentence}") if d.object.subscriber.errors[:name].present? %>
+              </div>
+              <div class="js-recipient-email-errors hide error small pt1">
+                <%= content_tag(:em, "Email #{d.object.subscriber.errors[:email].to_sentence}") if d.object.subscriber.errors[:email].present? %>
+              </div>
+
+              <a class="button-solid button-green hide mobile-block mt1 js-next-step" href="#step2">Continue</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="step2" class="js-section full-height bg-green hide centered">
+      <div class="mobile-table full-height">
+        <div class="mobile-table-cell py8 pl2 pr2">
+          <h2 class="normal centered mb6 white">How long do you want to give for?</h2>
+
+            <a class="giving-length-button col-3 mb2 py6 rounded white inline-block mobile-block js-next-step" href="#step3" data-giving-length="1">30 days</a>
+            <a class="giving-length-button col-3 mb2 py6 rounded white inline-block mobile-block js-next-step" href="#step3" data-giving-length="3">90 days</a>
+            <a class="giving-length-button col-3 mb2 py6 rounded white inline-block mobile-block js-next-step" href="#step3" data-giving-length="">Recurring</a>
+
+            <%= d.fields_for :gift, d.object.gift do |g| %>
+              <%= g.hidden_field :months_remaining, class: "js-giving-length" %>
+            <% end %>
+        </div>
+      </div>
+    </section>
+
+    <section id="step3" class="js-section bg-white hide">
+      <div class="fixed t0 l0 col-6 full-height bg-green hero-calendar mobile-static">
+        <a href="#step1" class="js-reset absolute b0 l0 ml3 mb3 white bold small">Start over</a>
+        <div class="table full-height">
+          <div class="table-cell p6">
+
+            <div class="card-preview js-card-preview relative">
+              <div class="card-preview-icon bg-white absolute centered">
+                <%= image_tag "gift.svg", width: "40%", class: "mt2" %>
+              </div>
+              <div class="bg-white p6">
+                <p class="relative"><b class="small">Hi <span class="js-name"></span>,</b></p>
+                <p>
+                  <span data-giving-length="1" class="js-gift-message-text hide">I just gifted you <%= CONFIG[:name] %>! For the next 30 days, amazing nonprofits will be supported in your name.</span>
+                  <span data-giving-length="3" class="js-gift-message-text hide">I just gifted you <%= CONFIG[:name] %>! For the next 90 days, amazing nonprofits will be supported in your name.</span>
+                  <span data-giving-length="" class="js-gift-message-text hide">I just gifted you <%= CONFIG[:name] %>! Every day, an amazing nonprofit will be supported in your name.</span>
+                  <span class="pointer bold green small no-wrap js-show-message-field">Edit this note</span>
+                </p>
+
+                <%= d.fields_for :gift, d.object.gift do |g| %>
+                  <%= g.text_area :message, maxlength: 200, rows: 4, class: "hide js-gift-message full-width mb2" %>
+                <% end %>
+
+                <p><b class="small">From,<br/> <span class="js-from-name">A friend</span></b></p>
+
+                <div class="js-gift-message-errors error small pt1">
+                  <%= content_tag(:em, "Message #{d.object.gift.errors[:message].to_sentence}.") if d.object.gift.errors[:message].present? %>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-pre-6">
+        <div class="p6">
+          <h3 class="mb3">Great! <span class="js-name"></span> will love it. Now we just need a few more details. They'll be a donor starting today.</h3>
+
+          <%= render "donors/form", form_builder: d %>
+        </div>
+      </div>
+    </section>
+  </article>
+<% end -%>

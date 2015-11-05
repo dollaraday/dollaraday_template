@@ -1,0 +1,120 @@
+<section id="content" class="bg-grey-light pb6">
+  <div class="header-shim"></div>
+  <div class="container pl2 pr2">
+    <div class="col-center col-8">
+      <div class="mb4">
+        <h3 class="bold mb2">What is <%= CONFIG[:name] %>?</h3>
+        <p><%= CONFIG[:name] %> is a simple new way for people to discover and support nonprofits that do great work.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">How does <%= CONFIG[:name] %> work?</h3>
+        <p>Every day we feature one amazing nonprofit. Everyone (who’s signed up) automatically donates a dollar to that featured nonprofit. No daily decisions to make, no customization &mdash; every day we’re all supporting the featured nonprofit, together.</p>
+        <p>Every day, we send out a simple email about the featured nonprofit we’re all supporting. These emails are an incredibly easy way to be introduced to great nonprofits. <%= link_to "#subscribe-overlay", class: "js-modal-overlay-open" do %>We also offer these daily emails to anyone for free<% end %>.</b></p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">Who is <%= CONFIG[:name] %> for?</h3>
+        <p><%= CONFIG[:name] %> is for anyone who wants to be more engaged with nonprofits. Finding great organizations can be difficult, and many of us are busier than ever. We wanted to make it easier for people to both discover and support great nonprofits.</p>
+        <p>At its heart, <%= CONFIG[:name] %> is about discovery. We hope that our daily emails will be a gateway for people to give directly, volunteer for, or simply learn more about a variety of great organizations and the problems they’re trying to solve. A public more fluent in nonprofits and their work is really exciting.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">If I donate, will my credit card be charged $1 a day?</h3>
+        <p>Nope. Donors are charged on a monthly cycle: $30 every 30 days. It keeps things simple and minimizes credit card fees.</p>
+        <div class="divider"></div>
+      </div>
+
+      <!-- FOR ANCHOR LINK-->
+      <div id="calendar"></div>
+
+      <div class="mb4">
+        <h3 class="bold mb2">Can I see the calendar of the nonprofits you’ll be featuring?</h3>
+        <p>Yes! <%= link_to "Our calendar", calendar_path(ref: "faq") %> will always show (at least) the next 60 days of nonprofits.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">What is your selection criteria for nonprofits?</h3>
+        <p> ... text goes here about selection criteria ... </p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">Can I opt out of donating to certain nonprofits?</h3>
+        <p>No. We’ve chosen to keep things simple to start. And we hope that instead of feeling a need to skip nonprofits that might not excite you, you’ll choose to go the other way: learn more, give more, and engage further with those that really grab you.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">Can I suggest a nonprofit?</h3>
+        <p>Yes! We would love to hear from you. <a href="https://..." target="_blank">Drop us a line</a>.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">Are donations tax deductible?</h3>
+        <p>All donations on <%= CONFIG[:name] %> are 100% US tax deductible. You'll get an email receipt when your credit card is charged.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">How do donations get from <%= CONFIG[:name] %> to the nonprofits?</h3>
+        <p><%= CONFIG[:name] %> distributes funds directly to each of our featured nonprofits within 30 days of feature.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">How do I cancel once I’ve started donating?</h3>
+        <p>We make it easy, with links to cancel from every daily email. Once you cancel you won’t be charged again, but your last $30 donation will still be distributed to the 30 nonprofits from the date of last donation.</p>
+        <p>Even if you stop being a donor, you can still continue to receive our daily email for free!</p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">Am I going to get mail or email from nonprofits?</h3>
+        <p>No. Your donations are processed anonymously. Your name, address, and email are not shared with nonprofits. You can always sign up for more info on any nonprofit’s website.</p>
+        <div class="divider"></div>
+      </div>
+      <div class="mb4">
+        <h3 class="bold mb2">Will you ever repeat the same nonprofits?</h3>
+        <p>At some point, we may repeat nonprofits &mdash; particularly, those featured in the early days, when fewer people were signed up. We have many hundreds to feature first, though, and we are always looking for more to consider. Know an organization doing good work? <a href="https://..." target="_blank">Suggest a nonprofit</a>.</p>
+        <div class="divider"></div>
+      </div>
+
+      <div id="gifting"></div>
+
+      <div class="mb4">
+        <h3 class="bold mb2">I'd like to donate to <%= CONFIG[:name] %> as a gift to somebody else. Can I?</h3>
+          <p><%= link_to "Definitely", gift_page_url(ref: "faq") %>. <%= CONFIG[:name] %> makes a great gift for anybody who wants to support cool causes or learn a little more about amazing nonprofits. You can gift somebody 30 days, 90 days, or on a continuing basis — it’s up to you!</p>
+
+        <div class="divider"></div>
+      </div>
+
+      <div class="mb4">
+        <h3 class="bold mb2">If I gift somebody <%= CONFIG[:name] %>, how will I be charged?</h3>
+
+        <p>Give a gift of 30 days and we’ll charge you $30 at check-out. Easy! For a $90 gift, we will charge you $30 every 30 days, until the gift period is over. (A total of three $30 charges.) For a continuing gift, we will charge you just like any other donor: $30 every 30 days. You can cancel your gift anytime. Your gift is 100% US tax deductible.</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="mb4">
+        <h3 class="bold mb2">I'm a gift recipient! What happens now?</h3>
+
+        <p>That’s great. Every day, a dollar will be donated to our day’s featured nonprofit in your name. You’ll also receive our daily email, telling you a little bit more about that organization’s mission. We hope is you’ll be inspired to explore each nonprofit further — by volunteering, continuing to spread the word, or giving directly.</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="mb4">
+        <h3 class="bold mb2"> Somebody gifted me <%= CONFIG[:name] %>, but my time is almost up! How can I become a full-time donor?</h3>
+        <p>You can become a donor by clicking the “Become Donor” button from any daily email you receive. We'll pre-populate the donate form with your name and email. All you need to do is add your payment information. Easy!</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="mb4">
+        <h3 class="bold mb2">I'm a gift recipient, but I don't want to receive the daily emails. Can I unsubscribe?</h3>
+        <p>You can. You can unsubscribe from any daily email just by clicking the "Unsubscribe" button.</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="mb4">
+        <h3 class="bold mb2">Is <%= CONFIG[:name] %> a nonprofit?</h3>
+        <p> ... text about nonprofit status goes here ... </p>
+        <div class="divider"></div>
+      </div>
+    </div>
+  </div>
+</section>

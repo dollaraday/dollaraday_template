@@ -1,0 +1,51 @@
+.c-tab-nav {
+  overflow-x: auto;
+  overflow-y: visible;
+  height: 2em;
+}
+
+.c-tab-nav__tabs {
+  white-space: nowrap;
+  border-bottom: solid 1px #C4C4C4;
+  height: 2em;
+}
+
+.c-tab-nav__tab {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  &:not(:last-child) { margin-right: 2em; }
+}
+
+.c-tab-nav__disclosure {
+  display: none;
+}
+
+.c-tab-nav__tab > a {
+  display: block;
+  text-decoration: none;
+  height: 2em;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  color: $grey;
+  @include hover {
+    color: black;
+    outline: none;
+  }
+}
+
+.c-tab-nav__tab > a.selected {
+  color: black;
+  border-bottom: solid 3px $green;
+  @include hover {
+    border-bottom-color: black;
+  }
+}
+
+.c-tab-nav__tab__count {
+  font-size: .8em;
+  @include weight(medium);
+  color: $green;
+  padding-left: .5em;
+}

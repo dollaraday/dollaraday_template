@@ -1,0 +1,18 @@
+<tr>
+  <td colspan="2" align="left" width="100%" style="max-width: 650px; padding-top: 40px;">
+    <div style="padding: 40px; background-color: #ffffff;">
+      <p style="font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-weight: normal; font-size: 16px; line-height: 24px; color: #444; margin-bottom: 30px;">
+        Hey <%= @donor.subscriber.name %>,
+      </p>
+      <p style="font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-weight: normal; font-size: 16px; line-height: 24px; color: #444; margin-bottom: 30px;">
+        Your <%= @days %> days of giving from <%= @gift.giver_name %> are almost up, but you don’t have to miss out on discovering great nonprofits every day. Sign up as a donor to continue your support.
+
+      </p>
+      <p style="font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-weight: normal; font-size: 16px; line-height: 24px; color: #444; margin-bottom: 30px;">
+        We’d love to have you!
+      </p>
+      <%= link_to "Donate", convert_gift_url(@gift, auth: @subscriber.auth_token, ref: "gift_reminder"), target: "_blank", style: "padding-top: 15px; padding-bottom: 15px; display: inline-block; padding-left: 25px; padding-right: 25px; background-color: #4fbb7e; text-align: center; color: #fff; font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-size: 16px; border-radius: 5px; font-weight: 600; text-decoration: none;" %>
+    </div>
+
+  </td>
+</tr>

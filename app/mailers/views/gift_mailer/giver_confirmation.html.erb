@@ -1,0 +1,36 @@
+<tr>
+  <td align="left" style="padding-left: 20px;" colspan="2">
+    <%= link_to image_tag("logo-dark.png", width: 140, class: "block", style: "margin-top: 40px; margin-bottom: 30px;", border: 0, alt: nil), root_url %>
+  </td>
+</tr>
+<tr>
+  <td colspan="2" align="left" width="100%" style="max-width: 650px;">
+
+    <div style="padding-left: 20px; padding-right: 20px;">
+
+      <p style="font-size: 24px; line-height: 32px; font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; color: #000; font-weight: normal; margin-top: 0px; margin-bottom: 20px;">
+      We just wanted to say "Thanks!" for sharing <%= CONFIG[:name] %> with somebody else.
+    </p>
+    <p style="font-size: 16px; line-height: 24px; font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; color: #000; font-weight: normal; margin-top: 0px; margin-bottom: 40px;">
+      The details of your donation are below. (You'll also receive a separate email receipt from Network For Good, our payments processor.)</p>
+
+    </div>
+
+    <%= render "gift_card", gift: @gift %>
+
+    <ul style="font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-weight: normal; font-size: 16px; line-height: 24px; color: #444; margin-bottom: 30px; list-style-type: none; margin; padding: 0 20px;">
+      <li><span style="font-weight: bold;">Gift:</span> <%= @gift.infinite? ? "Unlimited" : @gift.original_months_remaining * 30 %> Days of <%= CONFIG[:name] %></li>
+      <li><span style="font-weight: bold;">Payment:</span> $30</li>
+      <% if false %><li><span style="font-weight: bold;">Card:</span> XXXX-XXXX-XXXX-<%= "@gift.donor.card.get_nfg_cof[:cc_suffix]" %></li><% end %>
+      <li><span style="font-weight: bold;">End date:</span> <%= @gift.infinite? ? "Unlimited" : @gift.finish_on.to_s(:short_name) %></li>
+    </ul>
+
+    <p style="margin-top: 40px; margin-bottom: 40px; font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-size: 16px; line-height: 24px; color: #000; text-align: center;">
+      <%= newsletter_gifter_tweet_link(false) %>
+      <%= newsletter_fbshare_gifter(true) %>
+    </p>
+
+    <div style="height: 1px; background-color: #ddd;"></div>
+
+  </td>
+</tr>

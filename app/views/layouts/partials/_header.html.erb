@@ -1,0 +1,72 @@
+<% unless @hide_header_shim %>
+  <div class="header-shim"></div>
+<% end %>
+
+<% unless @hide_donate_button %>
+  <div class="js-join-overlay modal-overlay fixed">
+    <div class="modal-bg modal-overlay-dark"></div>
+    <div class="modal-bg modal-overlay-dark"></div>
+    <a href="#" class="js-modal-overlay-close modal-overlay-close z-index-2"><%= image_tag "x-white.svg", width: 20, height: 20 %></a>
+    <div class="full-height mobile-table relative">
+      <div class="mobile-table-cell centered p4 js-interior">
+        <%= link_to donate_path(ref: "header"), class: "bold white no-decoration" do %>
+          <p class="big mb2">Donate with <%= donor_count %> others</p>
+          <span class="button-solid button-green button-big">Become a donor</span>
+        <% end %>
+        <div class="border-top-white mt4 mb4"></div>
+        <%= link_to subscribe_path(ref: "header"), class: "bold no-decoration white" do %>
+          <p class="big mb2">Get the email for free</p>
+          <span class="button-outline button-white button-big">Subscribe</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<header class="primary-header bg-white fixed t0 max-width-wrapper z-index-2 full-width"
+  <% if controller.controller_name == "site" and controller.action_name == "index" %>
+  data-0="top: -100px" data-100p="top: 0px"
+  <% end %>
+  >
+
+  <div class="container p2">
+    <div class="flag">
+      <div class="flag-img">
+        <div class="flag">
+          <div class="flag-img">
+            <%= render "modules/logo_link", theme: :dark %>
+          </div>
+          <div class="flag-body">
+            <h4 class="no-margin pt1 pb1 pl3 ml3 border-left desktop-show">Discover &amp; support amazing nonprofits</h4>
+            <% unless @hide_donate_button %>
+              <div class="mobile-show align-right">
+                <%= link_to "Join", donate_path(ref: "header"), class: "button-solid button-green js-join-button" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% unless @hide_donate_button %>
+        <div class="mobile-hide">
+          <div class="flag-body align-right">
+            <div class="flag">
+              <% unless @hide_email_link %>
+                <div class="flag-body pr2 no-wrap">
+                  <%= link_to "#subscribe-overlay", class: "js-modal-overlay-open small" do %>
+                  Get the email for free
+                  <% end %>
+                </div>
+              <% end %>
+              <div class="flag-img no-wrap">
+                <%= link_to "Donate with #{donor_count} others", donate_path(ref: "header"), class: "button-solid button-green donate-button" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</header>
+
+<%= render "subscribers/overlay" %>

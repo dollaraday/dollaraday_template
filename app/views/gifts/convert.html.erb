@@ -1,0 +1,31 @@
+<article id="gift_convert" class="bg-grey-light mobile-table">
+  <section class="content mobile-table-cell py6">
+    <div class="interior col-center col-8">
+
+      <p>
+        Hi <%= current_donor.subscriber.name %>!
+      </p>
+
+      <p>
+        <% if current_donor.gift.infinite? %>
+          Your gift is recurring, but if you'd like to take over the donations, enter your credit card details here.
+        <% elsif Date.today < current_donor.gift.finish_on %>
+          Your gift will expire in <%= time_ago_in_words(current_donor.gift.finish_on.beginning_of_day) %>.
+          <br />
+          To keep donating, enter you credit card details and turn into a regular donor.
+        <% else %>
+          Your gift expired <%= time_ago_in_words(current_donor.gift.finish_on.beginning_of_day) %> ago.
+          <br />
+          To keep donating, enter you credit card details and turn into a regular donor.
+        <% end %>
+      </p>
+
+      <%= form_for current_donor, as: :donor, url: gift_url(current_donor), html: {autocomplete: "on", class: "pt2 pb4"} do |d| %>
+        <%= render "donors/stripe_card_fields", form_builder: d, card: @new_card %>
+        <%= d.submit "Donate", class: "button-solid button-green button-big full-width" %>
+      <% end -%>
+
+    </div>
+  </section>
+</article>
+

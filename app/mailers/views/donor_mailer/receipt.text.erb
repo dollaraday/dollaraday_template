@@ -1,0 +1,25 @@
+Hi<%= ", #{@donor.subscriber.name.given_name}" if @donor.subscriber.name.present? %>!
+
+On behalf of your favorite charities and <%= CONFIG[:name] %>, we thank you for your generous support!
+
+Your donation is being made to <%= CONFIG[:name] %>, a 501(c)(3) public charity (tax ID 46-2761482), which processes donations made through <%= CONFIG[:name] %> and distributes them to a list of pre-determined charities. All donations are final and may not be refunded.
+
+Thank you again for visiting <%= CONFIG[:name] %>!
+
+
+Donation Record
+---------------
+
+Your contribution is tax-deductible to the extent allowed by law. This email certifies that you have made this donation as a charitable contribution and you are not receiving any goods or services in return. You may save or print this receipt for your records. You may view a full list of your donations to date on your account page: <%= link_to "your account page", email_login_subscriber_url(@subscriber, @subscriber.auth_token), style: "color: #999" %>.
+
+- Name: <%= @donor.subscriber.name %>
+- E-mail: <%= @donor.subscriber.email %>
+- Total Donation Amount: $<%= '%.02f' % @donation.amount %>
+- Organization:  <%= CONFIG[:name] %>
+- Address:  <%= CONFIG[:address] %>
+- Method of Payment: <%= @charge.source.brand %>
+- Credit Card Last 4 Digits: <%= @charge.source.last4 %>
+- Date: <%= @donation.executed_at.strftime '%A, %B %e, %Y' %>
+- Time: <%= @donation.executed_at.strftime '%H:%M %Z' %>
+- Reference Number: <%= '%08d' % @donation.id %>
+- Authorization: Accepted

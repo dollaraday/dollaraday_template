@@ -1,0 +1,41 @@
+<%= form_for subscriber, html: {autocomplete: "on"} do |d| %>
+    <% if subscriber.errors.present? %>
+        <p><%= subscriber.errors.full_messages.map { |m| "&bullet;&nbsp;#{m}" }.join("<br />").html_safe %></p>
+        <br /><br />
+    <% end -%>
+
+    <section id="form-fields">
+      <h3 class="mb4">The easiest way to learn about great nonprofits. 100% free!</h3>
+
+      <div id="form-error" class="hide">
+        <p class="red"></p>
+      </div>
+
+      <div class="">
+        <div class="right mobile-hide">
+          <%= d.submit "Sign up", class: "button-solid button-green button-big button-block" %>
+        </div>
+        <div class="clearfix bottom-padding-fix pr1 mobile-no-padding">
+          <%= d.text_field :name, placeholder: "Name", autocompletetype: "given-name", type: "hidden" %>
+          <%= d.text_field :email, placeholder: "Email Address", autocompletetype: "email", type: "email", class: "block js-focus-on-open full-width" %>
+        </div>
+        <div class="mobile-show mt1">
+          <%= d.submit "Sign up", class: "button-solid button-green button-big full-width button-block" %>
+        </div>
+
+      </div>
+
+    </section>
+    <section id="form-success" class="hide">
+      <h3>Today’s nonprofit is on the way. Awesome! Spread the word:</h3>
+      <%= link_to(share_url(url: "https://twitter.com/share?text=Do%20you%20know%20about%20%23<%= CONFIG[:twitter_username] %>%27s%20free%20newsletter%3f%20Join%20me%20and%20discover%20amazing%20nonprofits%20every%20day%3A&amp;url=#{ root_url }"), class: "twitter button-solid button-twitter no-decoration") do %>
+        <span class="ss-icon ss-social ss-twitter"></span>
+        Tweet
+      <% end %>
+      <%= link_to(share_url(url:"http://www.facebook.com/dialog/feed?display=popup&link=#{ URI.escape(root_url) }&redirect_uri=#{ URI.escape(root_url) }&app_id=#{FACEBOOK[:app_id]}&name=#{CONFIG[:name]}&caption=#{CONFIG[:name]} Newsletter"), target: "_blank", class: "facebook button-solid button-facebook no-decoration") do %>
+        <span class="ss-icon ss-social ss-facebook"></span>
+        Share
+      <% end %>
+    </section>
+
+<% end %>

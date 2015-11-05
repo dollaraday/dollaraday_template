@@ -1,0 +1,12 @@
+<div id="email-preview" class="modal-overlay">
+  <div class="modal-bg modal-overlay-dark js-modal-overlay-close"></div>
+  <div class="modal-content mobile-table full-height">
+    <div class="mobile-table-cell full-height">
+      <div class="interior dropshadow relative col-6 p4 margin-auto centered email-preview-modal-interior">
+        <a href="#" class="js-modal-overlay-close modal-overlay-close z-index-1"><%= image_tag "x.svg", width: 20, height: 20 %></a>
+        <div class="absolute t0 l0 r0 b0 z-index-1"></div>
+        <iframe src="/newsletters/preview" class="absolute t0 b0 l0 r0 clip" scrolling="no" width="100%" height="100%" border="0" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+</div>

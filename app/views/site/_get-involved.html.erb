@@ -1,0 +1,24 @@
+<section id="get-involved" class="section">
+  <div class="clearfix centered">
+    <p class="big_type">Learning about amazing nonprofits isn’t easy.<br/><b class="green"><%= CONFIG[:name] %> makes is simple.</b></p>
+    <div class="col col-6 pt2 pb2">
+      <p><b>Get the email for free</b></p>
+      <p class="mb2">Get our awesome tiny daily newsletter for free, no strings attached. The more awesome nonprofits you know about, the better. Knowledge is power! Signup in 10 seconds.</p>
+      <p><%= link_to "Get the free newsletter", subscribe_path, :class => "button-outline button-green" %></p>
+    </div>
+    <div class="col col-6 pt2 pb2">
+      <p><b>Become a donor</b></p>
+      <p class="mb2">Each day, you’ll get our tiny daily newsletter about the amazing nonprofit that you and all the other donors are supporting that day. 100% tax-deductible for US residents.</p>
+      <p>
+        <%= link_to donate_path, class: "button-solid button-green" do %>
+          <span class="border">Donate $1 a day</span>
+        <% end %>
+      </p>
+    </div>
+
+    <% if controller.controller_name != "site" %>
+      <div class="clear"></div>
+      <p class="pt4 centered">Want to learn more about <%= CONFIG[:name] %>? <%= link_to "Click Here", root_url %>.</p>
+    <% end %>
+  </div>
+</section>

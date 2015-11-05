@@ -1,0 +1,50 @@
+@mixin bp-from($bp)        { @include media-from(bp($bp))               { @content; } }
+@mixin bp-upto($bp)        { @include media-upto(bp($bp))               { @content; } }
+@mixin bp-btwn($bp1, $bp2) { @include media-btwn(bp($bp1), bp($bp2))    { @content; } }
+
+// Modify declarations for each min-width breakpoint
+@mixin each-bp-from($base: true) {
+  
+  // Non-modified declaration?
+  @if $base { @content; }
+  
+  // Per-breakpoint modifier
+  @each $bp, $size in $bps {
+    &_#{$bp} {
+      @include media-from($size) {
+        @content;
+      }
+    }
+  }
+}
+
+// Modify declarations for each max-width breakpoint
+@mixin each-bp-upto($base: true) {
+  
+  // Non-modified declaration?
+  @if $base { @content; }
+  
+  // Per-breakpoint modifier
+  @for $i from length($bps) through 1 {
+    $bp-pair: nth($bps, $i);
+    $bp:      nth($bp-pair, 1);
+    $size:    nth($bp-pair, 2);
+    
+    // Note the uppercase modifier
+    &_#{to-upper-case($bp)} {
+      @include media-upto($size) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin each-bp($base: true) {
+  @if $base { @content; }
+  @include each-bp-from(false) {
+    @content;
+  }
+  @include each-bp-upto(false) {
+    @content;
+  }
+}

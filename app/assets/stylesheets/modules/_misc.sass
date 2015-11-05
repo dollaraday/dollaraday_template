@@ -1,0 +1,36 @@
+// Since the header is fixed, this offsets the header height
+.header-shim
+  height: 85px
+  @media screen and (max-width: $tablet-breakpoint)
+    height: 84px
+  @media screen and (max-width: $mobile-breakpoint)
+    height: 79px
+
+// Footer prop for admin view
+.footer-prop
+  height: 60px
+
+// iFrames are a pain and won't resize to their content so manually defining a height here
+.email-preview-modal-interior
+  @extend .bg-grey-light
+  height: 900px
+  @media only screen and (max-width: $tablet-breakpoint)
+    width: 100%
+
+// Fixed width containers, used on donate form and modals
+.centered-container
+  @extend .fit
+  width: 500px
+
+// Small view of nonprofit, like on selection criteria
+.non-profit-card-image
+  overflow: hidden
+  @media screen and (min-width: $mobile-breakpoint)
+    height: 300px
+  @media screen and (max-width: $mobile-breakpoint)
+    height: 150px
+
+.tipsy
+  @media screen and (max-width: $mobile-breakpoint)
+    left: 10px !important
+    max-width: 90% !important

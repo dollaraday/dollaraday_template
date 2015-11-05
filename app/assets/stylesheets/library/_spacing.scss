@@ -1,0 +1,32 @@
+%margin-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-mb {
+  margin-bottom: 0 !important;
+}
+
+.no-mt {
+  margin-top: 0 !important;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.margin-auto {
+  @extend %margin-auto;
+}
+
+/* Margins */
+@include spacing(margin, m, 0 1 2 3 4 6 8);
+
+/* Padding */
+@include spacing(padding, p, 0 1 2);
+@media screen and (min-width: $mobile-breakpoint) { @include spacing(padding, p, 3 4 6 8); }
+@media screen and (max-width: $mobile-breakpoint) { @include spacing(padding, p, 3 4 6 8, 2.5 3 3.5 3.5); }

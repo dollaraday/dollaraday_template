@@ -1,0 +1,80 @@
+<% nonprofit = f.object %>
+<% if @nonprofit.persisted? && @nonprofit.related_nonprofits.present? %>
+  <p>Also featured on: <%= @nonprofit.related_nonprofits.map { |_| link_to(_.featured_on.strftime("%-0m/%-0d/%Y"), edit_admin_nonprofit_url(_.id)) }.join(", ").html_safe %><p>
+<% end %>
+
+
+<%= f.check_box :is_public %>
+<%= f.label :is_public, "Public? " %> <span style="font-size: 0.7em"><%= link_to(nonprofit_url(@nonprofit), nonprofit_url(@nonprofit)) if @nonprofit.persisted? %></span>
+<br />
+<br />
+
+<%= f.label :name %>
+<br />
+<%= f.text_field :name %>
+<br />
+<%= content_tag(:span, nonprofit.errors[:name].to_sentence, style: "font-size: 10px; color: red; font-weight:bold") if nonprofit.errors[:name].present? %>
+<%= content_tag(:span, "(name via NFG: \"#{nonprofit.nfg_name}\")", style: "font-size: 0.7em; font-style: italic") %>
+<br />
+<br />
+
+<%= f.label :slug %>
+<br />
+<%= f.text_field :slug, maxlength: 255, size: 25 %>
+<b class="left" style="line-height: 3em">http://<%= CONFIG[:host] %>/nonprofits/</b>
+	&nbsp;<%= content_tag(:span, nonprofit.errors[:website_url].to_sentence, style: "font-size: 10px; color: red; font-weight:bold") if nonprofit.errors[:slug].present? %>
+<br />
+<br />
+
+<%= f.label :ein %>
+<br />
+<%= f.text_field :ein %>
+<%= link_to "Lookup EIN", "#", id: "nonprofit_lookup_ein" %>
+<%= content_tag(:div, nonprofit.errors[:ein].to_sentence, style: "font-size: 10px; color: red; font-weight:bold") if nonprofit.errors[:ein].present? %>
+<div id="ein_lookup_data" style="font-size: 14px"></div>
+<br />
+
+<%= f.label :featured_on, "Featured On (yyyy/mm/dd)" %>
+<br />
+<%= f.text_field :featured_on, maxlength: 12, size: 12 %>
+<%= content_tag(:span, @nonprofit.errors[:featured_on].to_sentence, style: "font-size: 10px; color: red; font-weight:bold") if @nonprofit.errors[:featured_on].present? %>
+<br />
+<br />
+
+<%= f.label :website_url, "Nonprofit Url" %>
+<br />
+<%= f.text_field :website_url, maxlength: 255, size: 30 %>
+<%= content_tag(:span, @nonprofit.errors[:website_url].to_sentence, style: "font-size: 10px; color: red; font-weight:bold") if @nonprofit.errors[:website_url].present? %>
+<br />
+<br />
+
+<%= f.label :twitter, "Twitter Handle" %>
+<br />
+<b class="left" style="line-height: 3em">http://twitter.com/</b><%= f.text_field :twitter, maxlength: 255, size: 30 %>
+<%= content_tag(:span, @nonprofit.errors[:twitter].to_sentence, style: "font-size: 10px; color: red; font-weight:bold") if @nonprofit.errors[:twitter].present? %>
+<br />
+<br />
+
+<%= f.label :photo %>
+<br />
+<%= image_tag nonprofit.photo.url(:thumb) %>
+<br />
+<%= f.file_field :photo %>
+<%= content_tag(:span, @nonprofit.errors[:photo].to_sentence, style: "font-size: 10px; color: red; font-weight:bold") if @nonprofit.errors[:photo].present? %>
+<br />
+<br />
+
+<%= f.label :blurb %>
+<br />
+<%= f.text_field :blurb, maxlength: 255, size: 90 %>
+<%= content_tag(:span, @nonprofit.errors[:blurb].to_sentence, style: "font-size: 10px; color: red; font-weight:bold") if @nonprofit.errors[:blurb].present? %>
+<br />
+<br />
+
+<br />
+<%= f.label :description %>
+<%= f.label :description, "(allowed html: #{Nonprofit::ALLOWED_DESCRIPTION_TAGS.to_sentence})", style: "font-style: italic" %>
+<br />
+<%= f.text_area :description, style: "width: 100%; height: 150px" %>
+<%= content_tag(:span, nonprofit.errors[:description].to_sentence, style: "font-size: 10px; color: red; font-weight:bold") if nonprofit.errors[:description].present? %>
+<br />

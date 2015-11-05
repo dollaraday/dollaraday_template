@@ -1,0 +1,13 @@
+// Nice hover interaction for logo
+.logo-link
+  @extend .clip
+  @extend .block
+  height: 19px
+  img
+    width: 140px
+    height: 15px
+    margin-top: 2px
+  &.hover:hover
+    @media screen and (min-width: $mobile-breakpoint)
+      img
+        margin-top: -19px

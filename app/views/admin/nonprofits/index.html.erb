@@ -1,0 +1,77 @@
+<article id="site_admin_nonprofits" class="bg-grey-light pt4 pb4">
+  <section class="container p2">
+      <h5>Legend:</h5>
+      <dl>
+        <dt style="display: inline; font-family: 'Lucida Console', Monaco, monospace;">NO PHOTO:</dt><dd style="display: inline; margin: 0; padding: 0;"> Nonprofit doesn't have a picture yet.</dd>
+        <br />
+        <dt style="display: inline; font-family: 'Lucida Console', Monaco, monospace;">HOLIDAYS:</dt><dd style="display: inline; margin: 0; padding: 0;"> There are holidays that fall on this day (hover over link to see).</dd>
+        <br />
+        <dt style="display: inline; font-family: 'Lucida Console', Monaco, monospace;">PRIVATE!:</dt><dd style="display: inline; margin: 0; padding: 0;"> This Nonprofit is private, won't be visible to public, and won't be used in donations.</dd>
+      </dl>
+
+
+    <div class="row">
+      <div class="col col-4">
+        <%= render 'monthly', month_date: @date.prev_month %>
+      </div>
+      <div class="col col-4">
+        <%= render 'monthly', month_date: @date %>
+      </div>
+      <div class="col col-4">
+        <%= render 'monthly', month_date: @date.next_month %>
+      </div>
+    </div>
+
+    <div class="pt4 pb4">
+      <%= link_to "Add a Nonprofit", new_admin_nonprofit_url, class: "button-outline button-green" %>
+    </div>
+
+    <table cellpadding="0" cellspacing="0">
+      <thead>
+        <tr>
+          <th class="bg-grey white p1">Featured On</th>
+          <th class="bg-grey white p1">Public?</th>
+          <th class="bg-grey white p1">Sent At (Subscribers / Donors)</th>
+          <th class="bg-grey white p1">Donors</th>
+          <th class="bg-grey white p1">Name<br /><span style="font-size: 0.8em">(Name on NFG)</span></th>
+          <th class="bg-grey white p1">Twitter</th>
+          <th class="bg-grey white p1">Blurb</th>
+          <th class="bg-grey white p1">Photo</th>
+          <th class="bg-grey p1">&nbsp;</th>
+          <th class="bg-grey p1">&nbsp;</th>
+          <th class="bg-grey p1">&nbsp;</th>
+          <th class="bg-grey p1">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @nonprofits.each do |nonprofit| %>
+          <tr style="<%= nonprofit.featured_on == Time.zone.now.to_date ? 'background-color: lemonchiffon' : '' %>; font-size: 0.8em">
+            <td class="p1 border-bottom"><%= nonprofit.featured_on.to_s :short %></td>
+            <td class="p1 border-bottom"><%= "x" if nonprofit.is_public? %></td>
+            <td class="p1 border-bottom">
+              <%= nonprofit.newsletter.donors_sent_at.to_s(:db) if nonprofit.newsletter.donors_sent_at %>
+              <%= "<br />".html_safe if nonprofit.newsletter.donors_sent_at.present? %>
+              <%= nonprofit.newsletter.subscribers_sent_at.to_s(:db) if nonprofit.newsletter.subscribers_sent_at %></td>
+            <td class="p1 border-bottom"><%= nonprofit.donations.executed.count %></td>
+            <td class="p1 border-bottom">
+              <p style="white-space: nowrap"><%= link_to nonprofit.name, edit_admin_nonprofit_url(nonprofit.id) %></p>
+              <sub style="white-space: nowrap; font-size: 0.8em; color: #AAA"><%= "(#{nonprofit.nfg_name})" if nonprofit.nfg_name.present? %></sub>
+            </td>
+            <td class="p1 border-bottom"><%= link_to "@#{nonprofit.twitter}", "http://twitter.com/#{nonprofit.twitter}" if nonprofit.twitter %></td>
+            <td class="p1 border-bottom" ><%= truncate nonprofit.blurb %></td>
+            <td class="p1 border-bottom"><%= image_tag(nonprofit.photo.url(:thumb), width: "50px") %></td>
+            <td class="p1 border-bottom">
+              <% if nonprofit.destroyable? %>
+                <%= link_to "Delete", admin_nonprofit_url(nonprofit.id), method: :delete, confirm: "are you sure?" %>
+              <% end -%>
+            </td>
+            <td class="p1 border-bottom"><%= link_to "Public", nonprofit_url(nonprofit.id) %></td>
+            <td class="p1 border-bottom"><%= link_to "Newsletter", preview_admin_newsletter_url(nonprofit.newsletter) %></td>
+            <td class="p1 border-bottom">
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</article>

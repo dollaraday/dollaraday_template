@@ -1,0 +1,15 @@
+ul,
+ol
+  margin: 0px
+  padding: 0px
+  list-style: none
+  li
+    margin: 0px 0px 1em
+    padding: 0px
+
+ul.comma-list
+  li
+    display: inline
+    &:not(:last-child)
+      &:after
+        content: ", "

@@ -1,0 +1,37 @@
+<script src="//cdn.optimizely.com/js/2495470497.js"></script>
+<title>
+  <%= (@page_title ? "#{@page_title} — #{CONFIG[:name]}": CONFIG[:name]) %>
+</title>
+<link href="/favicon.png" type="image/png" rel="icon" />
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<%= meta_tags %>
+<%= csrf_meta_tags %>
+
+<script type="text/javascript">
+  WebFontConfig = { fontdeck: { id: '37871' } };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+<%= stylesheet_link_tag    "application", media: "all" %>
+<%= javascript_include_tag "application", async: !true %>
+<%= javascript_include_tag "donor_test",  async: !true unless Rails.env.production? %>
+<%= javascript_include_tag "admin",       async: !true if current_user.try(:is_admin?) %>
+
+<% if @require_stripe_js %>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+  // This identifies your website in the createToken call below
+  Stripe.setPublishableKey("<%= STRIPE[:publishable_key] %>");
+  // ...
+</script>
+<% end %>
+

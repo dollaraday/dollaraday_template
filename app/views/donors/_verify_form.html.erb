@@ -1,0 +1,17 @@
+<% form_id ||= "verify_donor" %>
+
+<%= form_tag verify_donors_url(format: :json), method: :put, remote: true, id: form_id, class: "verify_donor_form" do %>
+  <p class="message"></p>
+
+  <p>To manage your account, please enter your email:</p>
+
+  <div class="field">
+    <%= text_field_tag 'donor_verification[email]', nil, placeholder: "Email", class: "js-focus-on-open full-width", tabindex: 1 %>
+  </div>
+
+  <p class="instructions">Next, please enter the last 4 digits and expiration of the credit card used:</p>
+
+  <%= render "donors/verify_billing_fields" %>
+
+  <%= submit_tag "Manage account", class: "button-solid button-green button-big" , id: "manage-account-button", tabindex: 5 %>
+<% end -%>

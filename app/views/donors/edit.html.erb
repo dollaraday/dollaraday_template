@@ -1,0 +1,35 @@
+<article id="donor_edit" class="bg-grey-light mobile-table">
+  <section class="content mobile-table-cell py6">
+    <div class="interior col-center col-8">
+
+      <p>
+        Hi <%= current_donor.subscriber.name %>!
+      </p>
+
+      <p>
+        <% if current_donor.failed? %>
+          Your card was declined on <%= current_donor.failed_at.in_time_zone('Eastern Time (US & Canada)').to_s(:long) %>.
+          Please enter your credit card details and we'll try again.
+        <% else %>
+          To change your billing details, just enter a new card below.
+        <% end %>
+      </p>
+
+      <% if current_donor.errors.present? %>
+      <div class="error_text">
+        <div class="red">
+          <%= content_tag(:em, @donor.errors[:base].to_sentence + ".", class: "error") if @donor.errors[:base].present? %>
+          <%= content_tag(:em, @donor.card.errors[:base].to_sentence + ".", class: "error") if @donor.card.errors[:base].present? %>
+        </div>
+      </div>
+      <% end -%>
+
+      <%= form_for current_donor, as: :donor, html: {autocomplete: "on", class: "pt2 pb4"} do |d| %>
+        <%= render "donors/stripe_card_fields", form_builder: d %>
+        <%= d.submit current_donor.failed? ? "Fix the card" : "Update card", class: "button-solid button-green button-big full-width" %>
+      <% end -%>
+
+    </div>
+  </section>
+</article>
+

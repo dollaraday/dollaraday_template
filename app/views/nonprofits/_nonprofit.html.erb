@@ -1,0 +1,30 @@
+<% hide_description ||=nil %>
+<% greyscale ||=nil %>
+
+<main class="nonprofit bg-white">
+  <%= link_to "http://#{url_without_protocol(nonprofit.website_url)}" do %>
+  <div class="o-ratio o-ratio--16-10">
+    <div class="o-ratio__container o-cover-image" style="background-image: url('<%= nonprofit.photo.url(:full) %>');">
+      <%= image_tag(nonprofit.photo.url(:full), class: 'o-cover-image__image' )  %>
+    </div>
+  </div>
+  <% end %>
+  <div class="content p4">
+    <div class="centered">
+      <h1 class="title mb1 bold"><%= link_to nonprofit.name, "http://#{url_without_protocol(nonprofit.website_url)}", class: "no-decoration" %></h1>
+      <h3 class="subtitle no-margin"><%= nonprofit.blurb %></h3>
+    </div>
+    <% unless hide_description %>
+      <div class="divider margin-auto"></div>
+
+      <div class="blurb">
+        <p class="no-margin">
+          <%= nonprofit.description.html_safe %>
+        </p>
+        <p class="green centered mt4 mb0">
+          Learn more about this amazing nonprofit at <%= link_to_nonprofit(nonprofit, class: "green") %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</main>

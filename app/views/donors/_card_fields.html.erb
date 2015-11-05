@@ -1,0 +1,86 @@
+<% f = form_builder # the donate form builder object %>
+<% card = defined?(card) && card.present? ? card : (f.object.card || DonorCard.new) %>
+
+<%= f.fields_for(:card, card) do |c| %>
+
+  <div class="field mb1">
+      <% unless Rails.env.production? -%>
+        <span id="donate_test_data_button" style="text-decoration: underline; cursor: pointer;" class="right small">Use Test Data</span>
+      <% end %>
+      <%= c.label :email, "Your Email #{error_tooltip_for(c.object, :email)}".html_safe %>
+      <%= c.text_field :email, autocompletetype: "email", class: "full-width", tabindex: 1 %>
+  </div>
+
+  <div class="field mb1">
+    <%= c.label :name, "Full name #{error_tooltip_for(c.object, :name)}".html_safe %>
+    <%= c.text_field :name, autocompletetype: "given-name", class: "full-width", tabindex: 2 %>
+  </div>
+
+  <div class="field mb1">
+    <div class="clearfix">
+      <%= c.label :card_number, "Card number #{error_tooltip_for(c.object, :card_number)}".html_safe, class: "left" %>
+      <div class="right">
+        <%= image_tag "checkout/icon-cc-visa.png", width: "35" %>
+        <%= image_tag "checkout/icon-cc-amex.png", width: "35" %>
+        <%= image_tag "checkout/icon-cc-mastercard.png", width: "35" %>
+      </div>
+    </div>
+    <%= c.text_field :card_number, autocomplete: "off", class: "full-width", tabindex: 3 %>
+  </div>
+
+
+  <div class="field clearfix bottom-padding-fix">
+    <div class="left">
+      <%= c.label :exp_month, "Expiration date #{error_tooltip_for(c.object, :exp_month)}".html_safe, class: "clearfix" %>
+      <div class="select-container mr1 left">
+        <%= c.select :exp_month, (1..12).to_a, {}, autocomplete: "off", tabindex: 4 %>
+        <span class="ss-icon ss-dropdown"></span>
+      </div>
+      <div class="select-container mr2 left">
+        <%= c.select :exp_year, (Time.zone.now.year..10.years.from_now.year), {}, autocomplete: "off", tabindex: 5 %>
+        <span class="ss-icon ss-dropdown"></span>
+      </div>
+    </div>
+    <div class="clearfix relative bottom-padding-fix pl3 mobile-no-padding">
+      <%= c.label(:csc) do %>
+        <%= "CVV #{error_tooltip_for(c.object, :csc)}".html_safe %>
+      <% end %>
+      <%= c.text_field :csc, class: "full-width", autocomplete: "off", size: 4, tabindex: 6 %>
+    </div>
+  </div>
+
+
+  <div class="field">
+    <%= c.label :address1, "Billing address #{error_tooltip_for(c.object, :address1)}".html_safe %>
+    <%= c.text_field :address1, class: "full-width", tabindex: 7 %>
+  </div>
+
+  <div class="field">
+    <%= c.label :city, "City #{error_tooltip_for(c.object, :city)}".html_safe %>
+    <%= c.text_field :city, class: "full-width", tabindex: 8 %>
+  </div>
+
+  <div class="field">
+    <%= c.label :country, "Country #{error_tooltip_for(c.object, :country)}".html_safe %>
+    <div class="select-container full-width">
+      <%= c.select :country, options_for_select(CARMEN_COUNTRY_OPTIONS, "US"), {}, tabindex: 9 %>
+      <span class="ss-icon ss-dropdown"></span>
+    </div>
+  </div>
+
+  <div class="clearfix field">
+    <div class="right pl1 bottom-padding-fix" style="width: 163px;">
+      <%= c.label :zip, "Zip/post code #{error_tooltip_for(c.object, :zip)}".html_safe %>
+      <%= c.text_field :zip, class: "full-width", autocompletetype: "postal-code", tabindex: 11 %>
+    </div>
+    <div class="clearfix bottom-padding-fix">
+      <%= c.label :state, "State/region #{error_tooltip_for(c.object, :state)}".html_safe %>
+      <%= c.text_field :state, id: "donor_card_attributes_region", class: "full-width", tabindex: 10 %>
+      <div class="select-container full-width">
+        <%= c.select :state, [["Select", nil]] + UNITED_STATES, {}, tabindex: 10  %>
+        <span class="ss-icon ss-dropdown"></span>
+      </div>
+    </div>
+  </div>
+
+<% end -%>

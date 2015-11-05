@@ -1,0 +1,13 @@
+<%- @subscriber = Subscriber.new %>
+
+<div id="subscribe-overlay" class="modal-overlay">
+  <div class="modal-bg modal-overlay-dark"></div>
+  <div class="modal-content mobile-table full-height">
+    <div class="mobile-table-cell">
+      <div class="interior bg-white centered-container js-interior dropshadow relative pt6 pb6 pl2 pr2 margin-auto centered">
+        <a href="#" class="js-modal-overlay-close modal-overlay-close"><%= image_tag "x.svg", width: 20, height: 20 %></a>
+        <%= render "subscribers/form", subscriber: @subscriber %>
+      </div>
+    </div>
+  </div>
+</div>

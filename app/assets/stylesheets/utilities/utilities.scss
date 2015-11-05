@@ -1,0 +1,11 @@
+.u-block {
+  @include each-bp {
+    display: block !important;
+  }
+}
+
+.u-hidden {
+  @include each-bp {
+    display: none !important;
+  }
+}

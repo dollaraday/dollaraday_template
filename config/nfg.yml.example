@@ -1,0 +1,15 @@
+test:
+  source: NFGNAME
+  campaign: NFGCAMPAIGN
+  id: ABC123
+  password: ABC123
+  credit_card_wsdl_url: https://api-sandbox.networkforgood.org/PartnerDonationService/DonationServices.asmx?wsdl
+  paypal_wsdl_url: https://api-sandbox.networkforgood.org/PartnerDonationService/PayPal.asmx?wsdl
+
+development:
+  source: NFGNAME
+  campaign: NFGCAMPAIGN
+  id: ABC123
+  password: ABC123
+  credit_card_wsdl_url: https://api-sandbox.networkforgood.org/PartnerDonationService/DonationServices.asmx?wsdl
+  paypal_wsdl_url: https://api-sandbox.networkforgood.org/PartnerDonationService/PayPal.asmx?wsdl

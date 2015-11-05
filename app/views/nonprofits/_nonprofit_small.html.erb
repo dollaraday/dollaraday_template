@@ -1,0 +1,22 @@
+<%= link_to nonprofit_url(nonprofit) do %>
+<div class="o-ratio o-ratio--16-10">
+  <div class="o-ratio__container o-cover-image" style="background-image: url('<%= nonprofit.photo.url(:medium) %>');">
+    <img src="<%= nonprofit.photo.url(:medium) %>" class="o-cover-image__image" alt="" />
+  </div>
+</div>
+<% end %>
+
+<div class="p2 bg-white o-media o-media--right">
+  <%- if current_subscriber? -%>
+  <div class="o-media__item ml1">
+    <%= render_favoriting_button nonprofit.id, true %>
+  </div>
+  <%- end -%>
+  <div class="o-media__body">
+    <h4 class="mb0"><%= link_to nonprofit.name, nonprofit_url(nonprofit), class: 'reverse-link bold' %></h4>
+    <p class="grey-mid mb0 small"><%= nonprofit.blurb %></p>
+    <% if defined? url and url %>
+      <p class="small mb0 mt1"><%= link_to_nonprofit(nonprofit) %></p>
+    <% end %>
+  </div>
+</div>

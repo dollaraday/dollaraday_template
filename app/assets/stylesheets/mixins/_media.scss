@@ -1,0 +1,17 @@
+@mixin media-upto($end) {
+  @media screen and (max-width: ($end - 1)) {
+    @content;
+  }
+}
+
+@mixin media-btwn($start, $end) {
+  @media screen and (min-width: $start) and (max-width: ($end - 1)) {
+    @content;
+  }
+}
+
+@mixin media-from($start) {
+  @media screen and (min-width: $start) {
+    @content;
+  }
+}

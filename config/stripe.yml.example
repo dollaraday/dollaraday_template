@@ -1,0 +1,14 @@
+development:
+  secret_key: sk_test_abc
+  publishable_key: pk_test_def
+  account_id: acct_ghi
+
+test:
+  secret_key: sk_test_abc
+  publishable_key: pk_test_def
+  account_id: acct_ghi
+
+production:
+  secret_key: sk_test_abc
+  publishable_key: pk_test_def
+  account_id: acct_ghi

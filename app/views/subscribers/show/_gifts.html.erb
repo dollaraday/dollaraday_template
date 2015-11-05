@@ -1,0 +1,14 @@
+<h4 class="bold">Gifts</h4>
+
+<%- if current_subscriber.given_gifts.present? -%>
+<ul class="bulleted-list">
+<% current_subscriber.given_gifts.each do |gift| %>
+  <li>
+    <h4 class="mb0"><strong class="bold">$<%= gift.donor.donations.sum(:amount) %></strong> given to <strong class="bold"><%= gift.recipient_name %></strong> <span class="grey-mid">(<%= "#{gift.recipient_email}" %>)</span></h4>
+    <p class="mb0">From <%= gift.start_on.to_s(:short_name) %> until <%= gift.infinite? ? "forever" : gift.finish_on.to_s(:short_name) %></p>
+  </li>
+<% end %>
+</ul>
+<%- else -%>
+<p class="mb0">You haven’t given any gifts yet.</p>
+<%- end -%>

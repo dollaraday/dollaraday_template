@@ -1,0 +1,32 @@
+<%= link_to "Cancel future donations", cancel_donor_url(@current_subscriber), class: "js-form-link small bold red no-wrap", :'data-form-id' => "cancel-future-donations-form" %>
+
+<%= form_tag cancel_donor_url(@current_subscriber), method: :put, id: "cancel-future-donations-form", style: "display: none", class: "js-form mt4" do %>
+
+  <% if auth_method != :card %>
+    <p>To cancel, please verify your credit card info:</p>
+
+    <div class="row verification">
+      <div class="col">
+        <%= label :exp_month, "Credit card expiration", class: "small bold block mb1" %>
+        <div class="select-container mb1 mr1 left">
+          <%= select_tag 'donor_verification[exp_month]', options_for_select((1..12).to_a) %>
+          <span class="ss-icon ss-dropdown"></span>
+        </div>
+        <div class="select-container mb1 mr1 left">
+          <%= select_tag 'donor_verification[exp_year]', options_for_select((Time.zone.now.year..10.years.from_now.year)) %>
+          <span class="ss-icon ss-dropdown"></span>
+        </div>
+      </div>
+      <div class="col mobile-clear">
+        <%= label :last_4, "Last four digits", class: "small bold block mb1" %>
+        <%= text_field_tag 'donor_verification[last_4]', nil, placeholder: "Last 4 Digits", style: "width: 140px;", :autocomplete => "off" %>
+        <a class="ss-icon ss-help tooltip relative" title="<div style='width: 300px'>The last 4 digits of the credit card you used for #{CONFIG[:name]}.</div>"></a>
+      </div>
+    </div>
+  <% end %>
+
+  <p class="error"></p>
+
+  <%= submit_tag "Confirm cancellation", class: "button-solid button-green" %>
+
+<% end %>

@@ -1,0 +1,7 @@
+<p>Hi <%= @subscriber.name %>,</p>
+
+<p>You've changed your email for <%= CONFIG[:name] %>. Now, it's <%= @new_email %>.</p>
+
+<p>If this looks right, you're all set. If you didn't make this change or need to update your email again, you can make changes from <%= link_to 'your account page', subscriber_url(@subscriber, auth: @subscriber.auth_token) %>.</p>
+
+<p>&mdash;<%= CONFIG[:name] %></p>

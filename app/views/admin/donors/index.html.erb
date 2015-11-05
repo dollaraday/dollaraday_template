@@ -1,0 +1,49 @@
+<article id="site_admin_donors" class="bg-grey-light pt4 pb4">
+  <section class="container p2">
+
+    <%= link_to 'Toggle Search', '#', class: 'toggle-search' %>
+    <div class="search-form hide">
+      <%= search_form_for(@q, url: admin_donors_path) do |f| %>
+        <p>
+          <%= f.label :subscriber_email_cont %>
+          <%= f.search_field :subscriber_email_cont %>
+        </p>
+        <p>
+          <%= f.label :card_name_cont, 'Name contains' %>
+          <%= f.search_field :card_name_cont %>
+        </p>
+        <p>
+          <%= f.submit %>
+        </p>
+      <% end %>
+    </div>
+
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th class="bg-grey small white p1">Email</th>
+          <th class="bg-grey small white p1"><%= sort_link(@q, :name, 'Name') %></th>
+          <th class="bg-grey small white p1">Gift?</th>
+          <th class="bg-grey small white p1">Subscribed?</th>
+          <th class="bg-grey small white p1"><%= sort_link(@q, :started_on, 'Started') %></th>
+          <th class="bg-grey small white p1"><%= sort_link(@q, :cancelled_at, 'Cancelled') %></th>
+          <th class="bg-grey small white p1"><%= sort_link(@q, :finished_on, 'Finished') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @donors.each do |donor| %>
+          <tr>
+            <td class="small p1 border-bottom"><%= donor.subscriber.email %></td>
+            <td class="small p1 border-bottom"><%= link_to donor.subscriber.name, admin_donor_url(donor.id) %></td>
+            <td class="small p1 border-bottom"><%= donor.gift.try(:converted_to_recipient?) == false ? "✓" : "" %></td>
+            <td class="small p1 border-bottom"><%= donor.active_subscriber? ? "✓" : "" %></td>
+            <td class="small p1 border-bottom"><%= donor.started_on.to_s(:short_name) %></td>
+            <td class="small p1 border-bottom"><%= donor.cancelled_at.to_date.to_s(:short_name) if donor.cancelled_at %></td>
+            <td class="small p1 border-bottom"><%= donor.finished_on.to_s(:short_name) if donor.finished_on %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </section>
+</article>

@@ -1,0 +1,20 @@
+<%- @page_title = "Your Account" -%>
+<%= render "subscribers/header" %>
+
+<section id="subscriber_show" class="bg-grey-light px-gutter"><div class="margin-auto col-max-9 py4">
+  
+  <div class="bg-white p4 mb2">
+    <%= render "subscribers/show/info" %>
+  </div>
+  <div class="bg-white p4 mb2">
+    <%= render "subscribers/show/gifts" %>
+  </div>
+
+  <%- if current_donor? -%>
+  <div class="bg-white p4 mb2">
+    <%= render "subscribers/show/donations" %>
+  </div>
+  <%- end -%>
+  
+  <%= render "subscribers/show/become_a_donor" unless current_donor? && current_donor.active? %>
+</div></section>

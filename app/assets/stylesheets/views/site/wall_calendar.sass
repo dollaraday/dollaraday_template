@@ -1,0 +1,99 @@
+body#site_wall_calendar
+
+  // Refactor this mess
+  #nonprofits
+    position: relative
+
+    #calendar_nav
+      ul
+        li
+          cursor: pointer
+          &.cycle-pager-active
+            color: $green
+            text-decoration: underline
+          &:hover
+            color: $green
+
+    #calendar_carousel
+      overflow: visible
+      .slide
+        width: 100%
+    table
+      thead
+      tbody
+        td
+          height: 140px
+          border: 1px solid $grey-mid
+          border-bottom: none
+          position: relative
+          width: 14%
+          @media only screen and (max-width: $mobile-breakpoint)
+            height: 100px
+            width: 100%
+            border: none
+            border-bottom: 1px solid $grey-mid
+          a
+            text-decoration: none
+          .day
+            position: absolute
+            top: 20px
+            left: 25px
+            z-index: 1
+          .bg
+            width: 100%
+            height: 100%
+            position: absolute
+            top: 0px
+            left: 0px
+            background-size: cover
+            -webkit-background-size: cover
+            -moz-background-size: cover
+            border: 5px solid #fff
+            background-position: center center
+          .popout
+            -webkit-box-shadow: 0px 0px 10px rgba(0,0,0,0.3)
+            -moz-box-shadow: 0px 0px 10px rgba(0,0,0,0.3)
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3)
+            position: absolute
+            width: 200%
+            height: auto
+            background: #fff
+            z-index: 2
+            top: -30px
+            left: -50%
+            padding: 25px 30px 30px
+            display: none
+            .thumbnail
+              margin: -25px -30px 15px -30px
+              img
+                width: 100%
+                height: auto
+
+          &:hover
+            .popout
+              display: block
+              @media only screen and (max-width: $mobile-breakpoint)
+                display: none
+          &:not(:first-child)
+            border-left: none
+
+          &.today
+            .bg
+              border-color: $green
+          &.has_nonprofit
+            .day
+              color: #fff
+              text-decoration: none
+          &.not_this_month
+            background-color: $grey-super-light
+            .day
+              display: none
+            .popout,
+            .bg
+              display: none
+
+
+
+        tr:last-child
+          td
+            border-bottom: 1px solid $grey-mid

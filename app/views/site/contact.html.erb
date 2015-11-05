@@ -1,0 +1,28 @@
+<article id="content" class="table bg-cover pt8 pb8 mobile-no-padding" style="background-image: url(<%= asset_url("blurred-bg.jpg")%>)">
+
+  <div class="table-cell">
+    <div class="col-center col-8 bg-grey-light">
+      <div class="p4">
+        <h2 class="no-margin mb4">How can we help?</h2>
+        <p class="mb4">If you want to cancel, <%= link_to "Manage account", "#authenticate-overlay", class: "js-modal-overlay-open" %><br/>
+        Have general questions about <%= CONFIG[:name] %>, please read our <%= link_to "FAQ", faq_path %>.<br/>
+        Other questions, press inquiries, or feedback? Please get in touch below.</p>
+        <%= form_tag send_feedback_url, method: :post do -%>
+          <div class="field <%= 'field_with_errors' if params[:email] %>">
+            <%= label_tag :email, "Email" %>
+            <%= text_field_tag :email, params[:email], size: 50, class: "full-width" %>
+          </div>
+
+          <div class="field <%= 'field_with_errors' if params[:message] %>">
+            <%= label_tag :message, "Message", value: params[:message] %>
+            <%= text_area_tag :message, params[:message], rows: 8, cols: 70, class: "full-width" %>
+          </div>
+
+          <p><%= submit_tag "Send", class: "button-solid button-green button-big" %></p>
+        <% end -%>
+      </div>
+    </div>
+
+  </div>
+
+</article>

@@ -1,0 +1,8 @@
+<% nonprofits = Nonprofit.featured_from(Time.zone.now.to_date) %>
+
+<%= f.label :nonprofit %>
+<br />
+<%= f.select :nonprofit_id, nonprofits.map { |c| ["#{c.featured_on} - #{c.name}", c.id] } %>
+<br />
+
+

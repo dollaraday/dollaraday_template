@@ -1,0 +1,15 @@
+test:
+  authentication: plain
+  address: smtp.mailgun.org
+  port: 587
+  domain: yourmailgundomain.mailgun.org
+  user_name: my@email.org
+  password: mypassword
+
+development:
+  authentication: plain
+  address: smtp.mailgun.org
+  port: 587
+  domain: yourmailgundomain.mailgun.org
+  user_name: my@email.org
+  password: mypassword

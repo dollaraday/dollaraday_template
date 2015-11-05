@@ -1,0 +1,11 @@
+<div id="authenticate-overlay" class="modal-overlay">
+  <div class="modal-bg modal-overlay-dark js-modal-overlay-close"></div>
+  <div class="modal-content mobile-table full-height">
+    <div class="mobile-table-cell">
+      <div class="interior js-interior dropshadow relative centered-container margin-auto p4">
+        <a href="#" class="js-modal-overlay-close modal-overlay-close"><%= image_tag "x.svg", width: 20, height: 20 %></a>
+        <%= render partial: "donors/verify_form" %>
+      </div>
+    </div>
+  </div>
+</div>

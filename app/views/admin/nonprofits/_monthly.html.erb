@@ -1,0 +1,52 @@
+<% first_day_of_month = month_date.beginning_of_month %>
+<% last_day_of_month = first_day_of_month.end_of_month %>
+<% first_day = first_day_of_month.beginning_of_week %>
+<% last_day = last_day_of_month.end_of_week %>
+<% weeks = (first_day..last_day).to_a.in_groups_of(7) %>
+<% nonprofits = Nonprofit.where(featured_on: weeks) %>
+<% is_selected_month = @date.month == month_date.month %>
+
+<table cellspacing="2" cellpadding="0" style=" vertical-align: top;; display: inline-block; margin: 0 8px">
+	<tr>
+		<th colspan="7" align="center">
+			<%= link_to "<<", admin_nonprofits_url(month: @date.prev_month.month, year: @date.prev_month.year) if is_selected_month %>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span style="<%= is_selected_month ? 'font-size: 1em;' : 'font-size: 0.5em' %>"><%= Date::MONTHNAMES[first_day_of_month.month] %> <%= first_day_of_month.year %></span>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<%= link_to ">>", admin_nonprofits_url(month: @date.next_month.month, year: @date.next_month.year) if is_selected_month %>
+			<br />
+		</th>
+	</tr>
+	<tr>
+		<td>M</td>
+		<td>T</td>
+		<td>W</td>
+		<td>T</td>
+		<td>F</td>
+		<td>S</td>
+		<td>S</td>
+	</tr>
+	<% weeks.each do |days| %>
+	<tr style="font-size: 12px; ">
+		<% days.each do |day| %>
+			<% if day.month == month_date.month %>
+				<% nonprofit = nonprofits.find { |c| c.featured_on == day } %>
+				<% holidays = Holidays.between(day, day, [:us, :united_nations]).map { |h| h[:name] } %>
+				<td title="<%= holidays.join(", ") %>" style="background-image: url('<%= nonprofit.try(:photo).try(:url, :thumb) %>'); background-color: #CCC; background-size: 100% 100%; position: relative; text-align: center; padding: 0; width: 50px; height: 50px;">
+					<%= nonprofit ? link_to(day.day, edit_admin_nonprofit_url(nonprofit.id), style: "color: #FFF; text-decoration: none; display: block; height: 100%; width: 100%; line-height: 50px") : link_to(day.day, new_admin_nonprofit_url(date: day.to_s)) %>
+					<div style="font-family: 'Lucida Console', Monaco, monospace; position: absolute; left: 2px; bottom: 2px; font-size: 8px; text-align: left; line-height: 8px;">
+						<%= link_to("NO PHOTO", "#", title: holidays, style: "text-decoration: none; display: block;") if nonprofit && nonprofit.photo.blank? %>
+						<%= link_to("HOLIDAYS", "#", title: holidays, style: "text-decoration: none;  display: block;") unless holidays.empty?  %>
+						<%= link_to("PRIVATE!", "#", title: holidays, style: "color: red; text-decoration: none; display: block;") if nonprofit && !nonprofit.is_public? %>
+					</div>
+				</td>
+			<% else -%>
+				<td style="text-align: center; padding: 0; width: 35px; height: 35px;'">
+					<%= day.day %>
+				</td>
+			<% end -%>
+		<% end -%>
+	</tr>
+	<% end %>
+</table>
+

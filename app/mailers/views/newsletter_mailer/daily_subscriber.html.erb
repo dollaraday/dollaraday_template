@@ -1,0 +1,63 @@
+<tr class="hidden-gray"><td>
+  <%= @nonprofit.blurb %>.
+  <% if @nonprofit.description.blank? %>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <% else %>
+  <%= @nonprofit.description.html_safe %>
+  <% end %>
+</td></tr>
+
+<tr>
+  <td colspan="2" width="100%" class="nonprofit">
+    <div class="nonprofit__photo">
+      <%= link_to image_tag(@nonprofit.photo.url(:full), width: "100%", alt: @nonprofit.name, border: 0), nonprofit_url(@nonprofit) %>
+    </div>
+    <div class="nonprofit__body">
+
+      <h2 class="nonprofit__name">
+        <%= link_to @nonprofit.name, nonprofit_url(@nonprofit), class: "nonprofit__link" %>
+      </h2>
+
+      <h3 class="nonprofit__blurb">
+        <%= @nonprofit.blurb %>
+      </h3>
+
+      <div class="divider divider--green"></div>
+
+      <p class="nonprofit__description">
+        <%= @nonprofit.description.blank? ? "<no blurb yet>" : @nonprofit.description.html_safe %>
+      </p>
+
+      <p class="nonprofit__more">
+        Learn more about this amazing nonprofit: <%= link_to_nonprofit(@nonprofit, target: "_blank") %>
+      </p>
+
+      <div class="newsletter__buttons">
+        <div><%= render partial: "shared/button_favorite",  locals: { url: login_and_goto(:add_subscriber_favorite_path, @nonprofit.id) } %></div>
+        <div class="button-followup">
+          <%= raw t "newsletter.favorite.explainer.text", learn_more: link_to(t("newsletter.favorite.explainer.learn_more"), "http://") %>
+        </div>
+      </div>
+
+      <p class="newsletter__social">
+        <%= render partial: "shared/button_tweet",     locals: { url: newsletter_tweet_url(@nonprofit, :subscriber)  } %>
+        <%= render partial: "shared/button_facebook",  locals: { url: newsletter_facebook_url(@newsletter.nonprofit) } %>
+      </p>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td colspan="2" class="newsletter__banner">
+    <p style="newsletter__banner__text">
+      <span class="newsletter__banner__sentence">Support great nonprofits like this, every day.</span>
+
+      <% if false #commenting out donate url for now %>
+      <%= link_to donate_url(email: "%recipient%"), class: "button button--white" do %>
+        Join <%= pluralize(number_with_delimiter(Donor.active.count), "other") %>!
+      <% end %>
+      <% end %>
+
+    </p>
+  </td>
+</tr>

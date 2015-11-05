@@ -1,0 +1,47 @@
+<article id="site_admin_subscribers" class="bg-white">
+  <section class="container p2 js-add-dropshadow">
+
+    <%= link_to 'Toggle Search', '#', class: 'toggle-search' %>
+    <div class="search-form hide">
+      <%= search_form_for(@q, url: admin_subscribers_path) do |f| %>
+        <p>
+          <%= f.label :email_cont %>
+          <%= f.search_field :email_cont %>
+        </p>
+        <p>
+          <%= f.label :name_cont %>
+          <%= f.search_field :name_cont %>
+        </p>
+        <p>
+          <%= f.submit %>
+        </p>
+      <% end %>
+    </div>
+
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th class="bg-grey small white p1"><%= sort_link(@q, :subscribed_at, 'Signed Up') %></th>
+          <th class="bg-grey small white p1"><%= sort_link(@q, :unsubscribed_at, 'Unsubscribed At') %></th>
+          <th class="bg-grey small white p1">Donor?</th>
+          <th class="bg-grey small white p1"><%= sort_link(@q, :email, 'Email') %></th>
+          <th class="bg-grey small white p1"><%= sort_link(@q, :name, 'Name') %></th>
+          <th class="bg-grey small white p1"><%= sort_link(@q, :city, 'Location') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @subscribers.each do |subscriber| %>
+          <tr>
+            <td class="small p1 border-bottom"><%= "#{time_ago_in_words(subscriber.subscribed_at)} ago" %></td>
+            <td class="small p1 border-bottom"><%= subscriber.active? ? "N/A" : "#{time_ago_in_words(subscriber.unsubscribed_at)} ago" %></td>
+            <td class="small p1 border-bottom"><%= subscriber.active_donor? ? "✓" : "" %></td>
+            <td class="small p1 border-bottom"><%= link_to(subscriber.email, admin_subscriber_url(subscriber.id)) %></td>
+            <td class="small p1 border-bottom"><%= link_to(subscriber.name, admin_subscriber_url(subscriber.id)) %></td>
+            <th class="small p1 border-bottom"><%= subscriber.city %>, <%=subscriber.country%>, <%=subscriber.region %></th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </section>
+</article>

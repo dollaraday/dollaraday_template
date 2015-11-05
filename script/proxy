@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+#
+# NFG whitelists IP addresses that can make requests to
+# its servers. You can use this as a simple temporary proxy
+# from your server that's whitelisted to send SOAP requests
+# for your development environment. Beware: don't leave it open to the world
+# for a long time!
+#
+
+require 'webrick'
+require 'webrick/httpproxy'
+
+s = WEBrick::HTTPProxyServer.new({
+  Port: 8008,
+  RequestCallback: Proc.new{|req,res| puts req.request_line, req.raw_header}
+})
+
+trap("INT"){ s.shutdown }
+
+s.start

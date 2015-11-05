@@ -1,0 +1,76 @@
+// Basic Usage:
+//  .container-flex
+//    .row
+//      .col.col-6
+//        Half-width column
+//      .col.col-6
+//        Half-width column
+
+.container
+  max-width: $max-width
+  margin-right: auto
+  margin-left: auto
+
+.row
+  @extend .clearfix
+  margin-right: -$gutter/2
+  margin-left: -$gutter/2
+
+.col,
+.col-right,
+.col-center,
+.mobile-col,
+.tablet-col,
+.tablet-col-right,
+.px-gutter
+  padding-right: $gutter/2
+  padding-left: $gutter/2
+
+// Mobile grid
+// Applies to all screen sizes
+.mobile-col
+  float: left
+
+@for $i from 1 through 12
+  .mobile-col-#{$i}
+    width: percentage($i/12)
+
+// Desktop grid
+// Only applies to screens wider than the breakpoint
+@media (min-width: $mobile-breakpoint)
+  .col
+    float: left
+  .col-right
+    float: right
+  .col-center
+    margin-right: auto
+    margin-left: auto
+  @for $i from 1 through 12
+    .col-#{$i}
+      width: percentage($i/12)
+    .col-max-#{$i}
+      max-width: $i/12 * $max-width
+    .col-pre-#{$i}
+      margin-left: percentage($i/12)
+    .col-post-#{$i}
+      margin-right: percentage($i/12)
+
+// Tablet grid
+// Only applies to screens wider than the breakpoint
+@media (min-width: $tablet-breakpoint - 1)
+  .tablet-col
+    float: left
+  .tablet-col-right
+    float: right
+  .tablet-col-center
+    margin-right: auto
+    margin-left: auto
+  @for $i from 1 through 12
+    .tablet-col-#{$i}
+      width: percentage($i/12)
+    .tablet-col-pre-#{$i}
+      margin-left: percentage($i/12)
+    .tablet-col-post-#{$i}
+      margin-right: percentage($i/12)
+
+

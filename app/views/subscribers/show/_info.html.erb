@@ -1,0 +1,40 @@
+<%= form_for @current_subscriber, html: {autocomplete: "on"} do |s| %>
+  <%# Hide this for now until there is a donor page %>
+  <% fields_for :donor, @current_subscriber.donor do |d| %>
+    <div class="mt2">
+      <%= d.label :public_name, "Donor name", class: "bold" %>
+      <div class="form-field half-width">
+        <%= link_to "edit", "#", class: "right edit-field" %>
+        <span class="display-name"><%= @current_subscriber.donor.card.name %></span>
+        <%= d.text_field :public_name, placeholder: "Display name (Optional. To list you as an awesome donor.)", autocompletetype: "given-name", class: "hide" %>
+      </div>
+    </div>
+  <% end if @current_subscriber.donor && @current_subscriber.donor.active? %>
+
+  <h4 class="bold">Email</h4>
+
+  <% if @current_subscriber.errors.present? %>
+    <p><%= @current_subscriber.errors.full_messages.to_sentence.html_safe %></p>
+  <% end -%>
+
+  <% if @current_subscriber.active? %>
+
+    <% if @current_subscriber.donor.try(:failed?) %>
+      <p class="mb1">We've halted your daily emails because your last donation failed. <%= link_to "Click here to fix!", edit_donor_url(current_donor.subscriber) %></p>
+    <% else %>
+      <p class="mb1">You’re getting the daily email at <%= @current_subscriber.email %>.</p>
+      <%= link_to "Unsubscribe", unsubscribe_subscriber_url(@current_subscriber), method: :put, data: {confirm: "Sure you want to unsubscribe?"}, class: "bold small mr2 red" %>
+    <% end %>
+  <% else %>
+    <p class="mb2">You’re <strong class="bold red">not getting</strong> our daily email at <%= @current_subscriber.email %>.</p>
+    <% button_text = @current_subscriber.never_subscribed? ? "Subscribe to the daily email" : "Resubscribe to the daily email" %>
+    <%= link_to button_text, resubscribe_subscriber_url(@current_subscriber), method: :put, class: "button-solid button-green mr2" %>
+  <% end %>
+
+  <button class="text-button bold small green edit-field" data-toggles="subscriber_show_email">Change email</button>
+
+  <div class="hide mt1" id="subscriber_show_email">
+    <%= s.text_field :email, placeholder: "Email Address", autocompletetype: "email", size: 30, class: "clearfix small-input mobile-full-width fit mt1" %>
+    <%= submit_tag "Save", class: "submit button-solid button-green mobile-full-width mt1" %>
+  </div>
+<% end -%>

@@ -1,0 +1,16 @@
+
+<div class="mb2 clearfix">
+  <div class="left mobile-no-float">
+    <div class="select-container mb1 inline-block">
+      <%= select_tag 'donor_verification[exp_month]', options_for_select((1..12).to_a), tabindex: 2 %>
+      <span class="ss-icon ss-dropdown"></span>
+    </div>
+    <div class="select-container mb1 inline-block">
+      <%= select_tag 'donor_verification[exp_year]', options_for_select((Time.zone.now.year..10.years.from_now.year)), tabindex: 3 %>
+      <span class="ss-icon ss-dropdown"></span>
+    </div>
+  </div>
+  <div class="clearfix pl2 mobile-no-padding">
+    <%= text_field_tag 'donor_verification[last_4]', nil, placeholder: "Last 4 Digits", class: "full-width mb1", :autocomplete => "off", tabindex: 4, maxlength: 4 %>
+  </div>
+</div>

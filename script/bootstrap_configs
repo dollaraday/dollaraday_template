@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# Move config files into place
+pushd config
+for src in *.example
+do
+  dest=`basename $src .example`
+  test -e $dest || cp $src $dest
+done
+popd
+
+# Special case for config/secret.yml
+script/bootstrap_secret

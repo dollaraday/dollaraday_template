@@ -1,0 +1,52 @@
+.c-favorite-btn {
+  border-radius: $border-radius;
+  background: $pink;
+  border: solid 2px $pink;;
+  color: white;
+
+  cursor: pointer;
+  @include prefixer(appearance, none, webkit moz spec);
+  display: inline-block;
+  @include apercu(light);
+  font-size: .9em;
+  line-height: 1;
+  padding: .75em .85em;
+  
+  @include hover {
+    background: darken($pink, 20%);
+    border-color: darken($pink, 20%);
+    outline: none;
+  }
+}
+
+.c-favorite-btn__icon {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1;
+  width: em(19, 18);
+  height: em(18, 18);
+}
+
+.c-favorite-btn__text {
+  vertical-align: middle;
+  line-height: 1;
+  position: relative;
+  top: -.05em; // visual adjustment for text-only version
+
+}
+
+.c-favorite-btn__icon + .c-favorite-btn__text {
+  margin-left: .5em;
+  top: 0;
+}
+
+.c-favorite-btn.c-favorite-btn--remove {
+  color: $grey-dark;
+  background: $grey-light;
+  border-color: $grey-light;
+  @include hover {
+    background:   darken($grey-light, 15%);
+    border-color: darken($grey-light, 15%);
+    color: black;
+  }
+}

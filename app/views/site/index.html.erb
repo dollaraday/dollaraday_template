@@ -1,0 +1,172 @@
+<%= render "nonprofits/newsletter_preview" %>
+
+<section id="hero" class="hero-home bg-grey-light table py4 relative clip">
+  <div class="table-cell full-width">
+    <div class="container py4 relative centered">
+      <div class="col-pre-1 col-post-1 pl2 pr2">
+        <div class="pl8 pr8 mobile-no-padding">
+          <%= image_tag "logo-dark.png", width: "140", class: "block mb4 margin-auto mobile-hide" %>
+
+          <p class="big mb4">
+            <span class="big">
+              <%= CONFIG[:name] %> is a simple new way to discover and support amazing nonprofits. We feature one great organization every day, everyone automatically donates $1.
+              <u class="pointer no-wrap js-hero-down">Learn more</u>.
+            </span>
+          </p>
+
+          <div class="mb4">
+            <%= link_to "Donate with #{donor_count} others", donate_path(ref: default_ref_tag), class: "button-solid button-green button-big mobile-block donate-button" %>
+
+
+            <span class="mobile-hide pl1 pr1">or</span>
+            <span class="mobile-show">&nbsp;</span>
+
+
+            <%= link_to gift_page_url(ref: default_ref_tag), class: "button-outline button-grey button-big mobile-block" do %>
+              <%= image_tag "gift.svg", width: 15, class: "inline-block", style: "margin-right: 5px;" %>
+              <!-- Give as a gift -->
+            <% end %>
+
+            <div class="small pt3 grey">
+              100% US tax-deductible
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= image_tag "hero.jpg", width: "150%", class: "js-hero-image homepage-hero-image mobile-hide relative", :'data-0' => "top: 0px;", :'data-600' => "top: -40px;" %>
+
+    <div class="centered">
+      <b class="block py2 grey">As seen in:</b>
+      <div class="mobile-hide">
+        <%= image_tag "logos/homepage-logos.png", width: "80%", class: "opacity-50" %>
+      </div>
+      <div class="mobile-show">
+        <%= image_tag "logos/homepage-logos-mobile.png", width: "90%", class: "opacity-50" %>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="support" class="js-learn-more-scroll-to table bg-grey pt8">
+  <div class="table-cell pb8">
+    <div class="py4 px6 white">
+      <h1>Support</h1>
+      <p class="big">Every day, we all give a dollar to the day's featured nonprofit. No daily actions &mdash; it's automatic.</p>
+      <p class="big">Our (tiny) daily email will tell you about the nonprofit we’re all supporting together that day.</p>
+      <a href="#email-preview" class="js-modal-overlay-open bold white">Preview today's email</a>
+    </div>
+  </div>
+  <div class="table-cell align-bottom mobile-hide">
+    <div class="iphone relative clip">
+      <div class="js-iphone-overlay iphone-overlay l50p bg-white full-height opacity-0 transition-all absolute clip">
+        <%= image_tag(@todays_nonprofit.photo.url(:full), height: "240", class: "block relative mb2") %>
+        <h5 class="bold centered">Today's nonprofit</h5>
+        <h4 class="centered pl2 pr2"><%= @todays_nonprofit.name %></h4>
+      </div>
+      <%= image_tag "iphone-cropped.png", class: "block margin-auto js-iphone-image", width: "320" %>
+    </div>
+  </div>
+</section>
+
+
+<section id="selection" class="bg-grey-light table">
+  <div class="table-cell calendar-bg">
+    <div class="hide tablet-block">
+      <div class="mobile-table full-height bg-black-40 p6">
+        <div class="mobile-table-cell pt8 pb8">
+          <h1 class="white">Amazing nonprofits</h1>
+          <p class="big mb0">Our team hand picks each nonprofit we feature. We select innovative, high impact organizations that are well-rated by trusted, publicly available resources like Guidestar and Charity Navigator.</p>
+          <p class="big mb0">These nonprofits are doing great work all over the world. We think you’ll love learning about them.</p>
+          <%= link_to calendar_path(ref: default_ref_tag), class: "bold white no-decoration" do %>
+            <span class="ss-icon ss-calendar"></span>
+            <u>See our calendar</u>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-cell tablet-hide p6">
+    <div class="pt8 pb8">
+      <h1>Amazing nonprofits</h1>
+      <p class="big mb0">Our team hand picks each nonprofit we feature. We select innovative, high impact organizations that are well-rated by trusted, publicly available resources like Guidestar and Charity Navigator.</p>
+      <p class="big mb0">These nonprofits are doing great work all over the world. We think you’ll love learning about them.</p>
+      <%= link_to calendar_path(ref: default_ref_tag), class: "bold no-decoration" do %>
+        <span class="ss-icon ss-calendar"></span>
+        <u>See our calendar</u>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+
+<section class="table bg-white js-add-dropshadow">
+
+  <div class="table-cell p6">
+    <div class="pt8 pb8">
+      <h1>Discover</h1>
+      <p class="big">
+        <%= link_to "Anyone can get our daily emails for free!", "#subscribe-overlay", class: "js-modal-overlay-open" %>
+        Why? They can be a gateway for all of us to learn more about great nonprofits, inspiring us to support and engage with these organizations further.
+      </p>
+    </div>
+  </div>
+  <div class="table-cell bg-black mobile-hide">
+    <div class="mobile-table full-height">
+      <% @nonprofits.in_groups_of(4, false).each_with_index do |nonprofit_row, index| %>
+        <div class="mobile-table-row">
+          <% nonprofit_row.each do |nonprofit| %>
+            <div class="mobile-table-cell bg-cover bg-center opacity-50" style="height: 170px; background-image: url(<%= nonprofit.photo.url(:medium)%>)">&nbsp;</div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</section>
+
+<section id="power-of-the-masses" class="bg-green" data-200-top-top="background-color: rgb(102,102,102);" data-300-top-bottom="background-color: rgb(79,187,126);">
+  <div class="container centered pl2 pr2 pt8 pb8">
+    <div class="col-center col-10 tablet-full-width mobile-no-padding">
+      <div class="pt8 pb8">
+        <h2 class="white no-margin">$1 a day can really help. Every 3,000 donors is more than a million dollars a year to nonprofits!</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="pt8 pb4 centered bg-grey-light">
+  <div class="container p2">
+    <div class="row">
+      <div class="tablet-col tablet-col-4 mb4" data-650-top-top="opacity: 0;" data-650-top-bottom="opacity: 1;">
+        <%= image_tag "site/icon-30-days.svg", width: 100, class: "mb2" %>
+        <h3>$30 monthly, US tax-deductible.</h3>
+        <div class="pl2 pr2 tablet-portrait-extra-padding">
+          <p>Donors are charged $30 every 30 days. We make it easy to cancel, and all donations are 100% US tax-deductible.</p>
+        </div>
+      </div>
+      <div class="tablet-col tablet-col-4 mb4" data-600-top-top="opacity: 0;" data-600-top-bottom="opacity: 1;">
+        <%= image_tag "site/icon-nfg.svg", width: 100, class: "mb2" %>
+        <h3>Anonymously processed.</h3>
+        <div class="pl3 pr3 tablet-portrait-extra-padding">
+          <p>To spare your inbox, your email isn’t shared with nonprofits. You can always sign up for more info on any nonprofit’s website.</p>
+        </div>
+      </div>
+      <div class="tablet-col tablet-col-4 mb4" data-550-top-top="opacity: 0;" data-550-top-bottom="opacity: 1;">
+        <%= image_tag "site/icon-nonprofit-too.svg", width: 100, class: "mb2" %>
+        <h3>We’re a nonprofit too!</h3>
+        <div class="pl3 pr3 tablet-portrait-extra-padding">
+          <p><%= CONFIG[:name] %> makes no money, in any way, from donations on this site. <%= CONFIG[:name] %> was built by a team of (almost entirely) volunteers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="pt4 pb2">
+      <%= link_to "Become a donor!", donate_path(ref: default_ref_tag), class: "button-solid button-green button-big mobile-block mb1" %>
+      <span class="inline-block pl2 pr2 mobile-hide">or</span>
+      <%= link_to "Learn more", faq_path(ref: default_ref_tag), class: "button-outline button-grey button-big mobile-block mb1" %>
+    </div>
+  </div>
+</section>

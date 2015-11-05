@@ -1,0 +1,10 @@
+<div class="hero-calendar py3 px2 mb2 mt4">
+  <div class="flag">
+    <div class="table-cell full-width pr2 pl2 py1 mobile-center">
+      <p class="white no-margin"><%= pluralize(number_with_delimiter(donor_count), "donor") %> are supporting great nonprofits like this on <%= CONFIG[:name] %>.</p>
+    </div>
+    <div class="table-cell no-wrap py1 mobile-center">
+      <%= link_to "Become a donor!", donate_url(email: current_subscriber.email), class: "button-solid button-white" %>
+    </div>
+  </div>
+</div>

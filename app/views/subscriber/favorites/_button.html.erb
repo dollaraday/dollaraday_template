@@ -1,0 +1,18 @@
+<div class="c-favoriting js-favoriting <%= classes %>">
+  <%= button_to subscriber_favorites_path(current_subscriber.guid, id: nonprofit_id),
+                method: :post,
+                remote: true,
+                class: 'c-favoriting__button c-favoriting__button--enable js-favoriting-button',
+                title: t('favoriting.add.action'),
+                data: { :'favoriting-action' => 'enable' } do %>
+    <%= inline_svg 'favorite/icon-favorite-white.svg', class: 'c-favoriting__button__icon' %>
+  <% end %>
+  <%= button_to subscriber_favorite_path(current_subscriber.guid, id: nonprofit_id),
+                method: :delete,
+                remote: true,
+                class: 'c-favoriting__button c-favoriting__button--disable js-favoriting-button',
+                title: t('favoriting.remove.action'),
+                data: { :'favoriting-action' => 'disable' } do %>
+    <%= inline_svg 'favorite/icon-favorite-white.svg', class: 'c-favoriting__button__icon' %>
+  <% end %>
+</div>

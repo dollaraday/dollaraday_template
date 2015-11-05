@@ -1,0 +1,14 @@
+<article id="site_admin_mailers" class="bg-grey-light pt4 pb4">
+  <section class="container p2">
+
+		<% @previews.each do |preview| %>
+		<h3><%= link_to preview.preview_name.titleize, "/admin/mailers/#{preview.preview_name}" %></h3>
+		<ul>
+		<% preview.emails.each do |email| %>
+		<li style="text-indent: 2em"><%= link_to email, "/admin/mailers/#{preview.preview_name}/#{email}" %></li>
+		<% end %>
+		</ul>
+		<% end %>
+
+	</section>
+</article>

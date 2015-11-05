@@ -1,0 +1,90 @@
+<article id="site_admin_subscriber">
+  <section class="container p2">
+
+    <h3><%= @subscriber.name %></h3>
+    <h4><%= @subscriber.email %></h4>
+    <h4>
+      <%= @subscriber.ip_address %>
+    <% if @subscriber.country %>
+      (<%= @subscriber.city %>, <%= @subscriber.region %>, <%= @subscriber.country %>) (<%= @subscriber.latitude %>, <%= @subscriber.longitude %>)
+    <% end %>
+    </h4>
+    <h4>Subscribed on <%= @subscriber.subscribed_at.to_date.to_s(:short_name) %></h4>
+    <%= "<h4>Unsubscribed on #{@subscriber.unsubscribed_at.to_date.to_s(:short_name)}</h4>".html_safe if @subscriber.unsubscribed_at %>
+    <% if @subscriber.donor? %>
+      <h4>Started donating on <%= @donor.started_on.to_s(:short_name) %></h4>
+      <% "<h4>Cancelled on #{@donor.cancelled_at.to_date.to_s(:short_name)}</h4>".html_safe if @donor.cancelled_at %>
+      <% "<h4>Finished on #{@donor.finished_on.to_s(:short_name)}</h4>".html_safe if @donor.finished_on %>
+    <% end -%>
+    <br />
+    <p>
+    	<u>Emails:</u><br />
+    	<ul style="font-size: 11px">
+    		<% @subscriber.emails.each do |e| %>
+    		<li>
+          <b><%= "#{e.mailer}##{e.mailer_method} #{'(' + e.newsletter.nonprofit.name + ' Newsletter)' if e.newsletter}" %></b>
+          -- <%= e.to + " -- " if e.to %>
+          sent at <%= e.sent_at %>
+          <%= " -- ".html_safe + link_to("Resend", resend_newsletter_admin_subscriber_url(@subscriber.id, nonprofit_id: e.newsletter.nonprofit.id), method: :put, data: {confirm: "Are you sure you want to resend this newsletter to #{@subscriber.email}?"}) if e.newsletter %>
+        </li>
+    		<% end -%>
+    	</ul>
+    </p>
+
+    <% if @donor.present? -%>
+      <u>Donations:</u><br />
+      <table cellpadding="10"  cellspacing="10" border="0">
+        <tr>
+          <th>NFG Charge Id</th>
+          <th>Stripe Charge Id</th>
+          <th>Scheduled?</th>
+          <th>Executed?</th>
+          <th>Cancelled?</th>
+          <th>Failed?</th>
+          <th>Disputed?</th>
+          <th>Refunded?</th>
+          <th>Nonprofit Amount</th>
+          <th>Fee Amount</th>
+          <th>Total Amount</th>
+        </tr>
+        <% @donor.donations.each do |donation| %>
+          <tr>
+            <td><%= donation.nfg_charge_id %></td>
+            <td><%= donation.stripe_charge_id %></td>
+            <td><%= donation.scheduled_at.to_date.to_s(:short_name) %></td>
+            <td><%= donation.executed_at.to_date.to_s(:short_name) if donation.executed_at %></td>
+            <td><%= donation.cancelled_at.to_date.to_s(:short_name) if donation.cancelled_at %></td>
+            <td><%= donation.failed_at.to_date.to_s(:short_name) if donation.failed_at %></td>
+            <td><%= donation.disputed_at.to_date.to_s(:short_name) if donation.disputed_at %></td>
+            <td><%= donation.refunded_at.to_date.to_s(:short_name) if donation.refunded_at %></td>
+            <td><%= "$%0.2f" % donation.amount.to_f if donation.executed? %></td>
+            <td><%= "$%0.2f" % donation.added_fee.to_f if donation.executed? %></td>
+            <td><%= "$%0.2f" % donation.total.to_f if donation.executed? %></td>
+          </tr>
+        <% end %>
+      </table>
+     <% end -%>
+
+
+    <p>
+      <u>Changes:</u><br />
+      <ul style="font-size: 12px;">
+        <% @subscriber.audits.each do |a| %>
+        <li>
+          <%= "#{a.created_at.to_s(:long)} #{a.action}" %> (<%= link_to("see more", "javascript:$('#audited_changes_#{a.id}').toggle()").html_safe %>)
+          <table style="display: none; padding-left: 20px" id="audited_changes_<%= a.id %>">
+            <% a.audited_changes.each_pair do |key, val| %>
+              <% if val.is_a?(Array) %>
+                <tr><td><strong><%= key %></strong></td><td><%= val[0] %></td><td>~></td><td><%= val[1] %></td></tr>
+              <% elsif !val.blank? %>
+                <tr><td><strong><%= key %></strong></td><td>&nbsp;</td><td>&nbsp;</td><td><%= val.to_s %></td></tr>
+              <% end %>
+            <% end %>
+          </table>
+          <h6 id="audited_changes_<%= a.id %>" style="display:none"><%= a.audited_changes %></h6></li>
+        <% end -%>
+      </ul>
+    </p>
+
+  </section>
+</article>

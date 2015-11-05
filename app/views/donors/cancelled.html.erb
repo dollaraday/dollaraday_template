@@ -1,0 +1,14 @@
+<section class="table full-width full-height">
+  <section class="centered table-cell align-middle">
+    <div class="interior inline-block">
+
+      <p class="big_type">
+        Future donations are now canceled. We’ll send you an email now to confirm.
+        If this was a rash decision and you’ve changed your mind,
+        <%= link_to "click here", subscriber_url(@donor.subscriber.guid, auth: @donor.subscriber.auth_token) %><br />
+        :)
+      </p>
+
+    </div>
+  </section>
+</section>

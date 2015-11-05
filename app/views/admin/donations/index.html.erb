@@ -1,0 +1,27 @@
+<article id="site_admin_donations">
+  <section class="content">
+    <section class="interior">
+
+        <table cellpadding="10">
+          <tr>
+            <th>GUID</th>
+            <th>Donor Email</th>
+            <th>Amount</th>
+            <th>Scheduled At</th>
+            <th>Executed At</th>
+            <th>Nonprofits</th>
+          </tr>
+        <% @donations.each do |donation| %>
+          <tr>
+            <td><%= donation.guid %></td>
+            <td><%= donation.donor.subscriber.email %></td>
+            <td><%= donation.amount %></td>
+            <td><%= donation.scheduled_at %></td>
+            <td><%= donation.executed_at %></td>
+            <td><%= donation.nonprofits.map(&:name).to_sentence %></td>
+          </tr>
+        <% end %>
+      </table>
+    </section>
+  </section>
+</article>

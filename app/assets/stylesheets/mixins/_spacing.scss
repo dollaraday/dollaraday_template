@@ -1,0 +1,69 @@
+// SPACE MIXIN
+// e.g. @include space(padding, 2, top left);
+// e.g. @includ  space(padding);
+@mixin space($prop, $factor: 1, $sides: '', $important: false) {
+  @if $sides == '' {
+    @if $important {
+      #{$prop}: ($base-unit * $factor) !important;
+    }
+    @else {
+      #{$prop}: ($base-unit * $factor);
+    }
+  }
+  @else {
+    @each $side in $sides {
+      @if $important {
+        #{$prop}-#{$side}: ($base-unit * $factor) !important;
+      }
+      @else {
+        #{$prop}-#{$side}: ($base-unit * $factor);
+      }
+    }
+  }
+}
+// PADDING MIXIN
+// e.g. @include p;
+// e.g. @include p(4, left right);
+@mixin p($factor: 1, $sides: '', $important: false) {
+  @include space(padding, $factor, $sides, $important);
+}
+// MARGIN MIXIN
+// e.g. @include m;
+// e.g. @include m(4, left right);
+@mixin m($factor: 1, $sides: '', $important: false) {
+  @include space(margin, $factor, $sides, $important);
+}
+
+// SPACING MIXIN
+// Creates selectors like .p4, .pl2, etc.
+//
+// $prop:           property to use (padding/margin)
+// $selector:       selector to output (p/m)
+// $factors:        factors of the selector (list of numbers, e.g 1 2 )
+// $factor-values:  optional. value of the factor, if different from $factors
+@mixin spacing($prop, $selector, $factors, $factor-values: $factors) {
+  @each $factor in $factors {
+    // get value
+    $factor-value: nth($factor-values, index($factors, $factor));
+    
+    // shorthand
+    .#{$selector}#{$factor} {
+      #{$prop}: $base-unit * $factor-value;
+    }
+    // y
+    .#{$selector}y#{$factor} {
+      #{$prop}-top: $base-unit * $factor-value;
+      #{$prop}-bottom: $base-unit * $factor-value;
+    }
+    // x
+    .#{$selector}x#{$factor} {
+      #{$prop}-left: $base-unit * $factor-value;
+      #{$prop}-right: $base-unit * $factor-value;
+    }
+    // t, b, l, r
+    .#{$selector}t#{$factor} { #{$prop}-top:    $base-unit * $factor-value; }
+    .#{$selector}b#{$factor} { #{$prop}-bottom: $base-unit * $factor-value; }
+    .#{$selector}l#{$factor} { #{$prop}-left:   $base-unit * $factor-value; }
+    .#{$selector}r#{$factor} { #{$prop}-right:  $base-unit * $factor-value; }
+  }
+}

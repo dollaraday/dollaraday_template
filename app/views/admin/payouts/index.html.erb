@@ -1,0 +1,44 @@
+<article id="site_admin_payouts" class="bg-grey-light pt4 pb4">
+  <section class="container p2">
+    <h3>Pending Payouts from Stripe Donations</h3>
+
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th class="bg-grey small white p1">Nonprofit Name</th>
+          <th class="bg-grey small white p1">Featured On</th>
+          <th class="bg-grey small white p1">Stripe Donations</th>
+          <th class="bg-grey small white p1">Stripe Donation Total</th>
+          <th class="bg-grey small white p1">Payouts</th>
+          <th class="bg-grey small white p1">Payouts Total</th>
+          <th class="bg-grey small white p1">Due for Payout</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @nonprofits.each do |nonprofit| %>
+          <tr>
+            <td class="small p1 border-bottom"><%= link_to nonprofit.name, admin_nonprofit_url(nonprofit) %></td>
+            <td class="small p1 border-bottom"><%= nonprofit.featured_on %></td>
+            <td class="small p1 border-bottom"><%= nonprofit.donations.via_stripe.executed.count %></td>
+            <td class="small p1 border-bottom">$<%= nonprofit.stripe_donation_total %></td>
+            <td class="small p1 border-bottom"><%= nonprofit.payouts.count %></td>
+            <td class="small p1 border-bottom">$<%= nonprofit.stripe_payout_total %></td>
+            <td class="small p1 border-bottom">
+              <%=
+                due = (nonprofit.stripe_donation_total - nonprofit.stripe_payout_total)
+                if due > 0.0
+                  button_to "Confirm Payment of $#{due}",
+                    admin_payouts_url(nonprofit_id: nonprofit.id, amount: due),
+                    method: :post,
+                    onclick: %Q!return confirm("Confirm payment of $#{due}?")!
+                end
+              %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </section>
+</article>
+

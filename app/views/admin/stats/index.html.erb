@@ -1,0 +1,159 @@
+<div class="bg-grey-light">
+  <div class="border-bottom">
+    <div class="container centered pb8">
+      <div class="col-center col-10 pt8 pb8">
+        <div class="col col-4">
+          &nbsp;
+        </div>
+        <div class="col col-4">
+          <h1 class="mb1"><%= number_to_currency Donation.executed.pluck(:amount).sum %></h1>
+          <p class="mb0">dollars donated to non-profits
+            <br />
+            + <%= number_to_currency Donation.via_nfg.executed.pluck(:added_fee).sum %> collected in NFG fees
+            <br />
+            + <%= number_to_currency Donation.via_stripe.executed.pluck(:added_fee).sum %> collected in Stripe fees
+          </p>
+        </div>
+        <div class="col col-4">
+          &nbsp;
+        </div>
+      </div>
+      <div class="col-center col-10 pt8 pb8">
+        <div class="col col-4">
+          <h1 class="mb1"><%= Donor.active.count %></h1>
+          <p class="mb0">active donors</p>
+        </div>
+        <div class="col col-4">
+          <h1 class="mb1"><%= Donor.cancelled.active.count %></h1>
+          <p class="mb0">cancelled active donors</p>
+        </div>
+        <div class="col col-4">
+          <h1 class="mb1"><%= Donor.cancelled.inactive.count %></h1>
+          <p class="mb0">cancelled inactive donors</p>
+        </div>
+      </div>
+      <div class="col-center col-10 pt8 pb8">
+        <div class="col col-4">
+          <h1 class="mb1"><%= Subscriber.for_daily_newsletter.count %></h1>
+          <p class="mb0">subscribers (non-donor)</p>
+        </div>
+        <div class="col col-4">
+          <h1 class="mb1"><%= Subscriber.inactive.count %></h1>
+          <p class="mb0">unsubscribed</p>
+        </div>
+        <div class="col col-4">
+          <h1 class="mb1"><%= Donor.active.unsubscribed.count %></h1>
+          <p class="mb0">unsubscribed active donors</p>
+        </div>
+      </div>
+      <div class="col-center col-10 pt8 pb8">
+        <div class="col col-4">
+          <h1 class="mb1"><%= Gift.active.count %></h1>
+          <p class="mb0">active gift recipients</p>
+        </div>
+        <div class="col col-4">
+          <h1 class="mb1"><%= Gift.converted.count %></h1>
+          <p class="mb0">active donors converted from gifts</p>
+        </div>
+        <div class="col col-4">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container clearfix mt4">
+    <div class="col col-3">
+
+      <div class='border-bottom mb3'>
+        <ul>
+          <% Stats::METRICS.keys.sort.each do |metric| %>
+            <li>
+              <%= link_to t("views.metrics.#{metric}"), "##{metric}" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="search-form mt3">
+        <%= form_for(:q, url: admin_stats_path, method: :get) do |f| %>
+          <p>
+            <%= f.label :start_date %>
+            <%= f.date_field :start_date, value: @stats.start_date %>
+          </p>
+          <p>
+            <%= f.label :end_date %>
+            <%= f.date_field :end_date, value: @stats.end_date %>
+          </p>
+          <p>
+            <%= f.submit 'Search', class: 'button-solid button-green' %>
+          </p>
+        <% end %>
+      </div>
+
+    </div>
+
+    <div class="col col-8">
+      <% Stats::METRICS.keys.each do |metric| %>
+        <div id="<%= metric %>" class="mb2">
+          <h3><%= t("views.metrics.#{metric}") %></h3>
+          <div style="height:400px;" class="graph"></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= content_for :javascripts do %>
+    <%= javascript_tag do %>
+      var colors = {
+        light_grey: 'rgba(0, 0, 0, 0.1)',
+        purple: 'rgba(116,96,163,1)',
+        blue: 'rgba(66,117,138,1)',
+        green: 'rgba(53,142,92,1)',
+        red: 'rgba(235,89,93,1)',
+        default_color: 'rgba(53,142,92,1)'
+      };
+
+      var x_labels = <%= @stats.dates.map(&:to_s).to_json.html_safe %>;
+
+      var options = {
+        yaxis: {
+          min: 0,
+          max: null
+        },
+        xaxis: {
+          mode: 'time',
+          minTickSize: [1, 'day'],
+        },
+        grid: {
+          show: true,
+          tickColor: 'rgba(128,152,176,0.3)',
+          borderWidth: 0.5,
+          borderColor: '#ccc',
+          color: '#ccc'
+        },
+        legend: {
+          show: true,
+          noColumns: 0,
+          position: 'ne',
+          margin: [231, -36],
+          backgroundOpacity: 0
+        },
+        series: {
+          color: colors.default_color,
+          lines : {
+            fill: true,
+            color: colors.default_color
+          }
+        }
+      }
+
+      jQuery(document).on('ready', function () {
+      <% @stats.collection.each do |metric, values| %>
+        $.plot(
+          $('#<%= metric %> .graph'), [ <%= values.to_json.html_safe %> ], options
+        );
+      <% end %>
+      });
+    <% end %>
+  <% end %>
+</div>

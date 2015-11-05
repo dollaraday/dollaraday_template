@@ -1,0 +1,21 @@
+.o-cover-image {
+  background-size: 100% auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+}
+
+// Image can be placed inside the o-cover-image element
+// Allows people to save the image
+.o-cover-image__image {
+  display: block;
+  opacity: 0;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.o-cover-image--top {
+  background-position: top center;
+}

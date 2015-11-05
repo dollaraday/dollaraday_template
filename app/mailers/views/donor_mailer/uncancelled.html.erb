@@ -1,0 +1,9 @@
+<p>Hi <%= @donor.subscriber.name %>,</p>
+
+<p>Welcome back! Your donations will resume as usual &mdash; it'll be like you never missed a beat. Your next charge will occur on <%= @donor.donations.pending.last.scheduled_at.to_date.to_s(:short_name) %>.</p>
+
+<p>If this was a mistake, you can make changes from <%= link_to "your account page", email_login_subscriber_url(@donor.subscriber, @donor.subscriber.auth_token), style: "color: #999" %>.</p>
+
+<p>Have a great day!</p>
+
+<p>&mdash;<%= CONFIG[:name] %></p>

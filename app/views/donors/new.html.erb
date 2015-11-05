@@ -1,0 +1,10 @@
+<%
+  days_left = (@donor.started_on - Time.zone.now.end_of_month.to_date).to_i.abs
+  this_month = Date::MONTHNAMES[Time.zone.now.month]
+  next_month = Date::MONTHNAMES[Time.zone.now.next_month.month]
+
+%>
+
+<% @page_title = "Become a donor today" %>
+
+<%= render 'donors/form_container' %>

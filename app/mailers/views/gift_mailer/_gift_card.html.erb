@@ -1,0 +1,18 @@
+<div style="background-color: #4fbb7e; background-image: url(<%= image_url('calendar-bg.gif') %>); background-repeat: repeat; background-position: top left; padding-top: 60px; padding-bottom: 40px; margin-bottom: 30px;">
+  <div style="width: 60%; background-color: #fff; box-sizing: border-box; margin: 0 auto; padding: 20px;">
+    <div style="background-color: #fff; width: 80px; height: 80px; margin-top: -50px; margin-bottom: -30px; margin-left: auto; margin-right: auto; border-radius: 40px; text-align: center; padding-top: 10px;">
+      <%= image_tag "gift.png", width: "40%" %>
+    </div>
+
+    <p style="font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-weight: 600; font-size: 14px; line-height: 24px; color: #444; margin-bottom: 10px;">
+      Hi <%= @gift.recipient_name %>,
+    </p>
+
+    <p style="font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-weight: normal; font-size: 16px; line-height: 24px; color: #444; margin-bottom: 10px;"><%= @gift.message %></p>
+
+    <p style="font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-weight: 600; font-size: 14px; line-height: 24px; color: #444; margin-bottom: 10px;">
+      From, <br/><%= @gift.giver_name %>
+    </p>
+
+  </div>
+</div>

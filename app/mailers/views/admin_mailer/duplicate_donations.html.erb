@@ -1,0 +1,11 @@
+<h2>
+	Duplicate donations found!
+</h2>
+
+<p>These donors have more than 1 donation to at least 1 nonprofit:</p>
+
+<ul>
+	<% @donors.each do |donor| %>
+	<li><%= "#{donor.subscriber.name} (id ##{donor.id})" %></li>
+	<% end %>
+</ul>

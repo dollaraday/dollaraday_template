@@ -1,0 +1,99 @@
+b, .bold {
+  @include weight(medium);
+}
+
+.small {
+  font-size: 0.85em;
+}
+
+.big {
+  font-size: 1.3em;
+  @media screen and (max-width: $mobile-breakpoint) {
+    font-size: 1.218em;
+  }
+}
+
+.normal-size {
+  font-size: 1em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 200;
+  line-height: 1.418em;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 2.5em;
+  @media screen and (max-width: $mobile-breakpoint) {
+    font-size: 1.818em;
+  }
+}
+
+h2 {
+  font-size: 2.318em;
+  @media screen and (max-width: $mobile-breakpoint) {
+    font-size: 1.418em;
+  }
+}
+
+h3 {
+  @extend .big;
+}
+
+h4 {
+  @extend .normal-size;
+}
+
+h5 {
+  @extend .small;
+}
+
+h6 {
+  font-size: 0.382em;
+}
+
+p {
+  margin-bottom: 1.3em;
+}
+
+p.flash {
+  margin-bottom: 0;
+}
+
+.reverse-link {
+  text-decoration: none;
+  @include hover {
+    text-decoration: underline;
+    outline: none;
+  }
+}
+
+.caps {
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.no-decoration {
+  text-decoration: none;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.bulleted-list {
+  list-style-type: disc;
+  padding-left: 1.1em;
+  li {
+    margin-bottom: 0.8em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

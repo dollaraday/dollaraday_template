@@ -1,0 +1,47 @@
+.mobile-show,
+.desktop-show
+  display: none
+
+@media only screen and (max-width: $mobile-breakpoint)
+
+  .mobile-block,
+  .mobile-show
+    display: block
+  .mobile-inline
+    display: inline
+  .mobile-hide
+    display: none
+  .mobile-no-margin
+    margin: 0
+  .mobile-no-padding
+    padding: 0
+  .mobile-center
+    text-align: center
+  .mobile-no-float
+    float: none
+  .mobile-clear
+    clear: both
+  .mobile-full-width
+    width: 100%
+  .mobile-static
+    position: static
+
+@media only screen and (max-width: $tablet-breakpoint)
+  .tablet-center
+    text-align: center
+  .tablet-block
+    display: block
+  .tablet-hide
+    display: none
+  .tablet-full-width
+    width: 100%
+
+@media only screen and (min-width: $desktop-breakpoint)
+  .desktop-show
+    display: block
+
+// This is kind of a hack
+@media only screen and (min-width: $mobile-breakpoint) and (max-width: $tablet-breakpoint)
+  .tablet-portrait-extra-padding
+    padding-left: 5em
+    padding-right: 5em

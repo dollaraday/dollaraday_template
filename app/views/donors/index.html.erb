@@ -1,0 +1,26 @@
+<article id="donors_map_index" class="js-donate-button-hide">
+  <section id="intro" class="pt8 pb8 centered bg-grey">
+    <div class="content">
+      <h1 class="normal-weight mega white no-margin pt1 pb1"><%= CONFIG[:name] %>'s Awesome Donors</h1>
+    </div>
+  </section>
+
+  <section class="bg-white full-width full-height table pt6 pb6 js-add-dropshadow">
+    <div class="container pl2 pr2">
+      <div class="row">
+        <div class="col-center col-8">
+          <ul class="comma-list">
+            <% @donors.each do |donor| %>
+              <li><%= donor.subscriber.name %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white full-width full-height">
+    <div id="map" style="width:80%;height:500px;margin:0 auto;z-index: 0;"></div>
+  </section>
+
+</article>

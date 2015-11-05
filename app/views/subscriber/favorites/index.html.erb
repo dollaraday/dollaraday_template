@@ -1,0 +1,41 @@
+<%- @page_title = "Your Favorite Nonprofits" -%>
+<%= render "subscribers/header" %>
+
+<section id="subscriber_show" class="bg-grey-light px-gutter"><div class="margin-auto col-max-9 py4">
+  <%- if current_subscriber.favorite_nonprofits.blank? -%>
+    <p class="bg-white p4">
+    You don’t have favorite nonprofits yet. You can favorite them from the daily email!
+    </p>
+  <%- else -%>
+    <div class="o-cols o-stack_M--half-gutter">
+    <% current_subscriber.favorite_nonprofits.each_with_index do |nonprofit, i| %>
+      <div class="o-col_m--1-2 o-clear_m--2n o-col_l--1-3 o-clear_l--3n">
+        <%= render partial: "nonprofits/nonprofit_small", locals: { nonprofit: nonprofit } %>
+      </div>
+    <% end %>
+    </div>
+
+    <div class="bg-white mt2 px2 py3 centered">
+      <h4 class="bold mb0"><%= t("account.favorites.share.prompt.heading") %></h4>
+      <p class="mb0"><%= t("account.favorites.share.prompt.description") %></p>
+      <p class="my3">
+        <%=
+          link_to \
+            t("account.favorites.share.twitter.action"),
+            tweet_url(text: t("account.favorites.share.twitter.text", url: subscriber_favorites_url(@subscriber))),
+            class: "button-solid button-twitter button-small"
+        %>
+        <span class="p1 grey u-block_M">or</span>
+        <%=
+          link_to \
+            t("account.favorites.share.facebook.action"),
+            facebook_share_dialog_url(url: subscriber_favorites_url(@subscriber), redirect: subscriber_favorites_url(@subscriber, shared: 'facebook')),
+            class: "button-solid button-facebook button-small"
+        %>
+      </p>
+      <p class="mb0 small grey-mid"><%= t("account.favorites.share.prompt.disclaimer") %></p>
+    </div>
+
+  <%- end -%>
+
+</div></section>

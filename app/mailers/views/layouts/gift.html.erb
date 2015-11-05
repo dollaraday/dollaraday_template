@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title><%= CONFIG[:name] %></title>
+  <meta name="format-detection" content="telephone=no">
+  <%= stylesheet_link_tag "mailer", media: "all" %>
+</head>
+<body class="pl0 pr0">
+  <table style="" cellpadding="0" cellspacing="0" bgcolor="#f7f7f7" width="100%" height="100%" align="center">
+    <tr>
+      <td width="100%" align="center" style="width: 100%; max-width: 650px;">
+        <table cellspacing="0" cellpadding="0">
+          <%= yield %>
+          <tr>
+            <td colspan="2" align="center" style="text-align: center; padding: 40px 0px;">
+              <div style="font-size: 14px; font-weight: 400; color: #444; font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif;">
+                <p style="color: #444; text-decoration: none; display: inline; margin: 0;">&copy;<%= Date.today.year %> <%= CONFIG[:name] %></p>
+                <p style="display: inline; margin: 0; padding-top: 0px; margin-bottom: 30px;" class="mobile-block"><%= CONFIG[:address] %></p><span class="mobile-hide">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <%=
+                  if @newsletter_type == :recipient
+                    link_to "Unsubscribe",
+                      email_login_subscriber_url(@subscriber.guid, @subscriber.auth_token, next: unsubscribe_subscriber_path(@subscriber.guid)),
+                      class: "newsletter__footer__link",
+                      id: "unsubscribe_link"
+                  end
+                %>
+                <%=
+                  link_to "Account",
+                  email_login_subscriber_url(@subscriber.guid, @subscriber.auth_token),
+                  class: "newsletter__footer__link"
+                %>
+                <br />
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

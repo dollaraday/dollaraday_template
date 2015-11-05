@@ -1,0 +1,83 @@
+<article id="site_admin_donor_selected" class="small pb4">
+  <section class="container p2">
+
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        <tr>
+            <td class="small p1 border-bottom align-left">EXECUTED DONATIONS</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.donations.executed.count %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">PENDING DONATIONS</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.donations.pending.count %></td>
+        </tr>
+        <% if @donor.gift.present? %>
+        <tr>
+            <td class="small p1 border-bottom align-left">GIFTED BY</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.gift.giver_name %> ON <%= @donor.gift.start_on.to_s(:short_name) %></td>
+        </tr>
+        <% end %>
+        <tr>
+            <td class="small p1 border-bottom align-left">NAME</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.public_name %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">ID</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.id %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">GUID</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.guid %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">email</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.subscriber.email %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">is_anonymous</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.is_anonymous %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">add_fee</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.add_fee %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">started_on</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.started_on %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">finished_on</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.finished_on %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">cancelled_at</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.cancelled_at %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">uncancelled_at</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.uncancelled_at %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">subscriber</td>
+            <td class="small p1 border-bottom align-left">
+              <a href="/admin/subscribers/<%= @donor.subscriber_id %>"> link </a>
+            </td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">DONOR:ALL</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.to_json %></td>
+        </tr>
+        <tr>
+            <td class="small p1 border-bottom align-left">SUBSCRIBER</td>
+            <td class="small p1 border-bottom align-left"><%= @donor.subscriber.to_json %></td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <br /><br /><br /><br /><br /><br />
+
+  </section>
+</article>
+
+

@@ -1,0 +1,105 @@
+<% @page_title = @nonprofit.name %>
+
+<article id="content" class="<%= dom_id @nonprofit %> pt6 pb6 bg-grey-light">
+  <section class="container">
+    <div class="col-center col-max-8 mobile-no-padding">
+
+      <header class="pl2 pr2 mb4">
+        <div class="flag">
+          <div class="flag-img pr2">
+            <%= render "modules/logo_link", theme: :dark %>
+          </div>
+          <div class="flag-body">
+            <div class="flag">
+              <div class="flag-body">
+                <p class="small border-left pt1 pb1 pl2 pr2 no-margin">
+                  <% if @nonprofit.featured_on == Time.zone.now.to_date %>
+                    Featured nonprofit for today
+                  <% elsif @nonprofit.featured_on > Time.zone.now.to_date %>
+                    Will be featured on <%= @nonprofit.featured_on.to_formatted_s(:short_name) %>
+                  <% else %>
+                    Featured on <%= @nonprofit.featured_on.to_formatted_s(:short_name) %>
+                  <% end %>
+                </p>
+              </div>
+              <%- if not current_subscriber? -%>
+              <div class="flag-img no-wrap align-right">
+                <%= link_to root_path(ref: default_ref_tag), class: "close button-outline button-green button-small mobile-hide" do %>
+                  What's <%= CONFIG[:name] %>?
+                <% end %>
+              </div>
+              <%- end -%>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <%= render 'nonprofits/nonprofit', nonprofit: @nonprofit %>
+
+      <div class="centered bg-white pb2">
+        <%- if current_subscriber? -%>
+          <%- if @nonprofit_is_favorite -%>
+            <%= button_to subscriber_favorite_path(current_subscriber.guid, id: @nonprofit.id), method: :delete, class: "c-favorite-btn c-favorite-btn--remove mb4" do %>
+              <%= inline_svg 'favorite/icon-favorite-pink.svg', class: "c-favorite-btn__icon" %>
+              <span class="c-favorite-btn__text">Remove from Favorites</span>
+            <% end %>
+          <%- else -%>
+            <%= button_to subscriber_favorites_path(current_subscriber.guid, id: @nonprofit.id), method: :post, class: "c-favorite-btn mb4" do %>
+              <%= inline_svg 'favorite/icon-favorite-white.svg', class: "c-favorite-btn__icon" %>
+              <span class="c-favorite-btn__text">Add to Favorites</span>
+            <% end %>
+          <%- end -%>
+        <% end %>
+      </div>
+
+      <div class="mt4 px2">
+        <footer class="c-native-share">
+          <p class="reset c-native-share__prompt">
+            Spread the word about <strong class="c-native-share__prompt__emphasis"><%= @nonprofit.name %></strong>
+          </p>
+          <div class="c-native-share__buttons">
+            <div class="c-native-share__button c-native-share__button--facebook">
+              <%= content_tag :div, "",
+                    class: "fb-share-button",
+                    data: {
+                      href: nonprofit_url(@nonprofit),
+                      layout: "box_count"
+                    } %>
+            </div>
+            <div class="c-native-share__button c-native-share__button--twitter">
+              <%= link_to "Tweet",
+                    tweet(text: t("nonprofit.show.share.twitter", nonprofit: @nonprofit.twitter_or_name), related: @nonprofit.twitter),
+                    class: "twitter-share-button",
+                    data: {
+                      dnt: "true",
+                      count: "vertical"
+                    } %>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <%- if not current_subscriber? -%>
+      <aside class="bg-pattern white mt4 px-gutter py3 centered">
+        <div class="big">
+          <p class="mb0 bold">Want to discover and support amazing nonprofits?</p>
+          <p class="mb2">Join <%= donor_count %> others on <span class="no-wrap"><%= CONFIG[:name] %>!</span></p>
+        </div>
+        <p class="mb0"><%= link_to "Learn More", root_path(ref: default_ref_tag), class: "button-outline button-white button-hover-black" %></p>
+      </aside>
+      <%- end -%>
+
+    </div>
+  </section>
+  <% if @previous_day %>
+    <%= link_to nonprofit_path(@previous_day), class: "next_prev prev desktop-show" do %>
+      <%= image_tag "arrow-left.svg", height: "60", class: "transition-all" %>
+    <% end %>
+  <% end %>
+  <% if @next_day %>
+    <%= link_to nonprofit_path(@next_day), class: "next_prev next desktop-show" do %>
+      <%= image_tag "arrow-right.svg", height: "60", class: "transition-all" %>
+    <% end %>
+  <% end %>
+
+</article>

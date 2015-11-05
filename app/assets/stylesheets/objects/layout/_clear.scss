@@ -1,0 +1,14 @@
+.o-clear {
+  @include each-bp-from {
+    clear: both;
+    
+    &--2n:nth-child(n)    { clear: none; }
+    &--2n:nth-child(2n+1) { clear: both; }
+
+    &--3n:nth-child(n)    { clear: none; }
+    &--3n:nth-child(3n+1) { clear: both; }
+
+    &--4n:nth-child(n)    { clear: none; }
+    &--4n:nth-child(4n+1) { clear: both; }
+  }
+}

@@ -1,0 +1,43 @@
+<%- @page_title = "All Your Donations" -%>
+<%= render "subscribers/header" %>
+
+<section id="subscriber_show" class="bg-grey-light px-gutter"><div class="margin-auto col-max-9 py4">
+  <% if current_donor? %>
+    <%- current_donor.nonprofits_donated_to.group_by { |n| n.featured_on.year }.each do |year, year_nonprofits| -%>
+      <h3 class="bold"><%= year %></h3>
+      <%- year_nonprofits.group_by { |n| n.featured_on.month }.each do |month, month_nonprofits| -%>
+      <div class="row mb2">
+        <div class="col col-2">
+          <h4 class="bold pt2"><%= t("date.month_names")[month] %></h4>
+        </div>
+        <div class="col col-10">
+          <ul class="bg-white p2 c-np-text-list">
+            <% month_nonprofits.each do |nonprofit| %>
+            <li class="o-media c-np-text-list__item">
+              <div class="o-media__item c-np-text-list__item__date o-ordinal">
+                <span class="o-ordinal__number"><%= nonprofit.featured_on.day %></span><span class="o-ordinal__suffix"><%= nonprofit.featured_on.day.ordinal %></span>
+              </div>
+              <div class="o-media__body">
+                <div class="o-media o-media--right">
+                  <div class="o-media__item ml1">
+                    <%= render_favoriting_button nonprofit.id, @favorite_nonprofits_ids.include?(nonprofit.id), class: 'c-np-text-list__item__favoriting' %>
+                  </div>
+                  <div class="o-media__body">
+                    <h5 class="reset c-np-text-list__item__name">
+                      <%= link_to nonprofit.name, nonprofit, class: "c-np-text-list__item__name__link" %>
+                    </h5>
+                    <p class="reset c-np-text-list__item__blurb">
+                      <%= nonprofit.blurb %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <%- end -%>
+    <%- end -%>
+  <% end %>
+</div></section>

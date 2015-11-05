@@ -1,0 +1,12 @@
+<p>Hi <%= @donor.subscriber.name %>,</p>
+
+<p>
+  Oops! Looks like the credit card you used didn’t go through — maybe you typed a number
+  wrong or entered the expiration date incorrectly? It’s easy to fix, though. Just re-enter
+  your billing details <%= link_to 'here', email_login_subscriber_url(@donor.subscriber, @donor.subscriber.auth_token, next: edit_donor_url(@donor.subscriber)) %>.
+  You’ll be a <%= CONFIG[:name] %> donor in no time.
+</p>
+
+<p>If you have questions, just reply to this email. We’re happy to help out!</p>
+
+<p>&mdash;<%= CONFIG[:name] %></p>

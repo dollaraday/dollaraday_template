@@ -1,0 +1,29 @@
+<span style="color: #f7f7f7; font-size: 0;"><%= @gift.message %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+<tr>
+  <td align="left">
+    <%= link_to image_tag("logo-dark.png", width: 140, class: "block", style: "margin-top: 20px; margin-bottom: 30px;", border: 0, alt: nil), root_url %>
+  </td>
+  <td align="right">
+    <%= link_to "Learn more", root_url, target: "_blank", style: "font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; font-weight: bold; font-size: 14px; color: #666666" %>
+  </td>
+</tr>
+<tr>
+  <td colspan="2" align="left" width="100%" style="max-width: 650px;">
+
+    <%= render "gift_card", donor: @donor %>
+
+    <div style="padding-left: 20px; padding-right: 20px;">
+
+      <p style="font-size: 24px; line-height: 32px; font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; color: #000; font-weight: normal; margin-top: 0px; margin-bottom: 20px;">
+        You're now one of <%= number_with_delimiter(Donor.active.count) %> — and growing! — donors supporting a different nonprofit, every day, on <%= CONFIG[:name] %>.</p>
+
+      <p style="font-size: 16px; line-height: 24px; font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; color: #000; font-weight: normal; margin-top: 0px; margin-bottom: 20px;">As part of the deal, we'll send you a tiny daily email telling you a little more about each organization. It's an incredibly easy way to discover new, amazing nonprofits.</p>
+      <p style="font-size: 16px; line-height: 24px; font-family: 'Apercu', Helvetica Neue, Helvetica, sans-serif; color: #000; font-weight: normal; margin-top: 0px; margin-bottom: 40px;">
+      Today your dollar is going to <%= link_to @newsletter.nonprofit.name, nonprofit_url(@newsletter.nonprofit), style: "font-weight: bold; color: #000;" %></p>
+    </div>
+
+    <div style="height: 1px; background-color: #ddd;"></div>
+
+  </td>
+</tr>

@@ -1,0 +1,30 @@
+<div class="admin_bar small white bg-black-80 fixed full-width b0 l0 z-index-max">
+  <div class="container p2">
+    <div class="clearfix">
+      <p class="signed_in_as left no-margin">
+        Signed in as <%= link_to current_user.email, edit_user_registration_path, class: "white" %><br />
+      </p>
+      <nav class="links right">
+        <%= link_to_unless_current "Nonprofits", admin_nonprofits_url, class: "white" %>
+        &nbsp;&nbsp;&nbsp;
+        <% if @nonprofit and !@nonprofit.new_record? %>
+          <%= link_to "Edit Nonprofit", edit_admin_nonprofit_url(@nonprofit.id), class: "white" %>
+          &nbsp;&nbsp;&nbsp;
+        <% end %>
+        <%= link_to_unless_current "Stats", admin_stats_url, class: "white" %>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to_unless_current "Emails", "/admin/mailers", class: "white" %>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to_unless_current "Subscribers", admin_subscribers_url, class: "white" %>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to_unless_current "Donors", admin_donors_url, class: "white" %>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to_unless_current "Payouts", admin_payouts_url, class: "white" %>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to_unless_current "Delayed Jobs", admin_delayed_jobs_url, class: "white" %>
+        &nbsp;&nbsp;&nbsp;
+        <%= link_to "Logout", destroy_user_session_url, method: :delete, class: "white" %>
+      </nav>
+    </div>
+  </div>
+</div>

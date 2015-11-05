@@ -1,0 +1,30 @@
+<%-
+  if @subscriber.name.squish.present?
+    @page_title = "#{@subscriber.name.given_name.possessive} Favorite Nonprofits"
+  else
+    @page_title = "My Favorite Nonprofits"
+  end
+  meta_tag "og:title", "#{@page_title} on #{CONFIG[:name]}"
+  meta_tag "og:url", subscriber_favorites_url(@subscriber)
+-%>
+
+<header class="bg-grey-light px-gutter"><div class="margin-auto col-max-9">
+  <h2 class="mt6 mb4"><%= @page_title %></h2>
+</div></header>
+
+<section id="subscriber_show" class="bg-grey-light px-gutter"><div class="margin-auto col-max-9 pb4">
+  <%- if @subscriber.favorite_nonprofits.blank? -%>
+    <p class="bg-white p4">
+    <%= @subscriber.name.squish.present? ? @subscriber.name.given_name : "Your friend" %> doesn’t have any favorite nonprofits yet.
+    </p>
+  <%- else -%>
+    <div class="o-cols o-clear_m--2 o-clear_l--3 o-stack_M--half-gutter">
+    <% @subscriber.favorite_nonprofits.each_with_index do |nonprofit, i| %>
+      <div class="o-col-m--1-2 o-col-l--1-3">
+        <%= render partial: "nonprofits/nonprofit_small", locals: { nonprofit: nonprofit, url: true } %>
+      </div>
+    <% end %>
+    </div>
+  <%- end -%>
+
+</div></section>

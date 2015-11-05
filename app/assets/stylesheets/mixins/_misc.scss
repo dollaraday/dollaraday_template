@@ -1,0 +1,28 @@
+@mixin hover {
+  &:hover, &:focus {
+    @content;
+  }
+}
+@mixin u-reverse-link {
+  text-decoration: none;
+  @include hover {
+    text-decoration: underline;
+  }
+}
+@function em($pxval, $base: $base-font-size) {
+  @if not unitless($pxval) {
+    $pxval: strip-units($pxval);
+  }
+  @if not unitless($base) {
+    $base: strip-units($base);
+  }
+  @return ($pxval / $base) * 1em;
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

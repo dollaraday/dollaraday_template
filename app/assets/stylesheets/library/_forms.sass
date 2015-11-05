@@ -1,0 +1,165 @@
+/* Forms */
+
+input:not([type=submit]),
+textarea
+  @extend .transition-all
+  @extend .rounded
+  background-clip: padding-box
+  background-color: transparent
+  border: 2px solid $grey
+  padding: 0.8em 1em
+  font-size: 1em
+  font-weight: 400
+  font-family: $apercu-light
+  &.small-input
+    border-width: 1px
+    @extend .small
+    padding: 0.618em
+  &:focus
+    border-color: $grey-mid
+    outline: none
+
+.empty-input
+  border-bottom: 2px solid $grey
+  input[type=text]
+    border: none
+    border-radius: 0
+    color: $green
+    padding-left: 0
+    @extend .big
+  &.focus
+    border-color: $green
+  ::-webkit-input-placeholder
+    color: $grey
+
+.select-container
+  position: relative
+  display: inline-block
+  background-color: #fff
+  cursor: pointer
+  select
+    font-family: $apercu-light
+    @extend .no-appearance
+    @extend .rounded
+    position: relative
+    z-index: 1
+    background-color: transparent
+    padding: 0.8em $base-unit*3 0.8em $base-unit*1.5
+    border: 2px solid $grey
+    color: $grey
+    outline: none
+    width: 100%
+    font-size: 1em
+    font-weight: 400
+    cursor: pointer
+    &:focus
+      border-color: $grey-mid
+  .ss-icon
+    position: absolute
+    top: 18px
+    right: 10px
+    font-size: 0.6em
+    color: $grey
+
+.flash,
+.alert
+  @extend .py2
+  @extend .transition-all
+  @extend .bg-grey
+  color: white
+  text-align: center
+
+.alert
+  background: $red
+  color: #fff
+
+.error, .payment-errors
+  color: $red
+
+.field_with_errors
+  display: inline
+  label
+    color: $red
+  input,
+  textarea
+    background-color: lavenderblush
+    border: 2px solid $red
+  select,
+  ::-webkit-input-placeholder
+    color: $red
+  .hide-on-error
+    display: none
+
+input.parsley-error
+  background-color: #fff
+  border: 1px solid $red
+  &::-webkit-input-placeholder
+    color: $red
+
+input.parsley-success
+  // ?
+
+
+.select-box
+  position: relative
+  z-index: 1001
+  .title
+    border: 3px solid $grey
+    padding: 5px 20px
+    cursor: pointer
+  .dropdown
+    position: absolute
+    border-left: 3px solid $grey
+    border-right: 3px solid $grey
+    border-bottom: 3px solid $grey
+    left: 0px
+    top: 45px
+    padding: 5px 20px
+    min-width: 100%
+    background-color: #fff
+    li
+      display: block
+  &.open
+    .title
+      border-bottom: 3px solid transparent
+    .dropdown
+      display: block
+
+.field
+  margin-bottom: 15px
+  label
+    margin-bottom: 5px
+    display: block
+
+.bottom-padding-fix
+  padding-bottom: 1px
+
+.tooltop-offset
+  .ss-icon
+    position: relative
+    top: -1px
+
+
+// :not(#foo) > is a rule filter to block browsers that don't support that selector from applying rules they shouldn't
+
+div:not(#foo) > input[type="checkbox"]
+  opacity: 0
+  float: left
+  width: 25px
+  height: 25px
+  display: block
+  cursor: pointer
+  position: absolute
+  & + label
+    margin: 0
+    clear: none
+    padding: 0 0 0 40px
+    cursor: pointer
+    background: image-url('checkout/checkbox.png') left center no-repeat
+    background-size: 25px
+    display: block
+    width: 92%
+    font-size: 0.9em
+    min-height: 25px
+  &:checked + label
+    background-image: image-url('checkout/checkbox-checked.png')

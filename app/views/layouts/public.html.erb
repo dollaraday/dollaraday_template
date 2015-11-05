@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+<head>
+  <%# Head %>
+  <%= render "layouts/partials/head" %>
+  <%# Extra Head %>
+  <%= yield :extra_head %>
+</head>
+<body id="<%= page_id %>" class="<%= @theme %> max-width-wrapper bg-grey-light full-height">
+  
+  <%# 3rd Party Scripts %>
+  <%= render "layouts/partials/scripts" %>
+
+  <%# Page header %>
+  <%= render "layouts/partials/header" unless @hide_header %>
+  
+  <%# Content %>
+  <%= yield %>
+
+  <%= render "layouts/partials/cta_know_more" %>
+
+  <%# Footer %>
+  <%= render "layouts/partials/footer" unless @hide_footer %>
+  
+  <%# Extra JS %>
+  <%= yield :javascripts %>
+</body>
+</html>

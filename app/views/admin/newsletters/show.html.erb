@@ -1,0 +1,8 @@
+<article id="site_admin_newsletters_show">
+
+    	<h3>Tomorrow's Newsletter</h3>
+
+    	<%= params[:type] == 'donor' ? @newsletter.donor_generated : @newsletter.subscriber_generated %>
+
+
+</article>

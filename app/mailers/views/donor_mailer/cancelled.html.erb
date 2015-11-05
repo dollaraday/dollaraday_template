@@ -1,0 +1,7 @@
+<p>Hi <%= @donor.subscriber.name %>,</p>
+
+<p>Your future donations have been cancelled. Your current donation cycle will end on <%= @last_day.to_s(:short_name) %>, after which you will not be charged again.</p>
+
+<p>If this was a mistake or you change your mind, just <%= link_to "click here", email_login_subscriber_url(@donor.subscriber, @donor.subscriber.auth_token), style: "color: #999" %>.</p>
+
+<p>&mdash;<%= CONFIG[:name] %></p>

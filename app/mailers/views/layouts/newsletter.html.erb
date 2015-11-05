@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= CONFIG[:name] %></title>
+  <meta name="format-detection" content="telephone=no">
+  <%= stylesheet_link_tag "mailer", media: "all" %>
+</head>
+<body>
+  <table class="body" cellpadding="0" cellspacing="0" width="100%" height="100%" align="center">
+    <tr>
+      <td width="100%" align="center" class="column">
+        <table cellspacing="0" cellpadding="0">
+          <%= yield %>
+          <tr>
+            <td colspan="2" align="center" class="newsletter__footer">
+              <div class="newsletter__footer__text">
+                <p>&copy;<%= Time.now.year %> <%= CONFIG[:name] %></p>
+                <p><%= CONFIG[:address] %></p>
+                <p>
+                  <%= link_to "Unsubscribe",  login_and_goto(:unsubscribe_subscriber_path), class: "newsletter__footer__link", id: "unsubscribe_link" %>
+                  <%= link_to "Account",      login_and_goto(:subscriber_path),             class: "newsletter__footer__link" %>
+                  <%= link_to "Favorites",    login_and_goto(:subscriber_favorites_path),   class: "newsletter__footer__link" %>
+                </p>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

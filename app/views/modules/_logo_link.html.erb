@@ -1,0 +1,11 @@
+<% theme == :dark %>
+
+<%= link_to root_path(ref: default_ref_tag), class: "logo-link #{'hover' unless controller.controller_name == 'site' and controller.action_name == 'index'}" do %>
+  <% if theme == :light %>
+    <%= image_tag "logo.png", width: "140", class: "block transition-all" %>
+    <span class="small bold white">&larr; Homepage</span>
+  <% else %>
+    <%= image_tag "logo-dark.png", width: "140", class: "block transition-all dark" %>
+    <span class="small bold green">&larr; Homepage</span>
+  <% end %>
+<% end %>

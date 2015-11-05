@@ -1,0 +1,37 @@
+.c-np-text-list {
+
+}
+
+.c-np-text-list__item {
+  margin: 0;
+  line-height: 1.25;
+  p { margin: 0; }
+}
+
+.c-np-text-list__item + .c-np-text-list__item {
+  margin-top: 1em;
+}
+
+.c-np-text-list__item__date {
+  display: inline-block;
+  width: 2.5em;
+  color: $grey-mid;
+}
+
+.c-np-text-list__item__name {
+  @include weight(medium);
+}
+
+.c-np-text-list__item__name__link {
+  @include u-reverse-link;
+}
+
+.c-np-text-list__item__blurb {
+  font-size: .85em;
+  color: $grey;
+}
+
+.c-np-text-list__item__favoriting {
+  margin-right: .5em;
+  margin-top: .5em;
+}

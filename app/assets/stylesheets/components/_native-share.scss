@@ -1,0 +1,48 @@
+@include bp-upto(s) {
+  .c-native-share {
+    text-align: center;
+  }
+  .c-native-share__buttons {
+    margin-top: 1em;
+  }
+}
+
+@include bp-from(s) {
+
+  .c-native-share {
+    overflow: hidden;
+  }
+
+  .c-native-share__prompt {
+    float: left;
+    width: 60%;
+  }
+
+  .c-native-share__buttons {
+    width: 40%;
+    float: left;
+    text-align: right;
+  }
+}
+
+.c-native-share__prompt__emphasis {
+  @include weight(medium);
+  display: block;
+  font-size: 1.2em;
+  line-height: 1;
+  margin-top: .25em;
+}
+
+.c-native-share__buttons {
+  line-height: 1;
+}
+
+.c-native-share__button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.c-native-share__button--facebook {
+  position: relative;
+  top: -1px;
+}

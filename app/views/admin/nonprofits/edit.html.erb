@@ -1,0 +1,31 @@
+<%
+  executed_count = @nonprofit.donations.executed.count
+  failed_count = @nonprofit.donations.failed.count
+
+  stripe_donations = @nonprofit.donations.via_stripe.all
+%>
+
+<article id="admin_nonprofits_edit" class="pt4 pb4 bg-grey-light">
+  <section class="container p4">
+
+    <% if (executed_count + failed_count > 0) %>
+      <div style="margin: 10px 0; display: inline-block; background: lemonchiffon; border: solid 3px black; padding: 10px ">
+        This nonprofit has <%= pluralize(executed_count, "executed donation") %> and <%= pluralize(failed_count, "failed donation") %>.
+      </div>
+    <% end %>
+
+    <%= form_for(@nonprofit, url: admin_nonprofit_url(@nonprofit.id), method: :put) do |f| %>
+      <%= render "form", f: f %>
+      <br />
+      <%= f.submit :save, class: "button-solid button-green" %>
+      <% if @nonprofit.destroyable? %>
+        <span class="small ml1">
+          or <%= link_to "Delete", admin_nonprofit_url(@nonprofit.id), :method => :delete, :confirm => "are you sure?" %>
+        </span>
+      <% end -%>
+    <% end %>
+
+  </section>
+</article>
+
+

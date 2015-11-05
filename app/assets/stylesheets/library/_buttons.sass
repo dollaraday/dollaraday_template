@@ -1,0 +1,108 @@
+.button
+  @extend .pointer
+  @extend .no-appearance
+  @extend .no-margin
+  @extend .transition-all
+  @extend .rounded
+  @extend .inline-block
+  +apercu(medium)
+  @extend .small
+  @extend .no-decoration
+  border: 2px solid
+  padding: 0.618em 1.318em
+
+.button-solid
+  @extend .button
+  @extend .bg-grey
+  @extend .white
+  border-color: $grey
+
+  &.button-green
+    @extend .bg-green
+    @extend .white
+    border-color: $green
+    &:hover
+      color: #fff
+      background-color: darken($green, 10)
+      border-color: darken($green, 10)
+
+  &.button-white
+    border-color: #fff
+    background-color: #fff
+    color: $green
+    &:hover
+      color: #fff
+      border-color: #000
+      background-color: #000
+
+  &.button-facebook
+    background-color: $color-facebook
+    border-color: $color-facebook
+    color: #fff
+
+  &.button-twitter
+    background-color: $color-twitter
+    border-color: $color-twitter
+    color: #fff
+
+
+.button-outline
+  @extend .button
+  @extend .grey
+  border-color: $grey
+
+  &.button-grey:hover
+    border-color: $grey-dark
+    color: $grey-dark
+
+  &.button-green
+    border-color: $green
+    color: $green
+    &:hover
+      color: darken($green, 10)
+      border-color: darken($green, 10)
+
+  &.button-white
+    border-color: #fff
+    color: #fff
+    &:hover
+      color: $green
+      border-color: $green
+
+  &.button-hover-black:hover
+    color: $grey-dark
+    border-color: $grey-dark
+
+.button-block
+  @extend .block
+
+.button-big
+  @extend .normal-size
+  padding: 0.8em 2em
+
+.button-small
+  padding: 0.4em 0.8em
+
+
+
+.reset-button
+  @extend .no-appearance
+  @extend .pointer
+  +apercu(light)
+  font-size: 0.85em
+  background: transparent
+  text-decoration: underline
+  border: none
+  &:hover
+    text-decoration: none
+
+.text-button
+  +prefixer(appearance, none, webkit moz spec)
+  border: none
+  text-decoration: underline
+  background: none
+  cursor: pointer
+
+.text-button:hover,
+.text-button:focus
+  @extend a:hover

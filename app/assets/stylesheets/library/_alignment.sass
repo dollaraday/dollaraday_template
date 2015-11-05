@@ -1,0 +1,30 @@
+// Alignments
+
+.align-middle
+  vertical-align: middle
+.align-bottom
+  vertical-align: bottom
+.centered
+  text-align: center
+.align-right
+  text-align: right
+.align-left
+  text-align: left
+
+
+// Floats
+.left
+  float: left
+.right
+  float: right
+.clear
+  clear: both
+.clearfix
+  overflow: hidden
+  &:before,
+  &:after
+    content: " "
+    display: table
+  &:after
+    clear: both
+  *

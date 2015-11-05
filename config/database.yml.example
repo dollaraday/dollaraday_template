@@ -1,0 +1,11 @@
+defaults: &defaults
+  adapter: mysql2
+  username: root
+
+development:
+  database: yourapp_test
+  <<: *defaults
+
+test:
+  database: yourapp_test
+  <<: *defaults

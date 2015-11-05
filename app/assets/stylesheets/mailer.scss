@@ -1,0 +1,299 @@
+@import "library/variables";
+@import "mixins/spacing";
+
+body,
+.body {
+  margin: 0px !important;
+  padding: 0px !important;
+  background-color: $grey-super-light;
+}
+
+body > table {
+  background: $grey-super-light;
+}
+
+@media screen and (max-width: 640px) {
+  .mobile-block   { display: block !important; }
+  .mobile-hide    { display: none !important; }
+  .mobile-padding { padding-left: 20px !important; padding-right: 20px !important; padding-bottom: 20px !important; }
+}
+
+$type-email: "Helvetica Neue", "Helvetica", "Calibri", sans-serif;
+$c-email-headings: #000;
+$c-email-body: #444;
+
+@include spacing(padding, p, 0 1 2 3 4 5 6);
+@include spacing(margin,  m, 0 1 2 3 4 5 6);
+
+.c-email-body {
+  color: $c-email-body;
+}
+
+.d-i {
+  display: inline;
+}
+
+.t-center,
+%t-center {
+  text-align: center;
+}
+
+.column,
+%column {
+  width: 100%;
+  max-width: 650px;
+}
+
+.hidden {
+  font-size: 0;
+  display: none;
+}
+
+.hidden-gray {
+  font-size: 0px;
+  color: #f7f7f7;
+}
+
+.newsletter__header {
+  font-family: $type-email;
+  font-size: 24px;
+  color: black;
+  font-weight: normal;
+  margin: 0;
+  @extend .py4;
+  @extend .px2;
+}
+
+.divider {
+  width: 40px;
+  height: 3px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+.divider--green {
+  background-color: #4fbb7e;
+}
+
+.newsletter__banner {
+  @include p(2, top bottom);
+  @include p(0, left right);
+  text-align: center;
+  color: #fff;
+  font-family: $type-email;
+  background-image: image-url('calendar-bg.gif');
+  background-repeat: repeat;
+  background-position: center center;
+  background-color: #4fbb7e;
+}
+
+.newsletter__banner__text {
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center;
+}
+
+.newsletter__banner__sentence {
+  display: inline-block;
+  vertical-align: middle;
+  // max-width: 500px;
+  margin-right: 15px;
+}
+
+@media screen and (max-width: 640px) {
+  .newsletter__banner__sentence {
+    display: block !important;
+    margin-right: 0 !important;
+    @include p(1, left right, true);
+    @include p(2, bottom, true)
+  }
+}
+
+.newsletter__footer {
+  text-align: center;
+  @extend .px0;
+  @extend .py3;
+}
+
+.newsletter__footer__text {
+  font-family: $type-email;
+  color: $c-email-body;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.newsletter__footer__text > p {
+  margin: 0;
+  padding: 0;
+  line-height: 16px;
+}
+
+.newsletter__footer__text > p + p {
+  margin-top: 10px;
+}
+
+.newsletter__footer__link {
+  color: $c-email-body;
+  white-space: nowrap;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.nonprofit {
+  @extend .column;
+  background: white;
+}
+
+.nonprofit__photo {
+  @extend %column;
+  width: 100%;
+  max-width: 650px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.nonprofit__body {
+  @include p(2, top bottom);
+  @include p(0, left right);
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nonprofit__name {
+  @include m(1, bottom);
+  font-size: 32px;
+  font-family: $type-email;
+  color: black;
+  text-align: center;
+}
+
+.nonprofit__link {
+  color: black;
+  text-decoration: none;
+}
+
+.nonprofit__blurb {
+  margin: 0;
+  padding: 0;
+  font-family: $type-email;
+  font-size: 18px;
+  color: $c-email-body;
+  text-align: center;
+  font-weight: normal;
+  @include m(3, bottom);
+}
+
+%nonprofit__text {
+  font-family: $type-email;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: $c-email-body;
+}
+
+.nonprofit__description {
+  @extend %nonprofit__text;
+  @include m(3, top bottom);
+}
+
+.nonprofit__more {
+  @extend %nonprofit__text;
+  @include m(2, top);
+  @include m(2, bottom);
+  text-align: center;
+  &, a {
+    color: $green;
+  }
+}
+
+.newsletter__buttons {
+  font-family: $type-email;
+  font-size: 16px;
+  line-height: 16px;
+  @include m(3, top);
+  color: black;
+  text-align: center;
+}
+
+.stripe_receipt__text {
+  font-family: $type-email;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: $c-email-body;
+  padding: 0 20px
+}
+
+.newsletter__social {
+  text-align: center;
+  @include m(2, top);
+  @include m(0, bottom);
+}
+
+@mixin button-ghost-color($color) {
+  border-color: $color;
+  color: $color;
+}
+@mixin button-fill-color($color) {
+  border-color: $color;
+  background: $color;
+  color: white;
+}
+
+.button {
+  font-size: 14px;
+  line-height: 14px;
+  background: white;
+  border: solid 2px $green;
+  color: $green;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 3px;
+  padding: 10px 12px;
+  vertical-align: middle;
+  cursor: pointer;
+  margin: 10px 5px;
+  > img {
+    margin-right: 5px;
+    vertical-align: -3px;
+  }
+}
+
+.button--twitter {
+  @include button-ghost-color(#00aced);
+  border-width: 0;
+  img { margin-right: 0; }
+}
+
+.button--facebook {
+  @include button-ghost-color(#3B5998);
+  border-width: 0;
+  img { margin-right: 0; }
+}
+
+.button--favorite {
+  @include button-fill-color(#F43F77);
+}
+
+.button--white {
+  background: white;
+  border-color: white;
+  color: $green;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+.button-followup {
+  max-width: 22em;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 12px;
+  margin-top: 5px;
+  line-height: 1.5;
+  &, a {
+    color: $grey-mid;
+  }
+}

@@ -1,0 +1,30 @@
+defaults: &defaults
+  protocol: http
+  name: My Daily Donation Site
+  description: My Daily Donation Site is a new way to ...
+  ein: 55-1234567 # for Stripe receipt emails
+  address: 123 Our Address, Some City, NY 00000 # for Stripe receipt emails, etc
+  developer_email: a.dev@foo.bar
+  cloudfront_hostname: foo.cloudfront.net
+  google_analytics_id: UA-00000000-0
+  facebook_app_id: ***
+  twitter_username: ***
+  facebook_username: ***
+
+test:
+  host: sitename.test
+  <<: *defaults
+
+development:
+  host: sitename.dev
+  <<: *defaults
+
+staging:
+  protocol: https
+  host: staging.sitename.co
+  <<: *defaults
+
+production:
+  protocol: https
+  host: sitename.co
+  <<: *defaults

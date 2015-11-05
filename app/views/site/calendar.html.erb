@@ -1,0 +1,80 @@
+<article id="content" class="bg-grey-light">
+  <section id="intro" class="hero-calendar" data-0="opacity: 1;" data-400="opacity: 0;">
+    <div class="container p2" data-0="top: 0px;" data-400="top: -40px;">
+      <div class="row">
+        <div class="col-center col-8">
+          <div class="pt6 pb6">
+            <h2 class="white no-margin">Everyone knows about the Red Cross, but what other nonprofits are doing great work?</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="js-calendar-pagination-hide relative">
+
+    <section id="calendar" class="js-add-dropshadow">
+      <div class="container pl2 pr2 pt6 pb2">
+        <div class="row">
+          <div class="col-center col-8">
+
+            <h4 class="bold no-margin pb3">Our calendar</h4>
+
+            <p>We'll always have (at least) the next 60 featured nonprofits on this page. Come back to see the future anytime!</p>
+            <p><%= link_to "See our full selection criteria", faq_path(anchor: "calendar") %> or browse our calendar of nonprofits below.</p>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section id="nonprofits" class="bg-grey-light">
+    <div class="container pt4 pb2 pl2 pr2 clip mobile-no-padding">
+      <% if @future_nonprofits.present? %>
+        <% @future_nonprofits[0, 30].in_groups_of(2, false).each_with_index do |nonprofit_row, index| %>
+          <div class="row">
+            <% nonprofit_row.each do |nonprofit| %>
+              <div class="non-profit tablet-col tablet-col-6 mb4">
+                <div class="non-profit-card-image bg-grey bg-cover bg-center" style="background-image: url(<%= nonprofit.photo.url(:medium)%>)"></div>
+                <div class="bg-white p3">
+                  <h3><%= nonprofit.name %></h3>
+                  <h5 class="bold mb2">
+                    <% if nonprofit.featured_on == Time.zone.now.to_date %>
+                      Featured nonprofit for today.
+                    <% elsif nonprofit.featured_on < Time.zone.now.to_date %>
+                      Featured on <%= nonprofit.featured_on.to_formatted_s(:long_ordinal) %>
+                    <% else %>
+                      Will be featured on <%= nonprofit.featured_on.to_formatted_s(:long_ordinal) %>
+                    <% end %>
+                  </h5>
+                  <% if nonprofit.description.length >= 250 %>
+                    <div class="js-read-more">
+                      <div class="js-read-more-hide">
+                        <p><%= truncate(nonprofit.description, length: 250, omission: "... ") { link_to "Read more", nonprofit_url(nonprofit), class: "green no-wrap js-read-more-link" } %></p>
+                      </div>
+                      <div class="js-read-more-show hide">
+                        <p><%= nonprofit.description %></p>
+                        <p class="small"><%= link_to_nonprofit(nonprofit, target: "_blank") %></p>
+                      </div>
+                    </div>
+                  <% else %>
+                    <p><%= nonprofit.description %></p>
+                    <p class="small"><%= link_to_nonprofit(nonprofit, target: "_blank") %></p>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="pt2 pb4 centered" id="calendar_nav_links"
+          data-date="<%= @date %>"
+          data-previouspage="<%= (@date - 30.days) if @past_nonprofits.present? %>"
+          data-nextpage="<%= @future_nonprofits.last.featured_on if @future_nonprofits.size > 30 %>">
+        </div>
+        <div class="mobile-show pb2">&nbsp;</div>
+      <% end %>
+    </div>
+  </section>
+</article>

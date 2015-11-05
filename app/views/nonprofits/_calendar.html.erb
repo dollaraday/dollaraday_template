@@ -1,0 +1,58 @@
+<% # date - a Date object representing the month/year we need to render
+  first_day_of_month = date.beginning_of_month
+  last_day_of_month = first_day_of_month.end_of_month
+  first_day = first_day_of_month.beginning_of_week
+  last_day = last_day_of_month.end_of_week
+  weeks = if mobile?
+	  [(first_day_of_month..7.days.since(first_day_of_month)).to_a]
+	else
+	  (first_day..last_day).to_a.in_groups_of(7)
+	end
+  nonprofits = Nonprofit.where(featured_on: weeks)
+%>
+
+<table cellspacing="0" cellpadding="0" style="margin: 0 auto" width="100%">
+	<thead>
+		<tr>
+			<td><h6 class="caps">Mon</h6></td>
+			<td><h6 class="caps">Tue</h6></td>
+			<td><h6 class="caps">Wen</h6></td>
+			<td><h6 class="caps">Thu</h6></td>
+			<td><h6 class="caps">Fri</h6></td>
+			<td><h6 class="caps">Sat</h6></td>
+			<td><h6 class="caps">Sun</h6></td>
+		</tr>
+	</thead>
+	<tbody>
+		<% weeks.each do |days| %>
+		<tr>
+			<% days.each do |day| %>
+				<% nonprofit = nonprofits.find { |c| c.featured_on == day } %>
+				<% holidays = Holidays.between(day, day, [:us, :united_nations]).map { |h| h[:name] } %>
+				<% td_class = '' %>
+				<% nonprofit_bg = nonprofit && day.month == first_day_of_month.month ? "background-image: url('#{nonprofit.photo.url(:medium)}');" : "" %>
+				<% td_class << 'not_this_month' if day.month != first_day_of_month.month %>
+				<% td_class << ' has_nonprofit' if nonprofit %>
+				<% td_class << ' today' if nonprofit and nonprofit.featured_on == Time.zone.now.to_date %>
+				<% td_class << ' has_image' if nonprofit and nonprofit.photo.present? %>
+				<td title="<%= holidays.join(", ") %>" class="<%= td_class %>">
+					<% if nonprofit %>
+						<%= link_to nonprofit_url(nonprofit) do %>
+							<div class="bg" style="background-image: url('<%= nonprofit.photo.url(:medium) %>');"></div>
+							<div class="popout">
+								<div class="thumbnail"><img src="<%= nonprofit.photo.url(:medium) %>" /></div>
+								<h3><%= nonprofit.name %></h3>
+								<p class="small_type"><%= truncate(nonprofit.description, length: 172, omission: '...') %>&nbsp;&nbsp; <%= link_to('<u>Read&nbsp;more</u>'.html_safe, nonprofit_url(nonprofit)) %></p>
+							</div>
+							<%= link_to(day.day, edit_admin_nonprofit_url(nonprofit.id), class: 'day') %>
+						<% end %>
+					<% else %>
+						<span class='day'><%= day.day %></span>
+					<% end %>
+				</td>
+			<% end %>
+		</tr>
+		<% end %>
+	</tbody>
+
+</table>

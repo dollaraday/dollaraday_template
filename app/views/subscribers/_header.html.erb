@@ -1,0 +1,38 @@
+<%- hide_donate_button_if_donor -%>
+<header class="bg-grey-light px-gutter"><div class="margin-auto col-max-9">
+  <h2 class="mt6 mb4">
+    <% if current_donor %>
+      <strong class="bold">Hi<%= " #{current_subscriber.first_name}" if current_subscriber.name.present? %>.</strong><br/>
+      <% if current_donor.active? %>
+        You've been a donor for <%= pluralize [1, (Time.zone.now.to_date - current_subscriber.donor.started_on).to_i].max, "day" %>.
+      <% elsif current_donor.failed? %>
+        You were a donor for <%= distance_of_time_in_words(current_subscriber.donor.started_on, current_subscriber.donor.failed_at.to_date) %>.
+      <% elsif current_donor.inactive? %>
+        You were a donor for <%= distance_of_time_in_words(current_subscriber.donor.started_on, current_subscriber.donor.finished_on) %>.
+      <% end %>
+    <% elsif current_subscriber.active? %>
+      You've been a subscriber for <%= pluralize [1, (Time.zone.now.to_date - current_subscriber.subscribed_at.to_date).to_i].max , "day" %>.
+    <% elsif cookies.delete(:unsubscribed) %>
+      You are now unsubscribed.
+    <% else %>
+      You’re not subscribed.
+    <% end %>
+  </h2>
+
+  <nav class="c-tab-nav c-tab-nav--grey js-scroll--h">
+    <ul class="c-tab-nav__tabs">
+      <li class="c-tab-nav__tab">
+        <%= nav_link_to "Account",    subscriber_path(current_subscriber)%>
+      </li><li class="c-tab-nav__tab">
+        <%= nav_link_to subscriber_favorites_path(current_subscriber) do %>
+        Favorites <span class="c-tab-nav__tab__count js-favorites-count"><%= current_subscriber.favorites.count %></span>
+        <%- end -%>
+      </li><li class="c-tab-nav__tab">
+        <%= nav_link_to donations_subscriber_path(current_subscriber) do %>
+          All Donations <span class="c-tab-nav__tab__count"><%= current_donor? ? current_donor.nonprofits_donated_to.count : "0" %></span>
+        <%- end -%>
+      </li>
+    </ul>
+  </nav>
+
+</div></header>

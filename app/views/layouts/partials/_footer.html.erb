@@ -1,0 +1,38 @@
+<footer class="main bg-grey-light clip"><div class="container p2">
+
+  <%- if !@hide_plane -%>
+  <div class="py4">
+    <%= image_tag "plane.svg", width: 281, class: "fit relative", "data-800-top" => "left: 0px;", "data-200-top" => "left: 800px" %>
+  </div>
+  <%- end -%>
+
+  <div class="links tablet-center row">
+    <div class="tablet-col grey"><span class="small mobile-block py1">&copy; <%= Time.zone.now.year %> <%= CONFIG[:name] %></span></div>
+    <div class="tablet-col-right">
+      <span class="mobile-block py1">
+        <%= link_to "Home", root_path(ref: "footer"), class: "small inline-block pr1 pl1 pb1 grey #{'hide' if controller.controller_name == 'site' and controller.action_name == 'index'}" %>
+        <%= link_to "FAQ", faq_path(ref: "footer"), class: "small inline-block pr1 pl1 pb1 grey" %>
+        <%= link_to "Contact", contact_path(ref: "footer"), class: "small inline-block pr1 pl1 pb1 grey" %>
+        <%= link_to "Terms & Privacy", legal_path(ref: "footer"), class: "small inline-block pr1 pl1 pb1 grey" %>
+        <%- if current_subscriber? -%>
+        <%= link_to "Account", subscriber_path(current_subscriber), class: "small inline-block pr1 pl1 pb1 grey" %>
+        <%- else -%>
+        <%= link_to "Manage account", "#authenticate-overlay", id: "authenticate_link", class: "small js-modal-overlay-open no-wrap inline-block pr2 pl1 pb1 grey" %>
+        <%- end -%>
+      </span>
+      <span class="mobile-show big py1">
+        <a href="https://twitter.com/<%= CONFIG[:twitter_username] %>" target="_blank" class="inline-block grey no-decoration color-twitter-hover"><span class="ss-icon ss-social-circle ss-twitter transition-all"></span></a>
+        <a href="https://www.facebook.com/<%= CONFIG[:facebook_username] %>" target="_blank" class="inline-block grey no-decoration color-facebook-hover"><span class="ss-icon ss-social-circle ss-facebook transition-all"></span></a>
+      </span>
+      <span class="mobile-hide py1">
+        <a href="https://twitter.com/<%= CONFIG[:twitter_username] %>" target="_blank" class="inline-block grey no-decoration color-twitter-hover"><span class="ss-icon ss-social-circle ss-twitter transition-all"></span></a>
+        <a href="https://www.facebook.com/<%= CONFIG[:facebook_username] %>" target="_blank" class="inline-block grey no-decoration color-facebook-hover"><span class="ss-icon ss-social-circle ss-facebook transition-all"></span></a>
+      </span>
+    </div>
+  </div>
+</div></footer>
+<% if current_user.try(:is_admin?) %>
+  <div class="footer_prop"></div>
+<% end %>
+
+<%= render 'donors/authenticate_form' %>

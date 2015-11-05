@@ -1,0 +1,131 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+
+en:
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        # The defaults are "about 1 hour" and "about %{count} hours"
+        one: "1 hour"
+        other: "%{count} hours"
+
+  errors:
+    format: "%{message}"
+
+  errors:
+    messages:
+      too_short: is too short
+  activerecord:
+    attributes:
+      subscriber:
+        email: Email
+      donor_card:
+        address1: Address
+        csc: CVV
+        exp_month: Expiry date
+        exp_year: Expiry date
+    errors:
+      models:
+        donor:
+          nfg_invalid_email_address: not valid
+        donor_card:
+          attributes:
+            csc:
+              invalid: "is invalid. This is the 3-digit number on the back of your credit card. American Express users, it is the 4-digit number on the front of your card."
+          nfg_invalid_zip: not recognized :(
+          nfg_invalid_address_field: not recognized :(
+          nfg_invalid_credit_card_number: failed validation :(
+          nfg_invalid_country_code: not recognized :(
+          nfg_invalid_expiration: invalid or has passed
+          nfg_invalid_credit_card_type: 'must be Amex, MC, or Visa'
+          nfg_invalid_name: Please enter your full name
+          nfg_other_error: "Something went wrong, please check the info and try one more time"
+        subscriber:
+          attributes:
+            email:
+              taken: is already signed up!
+
+  views:
+    metrics:
+      total_donors: Total Donors
+      total_new_donors: New Donors
+      total_gifts: Total Gifts
+      total_new_gifts: Total New Gifts
+      total_subscribers: Total Subscribers
+      total_new_subscribers: New Subscribers
+      total_unsubscribers: Total Unsubscribers
+      total_new_unsubscribers: Total New Unsubscribers
+      total_cancelled_donors: Total Cancelled Donors
+      total_new_cancelled_donors: New Cancelled Donors
+      total_uncancelled_donors: Total Uncancelled Donors
+      total_new_uncancelled_donors: New Uncancelled Donors
+
+  nonprofit:
+    show:
+      share:
+        twitter: "I just found %{nonprofit}, an amazing nonprofit on #{CONFIG[:twitter_username]}:"
+
+  newsletter:
+    subject:
+      first: "Welcome to #{CONFIG[:name]}. Today's nonprofit %{nonprofit}"
+      subsequent: "Today's nonprofit is %{nonprofit}"
+    favorite:
+      action: "Add to Favorites"
+      explainer:
+        text: "Favoriting lets you keep track of and share the nonprofits you love. %{learn_more}"
+        learn_more: "Learn more"
+    share:
+      facebook:
+        text: "%{donors} donors are giving to %{nonprofit} on #{CONFIG[:name]}"
+        action: "Share"
+      twitter:
+        action: "Tweet"
+        text:
+          subscriber: "Have you heard about %{nonprofit}? Learn more about this amazing nonprofit on #{CONFIG[:twitter_username]}: %{nonprofit_url}"
+          donor: "Today %{donors} donors are giving to %{nonprofit} on #{CONFIG[:twitter_username]}. Join us in supporting great nonprofits like this one. #{CONFIG[:hostname]}"
+
+  favoriting:
+    add:
+      action: "Add to Favorites"
+      flash:
+        success: "You added “%{name}” to your favorite nonprofits!"
+        redundant: "“%{name}” was already in your favorites."
+        error: "Couldn’t add nonprofit to favorites because the nonprofit doesn’t exist."
+    remove:
+      action: "Remove from Favorites"
+      flash:
+        success: "You removed “%{name}” from your favorite nonprofits!"
+        redundant: "“%{name}” wasn’t in your favorites."
+        error: "Couldn’t remove nonprofit from favorites because the nonprofit doesn’t exist."
+
+  account:
+    favorites:
+      share:
+        prompt:
+          heading: "Did you know? You can share this page!"
+          description: "It’s a great way to spread the word about these amazing organizations."
+          disclaimer: "(Don’t worry, none of your private information will be made public)"
+        twitter:
+          action: "Share on Twitter"
+          text: "Check out my favorite nonprofits on #{CONFIG[:twitter_username]}: %{url}"
+        facebook:
+          action: "Share on Facebook"

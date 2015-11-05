@@ -1,0 +1,26 @@
+<%= name = cookies.delete(:subscriber_name) %>
+
+<section class="table full-height">
+  <div class="table-cell full-height bg-cover mobile-hide p6 centered" style="background-size: auto 120%; background-position: center center; background-image: url(<%= asset_path 'checkout/thanks.jpg' %>);"></div>
+  <div class="table-cell full-height bg-white p6">
+    <div class="mb2">
+      <%= render "modules/logo_link", theme: :dark %>
+    </div>
+    <h3 class="mb4">Today’s nonprofit is on the way. Awesome! Spread the word:</h3>
+
+    <ul class="clearfix mb2">
+      <li class="inline-block mobile-block">
+        <%= link_to(share_url(url: "https://twitter.com/share?text=Do%20you%20know%20about%20%23<%= CONFIG[:twitter_username] %>%27s%20free%20newsletter%3f%20Join%20me%20and%20discover%20amazing%20nonprofits%20every%20day%3A&amp;url=#{root_url})"), target: "_blank", class: "facebook button-solid button-big mobile-block button-facebook centered") do %>
+          <span class="ss-icon ss-social ss-twitter"></span>
+          Tweet
+        <% end %>
+      </li>
+      <li class="inline-block ml1 mobile-no-margin mobile-block">
+        <%= link_to(share_url(url: "http://www.facebook.com/dialog/feed?display=popup&link=#{root_url}&amp;redirect_uri=#{root_url}&amp;app_id=#{FACEBOOK[:app_id]})"), target: "_blank", class: "facebook button-solid button-big mobile-block button-facebook centered") do %>
+          <span class="ss-icon ss-social ss-facebook"></span>
+          Share
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</section>

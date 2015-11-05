@@ -1,0 +1,32 @@
+<% f = form_builder # the donate form builder object %>
+<% card = defined?(card) && card.present? ? card : (f.object.card || DonorCard.new) %>
+
+<%= f.fields_for(:card, card) do |c| %>
+  <span class="payment-errors">
+    <% if Rails.env.development? %><%= card.errors.full_messages.presence.try(:join, ".") || "" %> <% end %>
+  </span>
+
+  <div class="field mb1">
+      <% unless Rails.env.production? -%>
+        <span id="donate_test_data_button" style="text-decoration: underline; cursor: pointer;" class="right small">Use Test Data</span>
+      <% end %>
+    <%= c.text_field :name, tabindex: "1", placeholder: "Full name", data: { stripe: "name" }, autocompletetype: "given-name", class: "full-width" %>
+  </div>
+
+  <div class="field mb1">
+    <%= c.text_field :email, tabindex: "2", placeholder: "Email", type: "email", :"x-autocompletetype" => "email", autocompletetype: "email", autocorrect: "off", spellcheck: "off", autocapitalize: "off", class: "full-width" %>
+  </div>
+
+  <div class="field mb1">
+    <%= c.text_field :card_number, name: nil, size: 20, maxlength: 20, placeholder: "MM", tabindex: 3, class: "full-width", "x-autocompletetype" => "cc-number", autocompletetype: "cc-number", autocorrect: "off", spellcheck: "off", autocapitalize: "off", placeholder: "Card number", data: { stripe: "number" } %>
+  </div>
+
+  <div class="field mb1">
+    <%= c.text_field :exp_month, name: nil, size: 2, maxlength: 2, placeholder: "MM", tabindex: 4, data: { stripe: "exp_month" } %>
+    <span> / </span>
+    <%= c.text_field :exp_year, name: nil, size: 2, maxlength: 2, placeholder: "YY", tabindex: 5, class: "mr2", data: { stripe: "exp_year" } %>
+
+    <%= c.text_field :cvc, size: 4, name: nil, maxlength: 4, placeholder: "CVC", tabindex: 6, data: { stripe: "cvc" } %>
+  </div>
+
+<% end -%>

@@ -1,0 +1,27 @@
+<article id="site_admin_newsletters_index">
+  <section class="content">
+    <section class="interior">
+
+        <table cellpadding="10" width="100%">
+          <tr>
+            <th align="center">Sent At</th>
+            <th align="center">Nonprofit</th>
+            <th align="center">Text</th>
+            <th align="center">Image</th>
+            <th align="center"></th>
+            <th align="center"></th>
+          </tr>
+        <% @newsletters.each do |newsletter| %>
+          <tr>
+            <td align="center"><%= newsletter.sent_at.to_s %></td>
+            <td align="center"><sub><%=newsletter.nonprofit.name %></sub></td>
+            <td align="center"><%= truncate(newsletter.nonprofit.description) %></td>
+            <td align="center"><%= image_tag(newsletter.nonprofit.photo.url(:thumb), {width: "50px"}) %></td>
+            <td align="center"><%= link_to "Edit", edit_admin_newsletter_url(newsletter) unless newsletter.sent? %></td>
+            <td align="center"><%= link_to "Show", admin_newsletter_url(newsletter) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </section>
+  </section>
+</article>

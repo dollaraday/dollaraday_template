@@ -1,0 +1,7 @@
+test:
+  user_id: YOURUSERID
+  password: YOURPASSWORD
+
+development:
+  user_id: YOURUSERID
+  password: YOURPASSWORD

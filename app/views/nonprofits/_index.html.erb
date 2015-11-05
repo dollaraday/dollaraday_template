@@ -1,0 +1,37 @@
+<table cellpadding="0" cellspacing="0" border="0">
+
+  <% @dates.each_pair do |header, date_str|
+    date = Date.parse(date_str)
+    date_type = header.gsub(/ /, '_').downcase
+  %>
+    <tr class="<%= date_type %>">
+      <td class="image">
+        <div>
+          <img src="/images/nonprofit-<%= date_type %>.gif" alt="" />
+          <time datetime="<%= date_str %>">
+            <span class="month"><%= date.strftime("%b").upcase %></span>
+            <span class="day"><%= date.strftime("%e") %></span>
+          </time>
+        </div>
+      </td>
+      <td class="separator">&nbsp;</td>
+      <td class="description">
+        <h3><%= ::Nonprofits::LIST[date_str]['name'] %></h3>
+        <h4><%= header %></h4>
+        <p>
+          <%= ::Nonprofits::LIST[date_str]['description'] %>
+        </p>
+      </td>
+    </tr>
+  <% end %>
+
+</table>
+
+<p id="more_nonprofits">
+  <a href=""><img src="/images/more_nonprofits_link.png" alt="-------->" />View More Charities</a>
+</p>
+
+<p id="calendar">
+  to see what nonprofits are coming up, or ones from the past.
+  <a href="">Read our criteria for selecting nonprofits.</a>
+</p>

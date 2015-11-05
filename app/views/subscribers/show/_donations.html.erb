@@ -1,0 +1,27 @@
+<h4 class="bold">Donations</h4>
+
+<% if current_donor.gift && current_donor.gift.active? %>
+  <p class="mb1">This is a gift that started on <%= current_donor.gift.start_on.to_s(:short_name) %><%= " and #{current_donor.gift.active? ? "ends" : "ended"} on #{current_donor.gift.finish_on.to_s(:short_name)}" unless current_donor.gift.infinite? %>.</p>
+<% elsif current_donor.failed? && failed_donation = current_donor.donations.failed.first %>
+  <p class="mb1">Your last $30 donation <em>failed</em> on <%= failed_donation.failed_at.to_date.to_s(:short_name) %>.</p>
+<% elsif last_donation = current_donor.last_executed_donation %>
+  <p class="mb1">Your last $30 donation was on <%= last_donation.executed_at.to_date.to_s(:short_name) %>.</p>
+<% end %>
+<% if !current_donor.active? && !current_donor.failed? %>
+  <p class="mb1">Your donations ended on <%= current_donor.finished_on.to_s(:short_name) %>.</p>
+<% end %>
+  <p class="mb2">You have donated to <strong class="bold"><%= current_donor.nonprofits_donated_to.count %></strong> nonprofits so far. <%= link_to "See the full list", donations_subscriber_path(current_subscriber) %></p>
+
+<% if current_donor.gift.present? %>
+  <% # show anything here? %>
+<% elsif current_donor.cancelled? && current_donor.active? %>
+  <%= render "subscribers/show/uncancel" %>
+<% elsif current_donor.active? %>
+  <%= link_to "Change billing details", edit_donor_url(current_donor.subscriber), class: "small bold green no-wrap mr2" %>
+  <br/>
+  <%= render "subscribers/show/cancel" %>
+<% elsif current_donor.failed? %>
+  <%= link_to "Click here to fix!", edit_donor_url(current_donor.subscriber) %>
+<% else %>
+ <%= link_to "Signup to donate again!", donate_url(email: current_subscriber.email) %>
+<% end %>

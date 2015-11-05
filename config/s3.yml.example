@@ -1,0 +1,19 @@
+test:
+  access_key_id: "***"
+  secret_access_key: "***"
+  bucket: "your-s3-bucket-test"
+
+development:
+  access_key_id: "***"
+  secret_access_key: "***"
+  bucket: "your-s3-bucket-dev"
+
+staging:
+  access_key_id: "***"
+  secret_access_key: "***"
+  bucket: "your-s3-bucket-staging"
+
+production:
+  access_key_id: "***"
+  secret_access_key: "***"
+  bucket: "your-s3-bucket-production"

@@ -1,0 +1,30 @@
+.o-ratio {
+  display: block;
+  position: relative;
+  height: 0;
+  padding: 0;
+}
+
+// Nesting for variable scoping
+.o-ratio-- {
+  // Named ratios
+  &square { padding-top: 100%; }
+  // Math ratios
+  $ratios: (16 10, 4 3);
+  // Output math ratios
+  @each $ratio in $ratios {
+    $w: nth($ratio,1);
+    $h: nth($ratio,2);
+    &#{$w}-#{$h} {
+      padding-top: percentage($h / $w);
+    }
+  }
+}
+
+.o-ratio__container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

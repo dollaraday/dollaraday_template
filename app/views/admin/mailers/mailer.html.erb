@@ -1,0 +1,12 @@
+<article id="site_admin_mailers" class="bg-grey-light pt4 pb4">
+  <section class="container p2">
+
+		<h3><%= @preview.preview_name.titleize %></h3>
+		<ul>
+		<% @preview.emails.each do |email| %>
+		<li><%= link_to email, "/rails/mailers/#{@preview.preview_name}/#{email}" %></li>
+		<% end %>
+		</ul>
+
+	</section>
+</article>

@@ -1,0 +1,37 @@
+<%
+calendar_dates = [2.months.ago.to_date, 1.month.ago.to_date, Time.zone.now.to_date]
+(1..2).each do |i|
+  calendar_dates << i.months.from_now.to_date
+end
+%>
+
+<section id="nonprofits" class="pt6 pb6 pl4 pr4 bg-grey-light z-index-1">
+  <div id="carousel" class="content">
+    <div class="header mb4 col-6 left">
+      <h2 class="normal-weight">Our nonprofit calendar</h2>
+    </div>
+    <nav id="calendar_nav" class="right">
+      <div class="select-box">
+        <div class="title">
+          <span class="mr2">February</span>
+          <span class="ss-icon ss-dropdown"></span>
+        </div>
+        <div class="dropdown hide">
+          <ul>
+            <% calendar_dates.each do |calendar_date| %>
+              <li class="grey small_type <%= 'selected' if calendar_date.month == Time.zone.now.to_date.month %>">
+                <%= calendar_date.strftime("%B") %>
+              </li>
+            <% end -%>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="calendar_carousel" class="cycle-slideshow clear" data-cycle-fx="scrollHorz" data-cycle-timeout="0" data-cycle-slides="> div" data-cycle-pager="#calendar_nav ul" data-cycle-pager-template="" data-cycle-log="false">
+      <% calendar_dates.each do |calendar_date| %>
+        <div class="slide"><%= render 'nonprofits/calendar', date: calendar_date %></div>
+      <% end -%>
+    </div>
+  </div>
+</section>

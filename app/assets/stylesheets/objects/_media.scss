@@ -1,0 +1,15 @@
+.o-media {
+  overflow: hidden;
+}
+
+.o-media__item {
+  float: left;
+  .o-media--right & {
+    float: right;
+  }
+}
+
+.o-media__body {
+  display: block;
+  overflow: hidden;
+}

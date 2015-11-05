@@ -1,0 +1,168 @@
+// Mixins
+@import "mixins/mixins";
+
+// Library
+@import "library/base";
+@import "modules/modules";
+@import "components/components";
+@import "objects/objects";
+@import "utilities/utilities";
+
+// Vendor
+@import "vendor/ss-social";
+@import "vendor/ss-standard";
+@import "vendor/tipsy";
+@import "vendor/mapbox";
+
+// Views
+@import "views/nonprofits/show";
+@import "views/site/backgrounds";
+@import "views/site/wall_calendar";
+@import "views/site/gift_card";
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+html, body {
+  @include apercu(light);
+  font-size: $base-font-size;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  color: #000000;
+  background-color: $grey-dark;
+  height: 100%;
+  @media screen and (max-width: $mobile-breakpoint) {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+}
+
+// TODO: this should become default, if no consequences arise. —PP
+html.stretch {
+  height: auto;
+  height: 100%;
+  body {
+    height: auto;
+    min-height: 100%;
+    background: transparent;
+    background: $grey-super-light;
+  }
+}
+
+::selection {
+  background: $green;
+  color: #fff;
+}
+
+a {
+  color: #000;
+  &:hover {
+    text-decoration: none;
+  }
+  img {
+    border: 0;
+  }
+}
+
+.disabled {
+  color: $grey-mid;
+  text-decoration: none;
+  cursor: default;
+}
+
+.ss-icon,
+.ss-social {
+  font-size: 0.9em;
+  vertical-align: -2px;
+  margin-right: 2px;
+}
+
+.divider {
+  @extend .bg-green;
+  @extend .mt4;
+  @extend .mb4;
+  height: 3px;
+  width: 60px;
+  border: none;
+}
+
+.divider-grey {
+  @extend .bg-grey;
+}
+
+.max-width-wrapper {
+  @extend %margin-auto;
+  max-width: 1400px;
+}
+
+.highlight {
+  background-color: $yellow;
+}
+
+.homepage-hero-image {
+  left: 50%;
+  margin-left: -75%;
+}
+
+figure img {
+  display: block;
+  max-width: 100%;
+}
+
+// A couple view specific styles :(
+
+body#site_index {
+  @media screen and (min-width: $mobile-breakpoint) {
+    .header-shim {
+      display: none;
+    }
+  }
+  @media all and (device-width: 768px) and (device-height: 1024px) {
+    .primary-header {
+      display: none;
+    }
+  }
+}
+
+.gift-list-container {
+  @media screen and (max-width: $mobile-breakpoint) {
+    width: 100% !important;
+    top: 0px !important;
+    height: 28px !important;
+  }
+}
+
+.card-preview-icon {
+  width: 100px;
+  height: 100px;
+  top: -40px;
+  border-radius: 50px;
+  left: 50%;
+  margin-left: -50px;
+}
+
+.giving-length-button {
+  transition: $transition-duration $transition-easing;
+  @extend .big;
+  border: 3px solid #fff;
+  text-decoration: none;
+  margin-left: $base-unit;
+  margin-right: $base-unit;
+  background-color: darken($green, 5);
+  &:hover {
+    background-color: darken($green, 20);
+  }
+}
+
+h1, h2, h3, h4, h5, h6, p, li, span, b, i, strong, a, dt, dd, td, th, button, input {
+  .wf-loading & {
+    visibility: hidden !important;
+  }
+  .wf-active &,
+  .wf-inactive & {
+    @include animate(fadeIn, 0.1s);
+  }
+}

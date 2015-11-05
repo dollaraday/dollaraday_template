@@ -1,0 +1,39 @@
+<article id="site_admin_delayed_jobs">
+  <section class="content">
+    <section class="interior">
+
+        <%= paginate @delayed_jobs %>
+
+        <table cellpadding="10"  cellspacing="10" border="0">
+          <tr>
+            <th>Handler</th>
+            <th>Id</th>
+            <th>Queue</th>
+            <th>Priority</th>
+            <th>Attempts</th>
+            <th>Last Error</th>
+            <th>Run At</th>
+            <th>Locked At</th>
+            <th>Failed At</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+          </tr>
+        <% @delayed_jobs.each do |delayed_job| %>
+          <tr>
+            <th><%= delayed_job.handler %></th>
+            <th><%= delayed_job.id %></th>
+            <th><%= delayed_job.queue %></th>
+            <th><%= delayed_job.priority %></th>
+            <th><%= delayed_job.attempts %></th>
+            <th><%= delayed_job.last_error.try(:lines).try(:first) %></th>
+            <th><%= delayed_job.run_at %></th>
+            <th><%= delayed_job.locked_at %></th>
+            <th><%= delayed_job.failed_at %></th>
+            <th><%= delayed_job.created_at %></th>
+            <th><%= delayed_job.updated_at %></th>
+          </tr>
+        <% end %>
+      </table>
+    </section>
+  </section>
+</article>

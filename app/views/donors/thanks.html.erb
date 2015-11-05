@@ -1,0 +1,44 @@
+<%= content_for :extra_head do %>
+<meta property="og:description" content="I just joined <%= donor_count %> others and signed up to give a dollar a day." />
+<% end %>
+
+<section class="table full-height">
+  <div class="table-cell full-height bg-cover tablet-hide p6 centered" style="background-size: auto 120%; background-position: center center; background-image: url(<%= asset_path 'checkout/thanks.jpg' %>);">
+    <%= link_to image_tag("logo.png", width: "140", class: "dark"), root_path(ref: default_ref_tag), class: "mb2 close inline-block" %>
+    <h2 class="white">Thanks <%= @name %>, you're awesome!</h2>
+  </div>
+  <div class="hide tablet-block bg-cover mobile-hide p6 centered" style="background-position: center center; background-image: url(<%= asset_path 'checkout/thanks.jpg' %>);">
+    <%= link_to image_tag("logo.png", width: "140", class: "dark"), root_path(ref: default_ref_tag), class: "mb2 close inline-block" %>
+    <h2 class="white">Thanks <%= @name %>, you're awesome!</h2>
+  </div>
+  <div class="table-cell min-height-100 bg-white p6">
+    <h3 class="green mb3">Can you spare a tweet?</h3>
+
+    <p>Thanks for becoming a donor!</p>
+
+    <p><%= CONFIG[:name] %> is fueled by the support of its community, so tell the world:</p>
+
+    <div class="border-left-3px-green p2 mb4">
+      <p class="quote no-margin">I just joined <%= donor_count %> donors giving a dollar a day to amazing nonprofits!</p>
+    </div>
+
+    <ul class="clearfix mb2">
+      <li class="inline-block mobile-block">
+
+        <%= link_to(share_url(url: "https://twitter.com/share?text=I%20just%20joined%20#{donor_count}%20donors%20giving%20a%20dollar%20a%20day%20to%20amazing%20nonprofits!&url=#{root_url}"), target: "_blank", class: "twitter button-solid button-big button-twitter mobile-block centered") do %>
+          <span class="ss-icon ss-social ss-twitter"></span>
+          Tweet
+        <% end %>
+      </li>
+      <li class="inline-block ml1 mobile-no-margin mobile-block">
+        <%= link_to(share_url(url: "http://www.facebook.com/dialog/feed?display=popup&redirect_uri=#{URI.escape(root_url)}&app_id=#{FACEBOOK[:app_id]}&link=#{URI.escape(root_url)}"), target: "_blank",class: "facebook button-solid button-big mobile-block button-facebook centered") do %>
+          <span class="ss-icon ss-social ss-facebook"></span>
+          Share
+        <% end %>
+      </li>
+    </ul>
+
+    <p>And keep an eye on your inbox &mdash; today’s nonprofit is on its way.</p>
+
+  </div>
+</section>

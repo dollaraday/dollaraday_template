@@ -1,0 +1,42 @@
+<div class="flag">
+  <div class="flag-body pr2">
+    <div class="no-margin small">
+      You cancelled future donations.
+      <div class="mobile-inline">Would you like to undo?</div>
+    </div>
+  </div>
+  <div class="flag-img no-wrap">
+    <%= link_to "Restart donations!", uncancel_donor_url(@current_subscriber), class: "js-form-link button-solid button-green", :'data-form-id' => "restart-future-donations-form" %>
+  </div>
+</div>
+
+<%= form_tag uncancel_donor_url(@current_subscriber), method: :put, id: "restart-future-donations-form", style: "display: none", class: "js-form mt4" do %>
+
+  <% if auth_method != :card %>
+    <p>To restart donations, please verify your credit card info:</p>
+
+    <div class="row verification">
+      <div class="col">
+        <%= label :exp_month, "Credit card expiration", class: "small bold block mb1" %>
+        <div class="select-container mb1 mr1 left">
+          <%= select_tag 'donor_verification[exp_month]', options_for_select((1..12).to_a) %>
+          <span class="ss-icon ss-dropdown"></span>
+        </div>
+        <div class="select-container mb1 mr1 left">
+          <%= select_tag 'donor_verification[exp_year]', options_for_select((Time.zone.now.year..10.years.from_now.year)) %>
+          <span class="ss-icon ss-dropdown"></span>
+        </div>
+      </div>
+      <div class="col mobile-clear">
+        <%= label :last_4, "Last four digits", class: "small bold block mb1" %>
+        <%= text_field_tag 'donor_verification[last_4]', nil, placeholder: "Last 4 Digits", style: "width: 140px;", :autocomplete => "off" %>
+        <a class="ss-icon ss-help tooltip relative" title="<div style='width: 300px'>The last 4 digits of the credit card you used for #{CONFIG[:name]}.</div>"></a>
+      </div>
+    </div>
+  <% end %>
+
+  <p class="error"></p>
+
+  <%= submit_tag "Confirm donation restart", class: "button-solid button-green" %>
+
+<% end %>

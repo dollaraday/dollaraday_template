@@ -1,0 +1,10 @@
+.o-stack {
+  @include each-bp {
+    &--gutter      > * + * { margin-top: $gutter; }
+    &--half-gutter > * + * { margin-top: $gutter/2; }
+    &--1           > * + * { margin-top: $base-unit * 1; }
+    &--2           > * + * { margin-top: $base-unit * 2; }
+    &--3           > * + * { margin-top: $base-unit * 3; }
+    &--4           > * + * { margin-top: $base-unit * 4; }
+  }
+}

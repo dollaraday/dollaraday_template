@@ -1,0 +1,59 @@
+<%
+  share_copy = "I just gave the gift of a #{CONFIG[:twitter_username]}! You can help others discover amazing nonprofits, too:"
+%>
+
+<%= content_for :extra_head do %>
+  <meta property="og:description" content="<%= share_copy %> <%= gift_page_url %>" />
+<% end %>
+
+<section class="table full-height">
+  <div class="hero-calendar table-cell full-height tablet-hide p4 centered">
+
+    <%= link_to image_tag("logo.png", width: "140", class: "dark"), root_path(ref: default_ref_tag), class: "mb2 close inline-block" %>
+
+    <h2 class="white">
+      Thanks! Because of you, <%= @name %> is going to discover and support amazing nonprofits.
+    </h2>
+
+  </div>
+
+  <div class="hero-calendar hide tablet-block bg-cover mobile-hide p6 centered">
+
+    <%= link_to image_tag("logo.png", width: "140", class: "dark"), root_path(ref: default_ref_tag), class: "mb2 close inline-block" %>
+
+    <h2 class="white">
+      Thanks, you're awesome!
+    </h2>
+
+  </div>
+
+  <div class="table-cell min-height-100 bg-white p6">
+
+    <h3 class="green mb3">
+      Can you spare a tweet?
+    </h3>
+
+    <div class="border-left-3px-green p2 mb4">
+      <p class="quote no-margin">
+        <%= share_copy %>
+        <%= gift_page_url %>
+      </p>
+    </div>
+
+    <ul class="clearfix mb2">
+      <li class="inline-block mobile-block">
+        <%= link_to(share_url(url: "https://twitter.com/share?text=#{URI.escape(share_copy)}&url=#{gift_page_url}"), target: "_blank", class: "twitter button-solid button-big button-twitter mobile-block centered") do %>
+          <span class="ss-icon ss-social ss-twitter"></span>
+          Tweet
+        <% end %>
+      </li>
+      <li class="inline-block ml1 mobile-no-margin mobile-block">
+        <%= link_to(share_url(url: "http://www.facebook.com/dialog/share?display=popup&redirect_uri=#{URI.escape(gift_page_url)}&href=#{URI.escape(root_url)}&app_id=#{FACEBOOK[:app_id]}&link=#{URI.escape(gift_page_url)}"), target: "_blank",class: "facebook button-solid button-big mobile-block button-facebook centered") do %>
+          <span class="ss-icon ss-social ss-facebook"></span>
+          Share
+        <% end %>
+      </li>
+    </ul>
+
+  </div>
+</section>

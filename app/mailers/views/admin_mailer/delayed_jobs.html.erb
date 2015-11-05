@@ -1,0 +1,42 @@
+<h2>Errored Jobs</h2>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>priority</th>
+		<th>queue</th>
+		<th>attempts</th>
+		<th>name</th>
+	</tr>
+<% @errored_jobs.limit(25).order(:id).to_a.each do |dj| %>
+	<tr>
+		<td><%= dj.id %></td>
+		<td><%= dj.priority %></td>
+		<td><%= dj.queue %></td>
+		<td><%= dj.attempts %></td>
+		<td><%= dj.name %></td>
+	</tr>
+<% end %>
+</table>
+
+<h2>Backlogged Jobs</h2>
+
+<table>
+	<tr>
+		<th>id</th>
+		<th>priority</th>
+		<th>queue</th>
+		<th>attempts</th>
+		<th>name</th>
+	</tr>
+<% @backlog.limit(25).order(:priority, :run_at).to_a.each do |dj| %>
+	<tr>
+		<td><%= dj.id %></td>
+		<td><%= dj.priority %></td>
+		<td><%= dj.queue %></td>
+		<td><%= dj.attempts %></td>
+		<td><%= dj.name %></td>
+	</tr>
+<% end %>
+</table>
+

@@ -1,0 +1,50 @@
+<% @donor ||= Donor.new.tap { |d| d.started_on = Time.zone.now.to_date } %>
+
+<%= render 'donors/authenticate_form' %>
+
+<section class="donate-form bg-cover bg-grey" style="background-image: url(<%= asset_path 'blurred-bg.jpg' %>);">
+
+  <div class="pt2 pb2 mobile-hide"></div>
+
+  <div class="centered-container margin-auto py6 pl4 pr4 bg-white">
+    <div class="table mb2">
+      <div class="table-cell">
+        <%= render "modules/logo_link", theme: :dark %>
+      </div>
+      <div class="table-cell align-right">
+        <%= link_to gift_page_url(ref: default_ref_tag), class: "no-decoration small bold" do %>
+          <%= image_tag "gift.svg", width: 15, class: "inline-block", style: "margin-right: 5px;" %>
+          <!-- Give as a gift -->
+        <% end %>
+      </div>
+    </div>
+    <p class="mb1">
+      Donors are charged monthly, $30 every 30 days. It's easy to cancel, and 100% US tax-deductible.
+    </p>
+    <p class="mb1">
+      <b class="green">Join <%= donor_count %> others!</b>
+    </p>
+
+    <%= form_for @donor, as: :donor, url: "/donate", html: {autocomplete: "on", class: "pt2 pb4"} do |d| %>
+      <%= render "donors/form", form_builder: d %>
+    <% end -%>
+
+    <footer>
+      <div class="flag">
+        <div class="flag-body small">
+          <%= link_to "Terms & Privacy", legal_path(ref: default_ref_tag), class: "mr1 inline-block" %>
+          <%= link_to "FAQ", faq_path(ref: default_ref_tag), class: "inline-block" %>
+        </div>
+        <div class="flag-img align-right">
+          <% if false # enable if you're using NFG as a processor -%>
+          <%= image_tag "checkout/powered-by-nfg.png", alt: "Powered by Network for Good", width: "130", class: "tablet-hide inline-block relative tooltip", title: "<div style='width: 400px;'>#{render('donors/nfg_tooltip') }</div>" %>
+          <%= image_tag "checkout/powered-by-nfg.png", alt: "Powered by Network for Good", width: "130", class: "tablet-block hide inline-block relative tooltip" %>
+          <a href='http://www1.networkforgood.org/donationfaq' target='_blank'>Questions about NFG?</a>
+          <% end -%>
+        </div>
+    </footer>
+  </div>
+
+  <div class="pt2 pb2 mobile-hide"></div>
+
+</section>
