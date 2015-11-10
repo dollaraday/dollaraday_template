@@ -46,13 +46,13 @@ This app supports 2 payment methods:
   * flexibility: will let you build cooler features (some ideas we liked were letting
     donors give more than $1 if they like a day's nonprofit, let a donor
     cancel a $1 donation if they don't like that day's choice, etc)
-  * overhead: you do more work regarding the nonprofits, but their dashboard is very useful
+  * overhead: you'll need to be a 501c3 to offer tax deductions to US donors, but their dashboard is very useful for that accounting if you are
   * fees: $0.29 * donation amount + $0.30
   * payouts: requires you to setup and handle disbursements
 
 * Network for Good:
   * flexibility: locked down to their credit card API
-  * overhead: best choice if you're not a 501c3s -- you do less work
+  * overhead: provides tax deductible receipts to US donors, because they are a 501c3 and a processor.
   * fees: some negotiated percentage * donation amount
   * payouts: NFG takes care of disbursements for you
 
