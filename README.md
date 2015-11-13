@@ -2,7 +2,7 @@
 
 *(open-sourced by Dollar a Day on October 30th, 2015)*
 
-Welcome! This is a Rails app that ran [Dollar a Day](dollaraday.co), from October 1st, 2014 until October 30th, 2015.
+Welcome! This is a Rails app that ran [Dollar a Day](http://dollaraday.co), from October 1st, 2014 until October 30th, 2015.
 
 Here's the gist of it:
 
