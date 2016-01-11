@@ -28,7 +28,7 @@
     </section>
     <section id="form-success" class="hide">
       <h3>Today’s nonprofit is on the way. Awesome! Spread the word:</h3>
-      <%= link_to(share_url(url: "https://twitter.com/share?text=Do%20you%20know%20about%20%23<%= CONFIG[:twitter_username] %>%27s%20free%20newsletter%3f%20Join%20me%20and%20discover%20amazing%20nonprofits%20every%20day%3A&amp;url=#{ root_url }"), class: "twitter button-solid button-twitter no-decoration") do %>
+      <%= link_to(share_url(url: "https://twitter.com/share?text=Do%20you%20know%20about%20%23#{ CONFIG[:twitter_username] }%27s%20free%20newsletter%3f%20Join%20me%20and%20discover%20amazing%20nonprofits%20every%20day%3A&amp;url=#{ root_url }"), class: "twitter button-solid button-twitter no-decoration") do %>
         <span class="ss-icon ss-social ss-twitter"></span>
         Tweet
       <% end %>
