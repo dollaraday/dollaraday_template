@@ -47,7 +47,7 @@ This app supports 2 payment methods:
     donors give more than $1 if they like a day's nonprofit, let a donor
     cancel a $1 donation if they don't like that day's choice, etc)
   * overhead: you'll need to be a 501c3 to offer tax deductions to US donors, but their dashboard is very useful for that accounting if you are
-  * fees: $0.029 * donation amount + $0.30
+  * fees: 2.9% * donation amount + $0.30
   * payouts: requires you to setup and handle disbursements
 
 * Network for Good:
