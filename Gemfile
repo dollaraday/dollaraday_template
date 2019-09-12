@@ -5,7 +5,7 @@ gem 'area', '~> 0.10.0'
 gem "audited-activerecord", "4.0.0.rc1"
 gem 'carmen', '~> 1.0.0'
 gem 'daemons', '~> 1.1.9'
-gem 'devise', '~> 3.3.0'
+gem 'devise', '~> 4.7.1'
 gem 'delayed_job', '~> 4.0.1'
 gem 'delayed_job_active_record', '~> 4.0.1'
 gem 'exception_notification', '~> 4.0.0'
