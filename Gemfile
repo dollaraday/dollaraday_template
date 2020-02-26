@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'aws-sdk', '~> 1.14.1'
+gem 'aws-sdk', '~> 1.27.0'
 gem 'area', '~> 0.10.0'
 gem "audited-activerecord", "4.0.0.rc1"
 gem 'carmen', '~> 1.0.0'
@@ -13,7 +13,7 @@ gem 'holidays','~> 1.0.5'
 gem 'flot-rails'
 gem 'kaminari', '~> 0.14.1'
 gem 'mysql2', '~> 0.3.14'
-gem 'nokogiri'
+gem 'nokogiri', '>= 1.10.8'
 gem 'paperclip', '~> 4.3.7'
 gem 'premailer-rails', '~> 1.8.0'
 gem 'psych', '~> 1.3.4'
