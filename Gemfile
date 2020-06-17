@@ -8,35 +8,35 @@ gem 'daemons', '~> 1.1.9'
 gem 'devise', '~> 4.7.1'
 gem 'delayed_job', '~> 4.0.1'
 gem 'delayed_job_active_record', '~> 4.0.1'
-gem 'exception_notification', '~> 4.0.0'
+gem 'exception_notification', '~> 4.0.1'
 gem 'holidays','~> 1.0.5'
-gem 'flot-rails'
+gem 'flot-rails', '>= 0.0.6'
 gem 'kaminari', '~> 0.14.1'
 gem 'mysql2', '~> 0.3.14'
 gem 'nokogiri'
 gem 'paperclip', '~> 4.3.7'
-gem 'premailer-rails', '~> 1.8.0'
+gem 'premailer-rails', '~> 1.9.2'
 gem 'psych', '~> 1.3.4'
-gem 'rails', '4.1.13'
+gem 'rails', '5.0.0'
 gem 'ransack', '~> 1.3.0'
 gem 'redis-objects', '~> 0.5.3'
 gem 'rest-client', '~> 1.6.9'
 gem 'savon', '~> 2.5.1'
 gem 'stripe', '~> 1.22.0'
-gem 'unicorn'
+gem 'unicorn', '>= 4.6.3'
 
 # Assets
 gem 'autoprefixer-rails'
-gem 'coffee-rails'
-gem 'jquery-rails'
+gem 'coffee-rails', '>= 4.1.1'
+gem 'jquery-rails', '>= 4.4.0'
 gem 'sass',       '~> 3.4.12'
-gem 'sass-rails', '~> 5.0.1'
+gem 'sass-rails', '~> 5.0.5'
 gem 'uglifier',   '>= 1.3.0'
 
 gem 'intercom'
 
 # Helpers
-gem 'nav_lynx'
+gem 'nav_lynx', '>= 1.1.1'
 
 group :test, :development do
   gem 'byebug'
@@ -56,9 +56,9 @@ end
 group :development do
   gem 'rubocop'
   gem 'spring'
-  gem 'better_errors'
+  gem 'better_errors', '>= 2.1.1'
   gem 'binding_of_caller'
-  gem 'quiet_assets'
+  gem 'quiet_assets', '>= 1.1.0'
   # Guard
   gem 'guard'
   gem 'guard-livereload', require: false
