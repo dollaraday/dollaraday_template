@@ -17,7 +17,7 @@ gem 'nokogiri'
 gem 'paperclip', '~> 4.3.7'
 gem 'premailer-rails', '~> 1.8.0'
 gem 'psych', '~> 1.3.4'
-gem 'rails', '4.1.13'
+gem 'rails', '6.0.3.5'
 gem 'ransack', '~> 1.3.0'
 gem 'redis-objects', '~> 0.5.3'
 gem 'rest-client', '~> 1.6.9'
@@ -36,7 +36,7 @@ gem 'uglifier',   '>= 1.3.0'
 gem 'intercom'
 
 # Helpers
-gem 'nav_lynx'
+gem 'nav_lynx', '>= 1.1.1'
 
 group :test, :development do
   gem 'byebug'
