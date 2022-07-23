@@ -2,13 +2,13 @@ source 'https://rubygems.org'
 
 gem 'aws-sdk', '~> 1.14.1'
 gem 'area', '~> 0.10.0'
-gem "audited-activerecord", "4.0.0.rc1"
+gem "audited-activerecord", "4.0.0"
 gem 'carmen', '~> 1.0.0'
 gem 'daemons', '~> 1.1.9'
 gem 'devise', '~> 4.7.1'
 gem 'delayed_job', '~> 4.0.1'
 gem 'delayed_job_active_record', '~> 4.0.1'
-gem 'exception_notification', '~> 4.0.0'
+gem 'exception_notification', '~> 4.0.1'
 gem 'holidays','~> 1.0.5'
 gem 'flot-rails'
 gem 'kaminari', '~> 0.14.1'
