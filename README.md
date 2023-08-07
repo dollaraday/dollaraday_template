@@ -1,3 +1,7 @@
+# ⛔️ Deprecated
+
+This repository is no longer maintained. 
+
 ### Daily Donation Rails Webapp
 
 *(open-sourced by Dollar a Day on October 30th, 2015)*
