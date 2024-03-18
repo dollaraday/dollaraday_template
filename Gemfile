@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'aws-sdk', '~> 1.14.1'
+gem 'aws-sdk', '~> 1.15.0'
 gem 'area', '~> 0.10.0'
 gem "audited-activerecord", "4.0.0.rc1"
 gem 'carmen', '~> 1.0.0'
